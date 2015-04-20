@@ -24,6 +24,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'dotenv-rails'
+gem 'quiet_assets'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -35,6 +36,8 @@ gem 'dotenv-rails'
 group :development do
   gem 'annotate'
   gem 'rails-erd'
+  gem 'meta_request'
+  gem 'brakeman'
 end
 
 group :development, :test do
