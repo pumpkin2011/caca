@@ -18,6 +18,17 @@ html
           = link_to 'item', '#', class: 'item'
           = link_to 'item', '#', class: 'item'
           = link_to 'item', '#', class: 'item'
+          .right.menu
+            - unless user_signed_in?
+              = link_to '注册', new_user_registration_path, class: 'item'
+              = link_to '登录', new_user_session_path, class: 'item'
+            - else
+              .ui.dropdown.item
+                = current_user.email
+                i.icon.dropdown
+                .menu
+                  = link_to '退出', destroy_user_session_path, class: 'item',
+                                   method: 'delete'
     .ui.grid.page
       .column
         = yield

@@ -1,0 +1,11 @@
+zh-CN:
+  activerecord:
+    models:
+      user: 用户
+    attributes:
+      common: &common
+        email: 邮箱
+        password: 密码
+        password_confirmation: 重复密码
+      user:
+        <<: *common

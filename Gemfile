@@ -30,6 +30,7 @@ gem 'foreman'
 gem 'semantic-ui-sass'
 gem 'slim-rails'
 gem 'rails-i18n'
+gem 'devise'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
