@@ -25,6 +25,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'dotenv-rails'
 gem 'quiet_assets'
+gem 'puma'
+gem 'foreman'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
