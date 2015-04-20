@@ -40,6 +40,9 @@ group :development do
   gem 'rails-erd'
   gem 'meta_request'
   gem 'brakeman'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano3-foreman'
 end
 
 group :development, :test do
