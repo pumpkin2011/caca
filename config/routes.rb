@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     root 'welcome#index'
   end
 
-  devise_for :users
+  devise_for :users, path: ''
   devise_for :admins, path: 'admin'
 
   # Example of regular route:
