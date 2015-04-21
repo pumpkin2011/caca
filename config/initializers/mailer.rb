@@ -1,8 +1,8 @@
 Rails.application.configure do
   config.action_mailer.default_url_options = { host: ENV['MAILER_DEFAULT_URL']}
   config.action_mailer.default_options = {
-    from:     ENV['MAILER_DEFAULT_FROM'],
-    reply_to: ENV['MAILER_DEFAULT_REPLY']
+    from:     '"歪淘网团队" <notify@waitaowang.com>',
+    reply_to: '歪淘网问题反馈" <talk@waitaowang.com>'
   }
   config.action_mailer.delivery_method = ENV['MAILER_DELIVERY_METHOD'].to_sym
   config.action_mailer.perform_deliveries = true
