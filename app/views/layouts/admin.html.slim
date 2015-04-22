@@ -27,7 +27,6 @@ html
                                  method: 'delete'
     .ui.grid.page
       .column
-        = debug(flash)
         - flash.each do |name,msg|
           div class="ui message #{name}"
             p = msg
