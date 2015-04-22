@@ -1,3 +1,5 @@
+.ui.segment
+  p 充值提示
 h2 帐号充值
 = render 'deposits/form'
 
@@ -13,5 +15,4 @@ table.ui.table
         tr
           td = deposit.sn
           td = number_to_currency deposit.amount
-          td = deposit.admin.email
           td = deposit.updated_at

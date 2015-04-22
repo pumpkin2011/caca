@@ -6,10 +6,10 @@ class DepositsController < ApplicationController
 
   def create
     @depost = Deposit.where( deposit_param ).take
-    if @deposits
+    if @depost
       @depost.user= current_user
       @depost.save
-      flash[:success] = "充值#{number_to_currency @depost}成功"
+      flash[:success] = "充值成功"
     else
       flash[:error] = "充值失败"
     end

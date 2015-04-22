@@ -35,8 +35,6 @@ html
         - flash.each do |name,msg|
           div class="ui message #{name}"
             p = msg
-
-
         = yield
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = yield :js
