@@ -7,14 +7,18 @@ h2 充值记录
 table.ui.table
     thead
       tr
+        th #
         th 流水号
         th 金额
+        th 用户
         th 办理人员
         th 添加时间
     tbody
       - @deposits.each do |deposit|
         tr
+          td = deposit.id
           td = deposit.sn
           td = number_to_currency deposit.amount
+          td = deposit.user ? deposit.user.email : '' 
           td = deposit.admin.email
           td = deposit.created_at

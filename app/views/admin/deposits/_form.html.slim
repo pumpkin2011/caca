@@ -1,3 +1,10 @@
+-if @deposit.errors.any?
+  .ui.message.error
+    .header 充值失败
+    .list
+    - @deposit.errors.full_messages.each do |msg|
+      li = msg
+
 = form_for [:admin, @deposit], html:{class: 'ui form'} do |f|
 
   .field

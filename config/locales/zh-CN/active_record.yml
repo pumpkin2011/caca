@@ -7,5 +7,9 @@ zh-CN:
         email: 邮箱
         password: 密码
         password_confirmation: 重复密码
+        sn: 流水号
+        amount: 金额
       user:
+        <<: *common
+      deposit:
         <<: *common
