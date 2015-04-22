@@ -5,10 +5,9 @@ class DepositsController < ApplicationController
   end
 
   def create
-    @depost = Deposit.where( deposit_param ).take
-    if @depost
-      @depost.user= current_user
-      @depost.save
+    @depost = Deposit.where( deposit_param ).pending.take
+    @depost.user= current_user
+    if @depost && @depost.save
       flash[:success] = "充值成功"
     else
       flash[:error] = "充值失败"

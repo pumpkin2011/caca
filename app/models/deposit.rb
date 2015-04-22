@@ -22,6 +22,7 @@ class Deposit < ActiveRecord::Base
   belongs_to :admin
 
   default_scope { order 'created_at DESC'}
+  scope :pending, ->{ where(user: nil)}
 
   validates :sn, presence: true, uniqueness: true, length: { is: 32 }
   validates :amount, presence: true,
