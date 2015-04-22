@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421150629) do
+ActiveRecord::Schema.define(version: 20150421172153) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -22,6 +22,19 @@ ActiveRecord::Schema.define(version: 20150421150629) do
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
+
+  create_table "deposits", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "admin_id",   limit: 4
+    t.string   "sn",         limit: 32
+    t.decimal  "amount",                precision: 10, scale: 2
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
+
+  add_index "deposits", ["admin_id"], name: "index_deposits_on_admin_id", using: :btree
+  add_index "deposits", ["sn"], name: "index_deposits_on_sn", unique: true, using: :btree
+  add_index "deposits", ["user_id"], name: "index_deposits_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -45,4 +58,6 @@ ActiveRecord::Schema.define(version: 20150421150629) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "deposits", "admins"
+  add_foreign_key "deposits", "users"
 end
