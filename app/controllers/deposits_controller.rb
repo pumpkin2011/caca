@@ -8,8 +8,10 @@ class DepositsController < ApplicationController
   def create
     @depost = Deposit.where( deposit_param ).pending.take
     begin
-      flash[:success] = "充值成功" if @depost.update(user: current_user)
-      logger.error "[success][#{Time.now}][deposits][#{current_user.id}]: #{deposit_param[:sn]}-#{deposit_param[:amount]}"
+      if @depost.update(user: current_user)
+        logger.info "[success][#{Time.now}][deposits][#{current_user.id}]: #{deposit_param[:sn]}-#{deposit_param[:amount]}"
+        flash[:success] = "充值成功"
+      end
     rescue Exception => e
       logger.error "[error][#{Time.now}][deposits][#{current_user.id}]: #{deposit_param[:sn]}-#{deposit_param[:amount]}"
       flash[:error] = "充值失败"
