@@ -4,12 +4,14 @@ class DepositsController < ApplicationController
     @deposits = current_user.deposits
   end
 
+  #TODO: 机器恶意充值处理
   def create
     @depost = Deposit.where( deposit_param ).pending.take
-    @depost.user= current_user
-    if @depost && @depost.save
-      flash[:success] = "充值成功"
-    else
+    begin
+      flash[:success] = "充值成功" if @depost.update(user: current_user)
+      logger.error "[success][#{Time.now}][deposits][#{current_user.id}]: #{deposit_param[:sn]}-#{deposit_param[:amount]}"
+    rescue Exception => e
+      logger.error "[error][#{Time.now}][deposits][#{current_user.id}]: #{deposit_param[:sn]}-#{deposit_param[:amount]}"
       flash[:error] = "充值失败"
     end
     redirect_to deposits_path
