@@ -1,0 +1,17 @@
+h2 帐号充值
+= render 'deposits/form'
+
+h2 充值记录
+table.ui.table
+    thead
+      tr
+        th 流水号
+        th 金额
+        th 时间
+    tbody
+      - @deposits.each do |deposit|
+        tr
+          td = deposit.sn
+          td = number_to_currency deposit.amount
+          td = deposit.admin.email
+          td = deposit.updated_at

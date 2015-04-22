@@ -27,10 +27,16 @@ html
                 = current_user.email
                 i.icon.dropdown
                 .menu
+                  = link_to '个人中心', profile_path, class: 'item'
                   = link_to '退出', destroy_user_session_path, class: 'item',
                                    method: 'delete'
     .ui.grid.page
       .column
+        - flash.each do |name,msg|
+          div class="ui message #{name}"
+            p = msg
+
+
         = yield
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = yield :js

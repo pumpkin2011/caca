@@ -1,0 +1,4 @@
+.ui.segment
+  p
+    ="当前账户余额: #{number_to_currency current_user.amount}"
+    = link_to '立即充值', deposits_path , class: 'ui label red'

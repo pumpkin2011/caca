@@ -25,4 +25,8 @@ class Deposit < ActiveRecord::Base
 
   validates :sn, presence: true, uniqueness: true, length: { is: 28}
   validates :amount, presence: true
+
+  before_update do |deposit|
+    deposit.user.increment!(:amount, deposit.amount)
+  end
 end
