@@ -74,6 +74,9 @@ GEM
     capistrano3-foreman (0.2.5)
       capistrano (~> 3.0)
       sshkit (>= 1.2.0)
+    china_city (0.0.4)
+      jquery-rails
+      rails (>= 3.1.0)
     choice (0.1.7)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -251,6 +254,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rbenv
   capistrano3-foreman
+  china_city
   coffee-rails (~> 4.1.0)
   devise
   dotenv-rails

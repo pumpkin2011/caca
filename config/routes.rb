@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   devise_for :users, path: ''
   devise_for :admins, path: 'admin'
 
+  mount ChinaCity::Engine => '/china_city'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
