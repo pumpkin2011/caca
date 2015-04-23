@@ -3,6 +3,7 @@ h2 我添加的地址
 table.ui.table
   thead
     tr
+      th #
       th 收件人
       th 联系电话
       th 地址
@@ -12,7 +13,7 @@ table.ui.table
   tbody
     - @delivers.each do |deliver|
       tr
-
+        td = deliver.id
         td = deliver.name
         td = deliver.phone
         td = full_address(deliver)

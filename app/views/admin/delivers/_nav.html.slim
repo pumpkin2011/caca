@@ -1,0 +1,11 @@
+.ui.menu.item.four
+  = link_to "待审核( #{@pending_count} )",
+            admin_delivers_path, class: 'item'
+
+  = link_to "已通过( #{@confirmed_count} )",
+            admin_delivers_path(type: 'confirmed'), class: 'item'
+
+  = link_to "未通过( #{@rejected_count} )",
+            admin_delivers_path(type: 'rejected'), class: 'item'
+
+  = link_to "已分配(  )", '#', class: 'item'

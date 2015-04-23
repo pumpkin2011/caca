@@ -1,0 +1,26 @@
+= render 'admin/delivers/nav'
+h2 = params[:type]
+table.ui.table
+  thead
+    tr
+      th #
+      th 收件人
+      th 联系电话
+      th 地址
+      th 添加日期
+      th
+
+  tbody
+    - @delivers.each do |deliver|
+      tr
+        td = deliver.id
+        td = deliver.name
+        td = deliver.phone
+        td = full_address(deliver)
+        td = deliver.created_at
+        td
+          - if params[:type] == 'pending'
+            .ui.buttons
+              = link_to '同意', confirm_admin_deliver_path(deliver), class: 'ui button positive'
+              .or
+              = link_to '拒绝', reject_admin_deliver_path(deliver), class: 'ui button negative'

@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   namespace :admin do
     root 'welcome#index'
     resources :deposits, only: [:index, :create]
+    resources :delivers, only: [:index] do
+      get 'reject', on: :member
+      get 'confirm', on: :member
+    end
   end
 
   devise_for :users, path: ''
