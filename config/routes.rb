@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get '/profile'=> 'welcome#profile', as: :profile
   resources :deposits, only: [:index, :create]
+  resources :delivers
 
   namespace :admin do
     root 'welcome#index'

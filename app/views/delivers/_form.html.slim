@@ -1,0 +1,38 @@
+= render partial: 'shared/error', locals: {title: '添加地址失败', error: @deliver}
+
+= form_for @deliver, html:{class: 'ui form'} do |f|
+  .fields
+    .field.four.wide
+      = f.label :name
+      = f.text_field :name, placeholder: '收件人'
+    .field.four.wide
+      = f.label "phone"
+      = f.text_field :phone, placeholder: '联系电话'
+
+
+  .fields.city-group
+    .field.four.wide
+      = f.label :province
+      = f.select :province, options_for_select(ChinaCity.list),  {include_blank: true}, {class: 'select city-select ui dropdown'}
+    .field.four.wide
+      = f.label :city
+      = f.select :city, [],  {include_blank: true}, {class: 'select city-select ui dropdown'}
+    .field.four.wide
+      = f.label :district
+      = f.select :district, [],  {include_blank: true}, {class: 'select city-select ui dropdown'}
+
+
+  .fields
+    .field.four.wide
+      = f.label :town
+      = f.text_field :town, placeholder: '街道信息'
+    .field.eight.wide
+      = f.label :address
+      = f.text_field :address
+
+  .field.two.wide
+    = f.label :zip
+    = f.text_field :zip
+
+  = f.submit '添加', class: 'ui button submit positive'
+  = link_to '取消', delivers_path, class: 'ui button'

@@ -1,0 +1,22 @@
+h2 我添加的地址
+
+table.ui.table
+  thead
+    tr
+      th 收件人
+      th 联系电话
+      th 地址
+      th 状态
+      th
+
+  tbody
+    - @delivers.each do |deliver|
+      tr
+
+        td = deliver.name
+        td = deliver.phone
+        td = full_address(deliver)
+        td = deliver.aasm.human_state
+        td
+
+= link_to '添加新地址', new_deliver_path, class: 'ui button positive'

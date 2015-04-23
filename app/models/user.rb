@@ -35,4 +35,5 @@ class User < ActiveRecord::Base
          :confirmable
 
   has_many :deposits
+  has_many :delivers
 end

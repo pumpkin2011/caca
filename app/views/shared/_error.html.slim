@@ -1,0 +1,6 @@
+-if error.errors.any?
+  .ui.message.error
+    .header = title
+    .list
+    - error.errors.full_messages.each do |msg|
+      li = msg
