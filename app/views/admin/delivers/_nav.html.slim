@@ -8,4 +8,5 @@
   = link_to "未通过( #{@rejected_count} )",
             admin_delivers_path(type: 'rejected'), class: 'item'
 
-  = link_to "已分配(  )", '#', class: 'item'
+  = link_to "已分配( #{@applying_count} )",
+            admin_delivers_path(type: 'applying'), class: 'item'

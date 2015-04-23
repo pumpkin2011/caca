@@ -1,6 +1,7 @@
 class DeliversController < ApplicationController
   def index
     @delivers = current_user.delivers
+    @deliver = current_user.deliver
   end
 
   def new
@@ -15,6 +16,15 @@ class DeliversController < ApplicationController
     else
       render :new
     end
+  end
+
+  def apply
+    @deliver = Deliver.where.not(user: current_user).confirmed.take!
+    @deliver.apply! do
+      @deliver.update(owner: current_user)
+    end
+    flash[:success] = "您已获取到新地址"
+    redirect_to delivers_path
   end
 
   private

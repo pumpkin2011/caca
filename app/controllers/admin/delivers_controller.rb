@@ -4,7 +4,8 @@ class Admin::DeliversController < ApplicationController
     @pending_count = Deliver.pending.count
     @confirmed_count = Deliver.confirmed.count
     @rejected_count = Deliver.rejected.count
-    unless %w(pending confirmed rejected).include?( params[:type] )
+    @applying_count = Deliver.applying.count
+    unless %w(pending confirmed rejected applying).include?( params[:type] )
       params[:type] = 'pending'
     end
     @delivers = Deliver.send(params[:type].to_sym)

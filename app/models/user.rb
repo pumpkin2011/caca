@@ -36,4 +36,5 @@ class User < ActiveRecord::Base
 
   has_many :deposits
   has_many :delivers
+  has_one :deliver, foreign_key: 'owner_id'
 end
