@@ -24,9 +24,9 @@ class Deposit < ActiveRecord::Base
   default_scope { order 'created_at DESC'}
   scope :pending, ->{ where(user: nil)}
 
-  validates :sn, presence: true, uniqueness: true, length: { is: 32 }
-  validates :amount, presence: true,
-        inclusion: { in: [10, 50, 100, 500]}
+  validates_presence_of :sn, :amount
+  validates :sn, uniqueness: true, length: { is: 32 }, allow_blank: true
+  validates :amount, inclusion: { in: [10, 50, 100, 500]}, allow_blank: true
 
   before_update do |deposit|
     deposit.user.increment!(:amount, deposit.amount)
