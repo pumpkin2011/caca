@@ -28,3 +28,6 @@ zh-CN:
         <<: *common
         name: 收件人
         phone: 联系电话
+      wangwang:
+        <<: *common
+        account: 旺旺名

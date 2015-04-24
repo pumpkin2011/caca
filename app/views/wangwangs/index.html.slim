@@ -1,0 +1,25 @@
+= render partial: 'shared/error', locals: {title: '旺旺绑定失败', error: @wangwang}
+= form_for [@wangwang], html:{class: 'ui form'} do |f|
+  .field
+    .ui.input.action.left.labeled.big
+      .ui.label 旺旺名
+      = f.text_field :account
+      button class="ui button positive" 添加
+
+h2 我的旺旺
+table.ui.table
+  thead
+    tr
+      th #
+      th 旺旺名
+      th 添加时间
+      th 状态
+
+
+  tbody
+    - @wangwangs.each do |wangwang|
+      tr
+        td = wangwang.id
+        td = wangwang.account
+        td = wangwang.created_at
+        td = wangwang.aasm.human_state

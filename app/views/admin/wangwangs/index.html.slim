@@ -1,0 +1,23 @@
+= render 'admin/wangwangs/nav'
+h2 = params[:type]
+table.ui.table
+  thead
+    tr
+      th #
+      th 旺旺名
+      th
+
+  tbody
+    - @wangwangs.each do |wangwang|
+      tr
+        td = wangwang.id
+        td = wangwang.account
+        td
+          - case params[:type]
+            - when 'pending'
+              .ui.buttons
+                = link_to '同意', confirm_admin_wangwang_path(wangwang), class: 'ui button positive'
+                .or
+                = link_to '拒绝', reject_admin_wangwang_path(wangwang), class: 'ui button negative'
+            - else
+              = wangwang.user.email

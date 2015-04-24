@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423185405) do
+ActiveRecord::Schema.define(version: 20150424044458) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -81,8 +81,20 @@ ActiveRecord::Schema.define(version: 20150423185405) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "wangwangs", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "account",    limit: 50
+    t.string   "state",      limit: 10
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "wangwangs", ["state"], name: "index_wangwangs_on_state", using: :btree
+  add_index "wangwangs", ["user_id"], name: "index_wangwangs_on_user_id", using: :btree
+
   add_foreign_key "delivers", "users"
   add_foreign_key "delivers", "users", column: "owner_id"
   add_foreign_key "deposits", "admins"
   add_foreign_key "deposits", "users"
+  add_foreign_key "wangwangs", "users"
 end
