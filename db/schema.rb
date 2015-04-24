@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150424044458) do
+ActiveRecord::Schema.define(version: 20150424080829) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -58,6 +58,15 @@ ActiveRecord::Schema.define(version: 20150424044458) do
   add_index "deposits", ["sn"], name: "index_deposits_on_sn", unique: true, using: :btree
   add_index "deposits", ["user_id"], name: "index_deposits_on_user_id", using: :btree
 
+  create_table "shops", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "account",    limit: 50
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "shops", ["user_id"], name: "index_shops_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255,                          default: "",  null: false
     t.decimal  "amount",                             precision: 10, scale: 2, default: 0.0
@@ -96,5 +105,6 @@ ActiveRecord::Schema.define(version: 20150424044458) do
   add_foreign_key "delivers", "users", column: "owner_id"
   add_foreign_key "deposits", "admins"
   add_foreign_key "deposits", "users"
+  add_foreign_key "shops", "users"
   add_foreign_key "wangwangs", "users"
 end

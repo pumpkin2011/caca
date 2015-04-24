@@ -31,3 +31,6 @@ zh-CN:
       wangwang:
         <<: *common
         account: 旺旺名
+      shop:
+        <<: *common
+        account: 掌柜名

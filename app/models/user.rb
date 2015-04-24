@@ -38,4 +38,7 @@ class User < ActiveRecord::Base
   has_many :delivers
   has_one :deliver, foreign_key: 'owner_id'
   has_many :wangwangs
+  has_many :shops
+
+  
 end

@@ -1,0 +1,24 @@
+= render partial: 'shared/error', locals: {title: '掌柜绑定失败', error: @shop}
+= form_for [@shop], html:{class: 'ui form'} do |f|
+  .field
+    .ui.input.action.left.labeled.big
+      .ui.label 掌柜名
+      = f.text_field :account
+      button class="ui button positive" 添加
+
+h2 我的店铺
+table.ui.table
+  thead
+    tr
+      th #
+      th 掌柜名
+      th 添加时间
+
+
+
+  tbody
+    - @shops.each do |shop|
+      tr
+        td = shop.id
+        td = shop.account
+        td = shop.created_at

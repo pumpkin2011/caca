@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-  get 'wangwang/index'
-  end
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -15,6 +11,7 @@ Rails.application.routes.draw do
     get 'apply', on: :collection
   end
   resources :wangwangs, only: [:index, :create]
+  resources :shops, only: [:index, :create]
 
   namespace :admin do
     root 'welcome#index'
