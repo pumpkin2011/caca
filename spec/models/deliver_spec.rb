@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Deliver do
-  context 'validations' do
+  context '数据验证' do
     subject { build(:deliver) }
 
     it { should be_valid }

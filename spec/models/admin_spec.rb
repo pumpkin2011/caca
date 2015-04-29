@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Admin do
-  context 'validations' do
+  context '数据验证' do
     subject { build(:admin) }
 
     it { should be_valid }

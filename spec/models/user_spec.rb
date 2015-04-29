@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User do
-  context 'validations' do
+  context '数据验证' do
     subject { build(:user) }
 
     it { should be_valid }
