@@ -5,6 +5,8 @@ table.ui.table
     tr
       th #
       th 旺旺名
+      th 所属用户
+      th 创建时间
       th
 
   tbody
@@ -12,6 +14,8 @@ table.ui.table
       tr
         td = wangwang.id
         td = wangwang.account
+        td = wangwang.user.email
+        td = wangwang.created_at
         td
           - case params[:type]
             - when 'pending'
@@ -19,5 +23,3 @@ table.ui.table
                 = link_to '同意', confirm_admin_wangwang_path(wangwang), class: 'ui button positive'
                 .or
                 = link_to '拒绝', reject_admin_wangwang_path(wangwang), class: 'ui button negative'
-            - else
-              = wangwang.user.email
