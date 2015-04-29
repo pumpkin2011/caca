@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+  get 'shops/index'
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -22,6 +26,11 @@ Rails.application.routes.draw do
     end
 
     resources :wangwangs, only: [:index] do
+      get 'reject', on: :member
+      get 'confirm', on: :member
+    end
+
+    resources :shops, only: [:index] do
       get 'reject', on: :member
       get 'confirm', on: :member
     end

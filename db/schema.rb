@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150424080829) do
+ActiveRecord::Schema.define(version: 20150429142805) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -63,8 +63,10 @@ ActiveRecord::Schema.define(version: 20150424080829) do
     t.string   "account",    limit: 50
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.string   "state",      limit: 10
   end
 
+  add_index "shops", ["state"], name: "index_shops_on_state", using: :btree
   add_index "shops", ["user_id"], name: "index_shops_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|

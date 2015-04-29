@@ -1,0 +1,9 @@
+.ui.menu.item.three
+  = link_to "待审核( #{@pending_count} )",
+            admin_shops_path, class: 'item'
+
+  = link_to "已通过( #{@confirmed_count} )",
+            admin_shops_path(type: 'confirmed'), class: 'item'
+
+  = link_to "未通过( #{@rejected_count} )",
+            admin_shops_path(type: 'rejected'), class: 'item'

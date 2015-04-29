@@ -7,23 +7,40 @@
 #  account    :string(50)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  state      :string(10)
 #
 # Indexes
 #
+#  index_shops_on_state    (state)
 #  index_shops_on_user_id  (user_id)
 #
 
 class Shop < ActiveRecord::Base
+  include AASM
   belongs_to :user
 
   validates_presence_of :account
   validates :account, length: { minimum: 3, maximum: 25},
           uniqueness: true, allow_blank: true
 
+  aasm column: :state do
+    state :pending, initial: true
+    state :confirmed
+    state :rejected
+
+    event :reject do
+      transitions from: :pending, to: :rejected
+    end
+
+    event :confirm do
+      transitions from: :pending, to: :confirmed
+    end
+  end
+
   validate :shops_count_within_limit, on: :create
 
   private
     def shops_count_within_limit
-      errors.add(:base, "最多可绑定3个掌柜") if Shop.where(user: self.user).count >= 3
+      errors.add(:base, "最多可绑定50个掌柜") if Shop.where(user: self.user).count >= 50
     end
 end

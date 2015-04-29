@@ -13,6 +13,7 @@ table.ui.table
       th #
       th 掌柜名
       th 添加时间
+      th 状态
 
 
 
@@ -22,3 +23,4 @@ table.ui.table
         td = shop.id
         td = shop.account
         td = shop.created_at
+        td = shop.aasm.human_state
