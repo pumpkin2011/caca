@@ -34,6 +34,11 @@ class Deliver < ActiveRecord::Base
   validates_presence_of :name, :phone, :province, :city, :district, :town,
                        :address
   validates_length_of :province, :city, :district, :zip, is: 6 , :allow_blank=>true
+  validates_length_of :name, in: 2..6, :allow_blank=>true
+  validates :phone, length: {is: 11}, numericality: {only_integer: true}, :allow_blank=>true
+  validates :town, length: {in: 2..15}, :allow_blank=>true
+  validates :address, length: {in: 5..20}, :allow_blank=>true
+
 
 
   aasm column: :state do
