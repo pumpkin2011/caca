@@ -24,6 +24,6 @@ class Shop < ActiveRecord::Base
 
   private
     def shops_count_within_limit
-      errors.add(:base, "最多可绑定3个掌柜")if self.user.shops(:reload).count >= 3
+      errors.add(:base, "最多可绑定3个掌柜") if Shop.where(user: self.user).count >= 3
     end
 end
