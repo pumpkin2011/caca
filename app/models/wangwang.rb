@@ -20,8 +20,8 @@ class Wangwang < ActiveRecord::Base
   belongs_to :user
 
   validates_presence_of :account
-  validates :account, length: { minimum: 3, maximum: 25},
-            uniqueness: true, allow_blank: true
+  validates :account, length: { in: 3..20 },
+            uniqueness: {scope: :user_id, case_sensitive: false}, allow_blank: true
 
   aasm column: :state do
     state :pending, initial: true
@@ -36,4 +36,12 @@ class Wangwang < ActiveRecord::Base
       transitions from: :pending, to: :confirmed
     end
   end
+
+  validate :wangwangs_count_within_limit, on: :create
+
+  private
+    def wangwangs_count_within_limit
+
+      errors.add(:base, "最多可绑定50个旺旺帐号") if Wangwang.where(user: self.user).count >= 50
+    end
 end
