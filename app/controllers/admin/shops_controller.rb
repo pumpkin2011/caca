@@ -13,12 +13,12 @@ class Admin::ShopsController < ApplicationController
   def reject
     Shop.pending.find( params[:id] ).reject!
     flash[:success] = '店铺审核成功: 拒绝'
-    redirect_to admin_wangwangs_path
+    redirect_to admin_shops_path
   end
 
   def confirm
     Shop.pending.find( params[:id] ).confirm!
     flash[:success] = '店铺审核成功: 同意'
-    redirect_to admin_wangwangs_path
+    redirect_to admin_shops_path
   end
 end
