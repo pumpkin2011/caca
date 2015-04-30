@@ -1,0 +1,78 @@
+h2 发布任务
+
+= form_for @task, html:{class: 'ui form'} do |f|
+  .fields
+    .field.four.wide
+      = f.label :shop_id
+      = f.select :shop_id,
+          options_from_collection_for_select(@shops, :id, :account),
+          {include_blank: true},{class: 'ui dropdown'}
+
+
+
+  .field
+    = f.label :link
+    = f.text_field :link
+
+  .field
+    = f.label :keywords
+    = f.text_field :keywords
+
+  .fields
+    .field.two.wide
+      = f.label :price
+      .ui.left.icon.input
+        = f.text_field :price
+        i.icon.yen
+
+    .field
+      = f.label :duration
+      = f.select :duration,
+          Task.duration.options,
+          {include_blank: false},{class: 'ui dropdown'}
+
+    .field
+      = f.label :level
+      = f.select :level,
+          Task.level.options,
+          {include_blank: false},{class: 'ui dropdown'}
+
+    .field
+      = f.label :chat
+      = f.select :chat,
+          Task.chat.options,
+          {include_blank: true},{class: 'ui dropdown'}
+
+  .fields.two.wide
+    .field
+      = f.label :desc, '任务要求'
+      = f.text_area :desc
+
+    .field
+      .field
+        = f.label :spec, '特殊要求'
+        = f.text_area :spec
+
+  .fields.two.wide
+    .field
+      = f.label :receive_time, '收获时间'
+      .ui.two.column.center.aligned.stackable.divided.grid.segment
+        - ['系统默认', '根据物流'].each do |amount|
+          .column
+            .ui.checkbox.toggle
+              = f.radio_button :receive_time, amount
+              = f.label :receive_time, amount
+    .field
+      = f.label :comment_time, '评价时间'
+      .ui.two.column.center.aligned.stackable.divided.grid.segment
+        - ['系统默认', '根据物流'].each do |amount|
+          .column
+            .ui.checkbox.toggle
+              = f.radio_button :comment_time, amount
+              = f.label :comment_time, amount
+
+  .field
+     = f.label :comment
+     = f.text_field :comment
+
+  = f.submit '确定', class: 'ui button green'

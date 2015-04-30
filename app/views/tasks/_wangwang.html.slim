@@ -1,0 +1,17 @@
+.ui.modal.small
+  i.icon.close
+  .header 请选择旺旺号码
+  .content
+    = select_tag :wangwang, options_from_collection_for_select(@wangwangs, :id, :account),
+      {include_blank: true, class: 'ui dropdown right'}
+  .actions
+    .ui.button.negative 取消
+    .ui.button.positive 确定
+
+- content_for(:js) do
+  javascript:
+    $(function(){
+      $('table a').click(function(){
+        $('.modal').modal('show');
+      });
+    })

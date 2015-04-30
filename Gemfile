@@ -33,6 +33,7 @@ gem 'rails-i18n'
 gem 'devise'
 gem 'china_city'
 gem 'aasm'
+gem 'enumerize'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

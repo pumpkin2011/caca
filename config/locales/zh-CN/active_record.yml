@@ -1,4 +1,27 @@
 zh-CN:
+  enumerize:
+    defaults:
+      duration:
+        three: "3分钟"
+        six: "6分钟"
+        ten: "10分钟"
+        fifteen: "15分钟"
+        twenty: "20分钟"
+        twenty_five: "25分钟"
+        thirty: "30分钟"
+        forty: "40分钟"
+      level:
+        normal: "不限制"
+        one: "一心"
+        two: "二心"
+        three: "三心"
+        four: "四心"
+        five: "五心"
+        max: "钻石"
+      chat:
+        normal: "不需要"
+        simple: "简单聊"
+        complex: "认真聊"
   activerecord:
     models:
       user: 用户
@@ -34,3 +57,14 @@ zh-CN:
       shop:
         <<: *common
         account: 掌柜名
+      task:
+        <<: *common
+        shop_id: 掌柜名
+        type: 类型
+        link: 宝贝地址
+        keywords: 关键词
+        price: 价格
+        duration: 时长
+        level: 小号最低等级
+        chat: 假聊
+        comment: 评论内容

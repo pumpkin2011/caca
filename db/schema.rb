@@ -37,12 +37,10 @@ ActiveRecord::Schema.define(version: 20150429142805) do
     t.string   "state",      limit: 10,  null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "use_id",     limit: 4
   end
 
   add_index "delivers", ["owner_id"], name: "index_delivers_on_owner_id", using: :btree
   add_index "delivers", ["state"], name: "index_delivers_on_state", using: :btree
-  add_index "delivers", ["use_id"], name: "index_delivers_on_use_id", using: :btree
   add_index "delivers", ["user_id"], name: "index_delivers_on_user_id", using: :btree
 
   create_table "deposits", force: :cascade do |t|
@@ -68,6 +66,34 @@ ActiveRecord::Schema.define(version: 20150429142805) do
 
   add_index "shops", ["state"], name: "index_shops_on_state", using: :btree
   add_index "shops", ["user_id"], name: "index_shops_on_user_id", using: :btree
+
+  create_table "tasks", force: :cascade do |t|
+    t.integer  "user_id",      limit: 4
+    t.integer  "shop_id",      limit: 4
+    t.boolean  "type",         limit: 1
+    t.string   "link",         limit: 255
+    t.string   "keywords",     limit: 255
+    t.decimal  "price",                    precision: 10, scale: 2
+    t.string   "duration",     limit: 10
+    t.string   "level",        limit: 10
+    t.string   "chat",         limit: 10
+    t.string   "desc",         limit: 255
+    t.string   "spec",         limit: 255
+    t.boolean  "receive_time", limit: 1
+    t.boolean  "comment_time", limit: 1
+    t.string   "comment",      limit: 255
+    t.string   "extra",        limit: 10
+    t.string   "state",        limit: 10
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+  end
+
+  add_index "tasks", ["duration"], name: "index_tasks_on_duration", using: :btree
+  add_index "tasks", ["extra"], name: "index_tasks_on_extra", using: :btree
+  add_index "tasks", ["level"], name: "index_tasks_on_level", using: :btree
+  add_index "tasks", ["shop_id"], name: "index_tasks_on_shop_id", using: :btree
+  add_index "tasks", ["state"], name: "index_tasks_on_state", using: :btree
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255,                          default: "",  null: false
@@ -108,5 +134,7 @@ ActiveRecord::Schema.define(version: 20150429142805) do
   add_foreign_key "deposits", "admins"
   add_foreign_key "deposits", "users"
   add_foreign_key "shops", "users"
+  add_foreign_key "tasks", "shops"
+  add_foreign_key "tasks", "users"
   add_foreign_key "wangwangs", "users"
 end

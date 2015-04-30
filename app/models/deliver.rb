@@ -4,6 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
+#  owner_id   :integer
 #  name       :string(20)       not null
 #  phone      :string(20)       not null
 #  province   :string(6)        not null
@@ -15,14 +16,11 @@
 #  state      :string(10)       not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  use_id     :integer
-#  owner_id   :integer
 #
 # Indexes
 #
 #  index_delivers_on_owner_id  (owner_id)
 #  index_delivers_on_state     (state)
-#  index_delivers_on_use_id    (use_id)
 #  index_delivers_on_user_id   (user_id)
 #
 

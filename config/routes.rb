@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
   resources :wangwangs, only: [:index, :create]
   resources :shops, only: [:index, :create]
+  resources :tasks
 
   namespace :admin do
     root 'welcome#index'
