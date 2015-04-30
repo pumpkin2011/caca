@@ -1,0 +1,40 @@
+
+= render 'tasks/nav'
+h2 我发出的任务
+= link_to '发布任务', new_task_path, class: 'ui button positive'
+table.ui.table
+  thead
+    tr
+      th 任务ID
+      th 接手人
+      th 价格
+      th 佣金
+      th 特殊需求
+      th
+
+
+  tbody
+  - @tasks.each do |task|
+      tr
+        td = task.id
+        td = task.order.wangwang.account if task.state != 'pending'
+        td 6.00
+        td 1.00
+        td
+          span.ui.label.tiny 手机单
+          span.ui.label.tiny = task.level_text
+          span.ui.label.tiny 增拍3个
+          - unless task.spec.blank?
+            <br />
+            span.ui.label.tiny = task.spec
+        td
+          - case task.state
+            - when 'pending'
+              = link_to '取消', task_path(task), method: 'delete', class: 'ui button positive'
+            - when 'talking'
+              .ui.buttons.tiny
+                = link_to '同意', confirm_order_path(task.order), class: 'ui button positive'
+                .or
+                = link_to '拒绝', reject_order_path(task.order), class: 'ui button negative'
+            - else
+              = task.aasm.human_state

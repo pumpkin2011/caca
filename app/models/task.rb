@@ -38,6 +38,7 @@ class Task < ActiveRecord::Base
   include AASM
   belongs_to :user
   belongs_to :shop
+  has_one :order
 
   enumerize :duration, in: [
     :three, :six, :ten, :fifteen, :twenty, :twenty_five,
@@ -54,20 +55,26 @@ class Task < ActiveRecord::Base
 
   aasm column: :state do
     state :pending, initial: true
+    state :talking
     state :confirmed
-    state :rejected
     state :applying
+    state :finished
 
+    event :talk do
+      transitions from: :pending, to: :talking
+    end
     event :reject do
-      transitions from: :pending, to: :rejected
+      transitions from: :talking, to: :pending
     end
-
     event :confirm do
-      transitions from: :pending, to: :confirmed
+      transitions from: :talking, to: :confirmed
     end
-
     event :apply  do
      transitions from: :confirmed, to: :applying
     end
+    event :finish  do
+     transitions from: :applying, to: :finished
+    end
+
   end
 end

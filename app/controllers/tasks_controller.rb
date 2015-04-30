@@ -1,7 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @wangwangs = current_user.wangwangs.confirmed
-    @tasks = Task.all
+    @tasks = Task.pending
   end
 
   def new
@@ -11,7 +10,6 @@ class TasksController < ApplicationController
       flash[:error] = '发布任务前需要绑定店铺掌柜'
       redirect_to shops_path
     end
-
   end
 
 
@@ -19,10 +17,20 @@ class TasksController < ApplicationController
     @task = current_user.tasks.build(task_param)
     if @task.save
       flash[:success] = "任务发布成功"
-      redirect_to tasks_path
+      redirect_to my_task_path
     else
       render :new
     end
+  end
+
+  def my
+    @tasks = current_user.tasks
+  end
+
+  def destroy
+    Task.pending.find(params[:id]).destroy
+    flash[:success] = '任务取消成功'
+    redirect_to my_task_path
   end
 
   private

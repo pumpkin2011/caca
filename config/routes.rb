@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-  get 'shops/index'
-  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -10,6 +8,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
   get '/profile'=> 'welcome#profile', as: :profile
+  get '/task' =>'tasks#my', as: :my_task
   resources :deposits, only: [:index, :create]
   resources :delivers do
     get 'apply', on: :collection
