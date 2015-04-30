@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429142805) do
+ActiveRecord::Schema.define(version: 20150430070151) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -55,6 +55,20 @@ ActiveRecord::Schema.define(version: 20150429142805) do
   add_index "deposits", ["admin_id"], name: "index_deposits_on_admin_id", using: :btree
   add_index "deposits", ["sn"], name: "index_deposits_on_sn", unique: true, using: :btree
   add_index "deposits", ["user_id"], name: "index_deposits_on_user_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id",     limit: 4
+    t.integer  "wangwang_id", limit: 4
+    t.integer  "task_id",     limit: 4
+    t.string   "state",       limit: 10
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "orders", ["state"], name: "index_orders_on_state", using: :btree
+  add_index "orders", ["task_id"], name: "index_orders_on_task_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+  add_index "orders", ["wangwang_id"], name: "index_orders_on_wangwang_id", using: :btree
 
   create_table "shops", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -133,6 +147,9 @@ ActiveRecord::Schema.define(version: 20150429142805) do
   add_foreign_key "delivers", "users", column: "owner_id"
   add_foreign_key "deposits", "admins"
   add_foreign_key "deposits", "users"
+  add_foreign_key "orders", "tasks"
+  add_foreign_key "orders", "users"
+  add_foreign_key "orders", "wangwangs"
   add_foreign_key "shops", "users"
   add_foreign_key "tasks", "shops"
   add_foreign_key "tasks", "users"

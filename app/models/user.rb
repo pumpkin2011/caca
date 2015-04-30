@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   has_many :wangwangs
   has_many :shops
   has_many :tasks
+  has_many :orders
 
 
 end

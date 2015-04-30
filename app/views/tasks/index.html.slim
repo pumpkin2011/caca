@@ -1,8 +1,5 @@
-h1 任务大厅
+h2 任务大厅
 
-= link_to '发布任务', new_task_path, class: 'ui button positive'
-
-= render 'tasks/wangwang'
 table.ui.table
   thead
     tr
@@ -32,4 +29,4 @@ table.ui.table
             <br />
             span.ui.label.tiny = task.spec
         td
-          = link_to '接单', '#', class: 'ui button green'
+          = link_to '接单', new_task_order_path(task), class: 'ui button green'

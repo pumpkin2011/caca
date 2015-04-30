@@ -68,3 +68,5 @@ zh-CN:
         level: 小号最低等级
         chat: 假聊
         comment: 评论内容
+      order:
+        <<: *common

@@ -1,0 +1,28 @@
+h1 我接到的任务
+table.ui.table
+  thead
+    tr
+      th 任务ID
+      th 发布人
+      th 价格
+      th 佣金
+      th 特殊需求
+      th 状态
+
+
+
+  tbody
+  - @orders.each do |order|
+      tr
+        td = order.task.id
+        td = order.task.user.email
+        td ￥6.00
+        td ￥1.00
+        td
+          span.ui.label.tiny 手机单
+          span.ui.label.tiny = order.task.level_text
+          span.ui.label.tiny 增拍3个
+          - unless order.task.spec.blank?
+            <br />
+            span.ui.label.tiny = order.task.spec
+        td = order.aasm.human_state

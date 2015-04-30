@@ -15,7 +15,13 @@ Rails.application.routes.draw do
   end
   resources :wangwangs, only: [:index, :create]
   resources :shops, only: [:index, :create]
-  resources :tasks
+  resources :tasks do
+    resources :orders, only: [:new, :create]
+  end
+  resources :orders, only: [:index] do
+    get 'reject', on: :member
+    get 'confirm', on: :member
+  end
 
   namespace :admin do
     root 'welcome#index'

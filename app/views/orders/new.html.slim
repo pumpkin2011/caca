@@ -1,0 +1,37 @@
+
+h2 任务
+
+table.ui.table
+  thead
+    tr
+      th 任务ID和时间
+      th 发布人
+      th 价格
+      th 佣金
+      th 特殊需求
+
+
+  tbody
+      tr
+        td = @task.id
+        td = @task.user.email
+        td ￥6.00
+        td ￥1.00
+        td
+          span.ui.label.tiny 手机单
+          span.ui.label.tiny = @task.level_text
+          span.ui.label.tiny 增拍3个
+
+          - unless @task.spec.blank?
+            <br />
+            span.ui.label.tiny = @task.spec
+
+=  form_for [@task, @task.build_order], html:{class: 'ui form'} do |f|
+  .field
+    = f.label :wangwang_id
+    = f.select :wangwang_id,
+        options_from_collection_for_select(@wangwangs, :id, :account),
+        {include_blank: true},{class: 'ui dropdown'}
+
+  = f.submit '确定', class: 'ui button positive'
+  = link_to '取消', tasks_path, class: 'ui button'
