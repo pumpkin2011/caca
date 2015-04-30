@@ -23,6 +23,21 @@ class TasksController < ApplicationController
     end
   end
 
+  def show
+    @task = Task.find(params[:id])
+  end
+
+  def validate
+    @task = Task.find(params[:id])
+    if @task.link == params[:link]
+      @task.apply!
+      flash[:success] = '宝贝地址验证成功'
+    else
+      flash[:error] = '宝贝地址验证失败'
+    end
+    redirect_to task_path(@task)
+  end
+
   def my
     @tasks = current_user.tasks
   end

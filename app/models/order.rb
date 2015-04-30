@@ -25,13 +25,13 @@ class Order < ActiveRecord::Base
   belongs_to :task
 
   aasm column: :state do
-    state :pending, initial: true
+    state :talking, initial: true
     state :confirmed
     event :confirm do
       after do
         self.task.confirm!
       end
-      transitions from: :pending, to: :confirmed
+      transitions from: :talking, to: :confirmed
     end
   end
 

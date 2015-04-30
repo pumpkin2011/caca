@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :shops, only: [:index, :create]
   resources :tasks do
     resources :orders, only: [:new, :create]
+    patch 'validate', on: :member
   end
   resources :orders, only: [:index] do
     get 'reject', on: :member

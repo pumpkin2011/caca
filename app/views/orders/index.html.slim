@@ -8,6 +8,7 @@ table.ui.table
       th 佣金
       th 特殊需求
       th 状态
+      th
 
 
 
@@ -25,4 +26,11 @@ table.ui.table
           - unless order.task.spec.blank?
             <br />
             span.ui.label.tiny = order.task.spec
-        td = order.aasm.human_state
+        td
+           span.ui.label.green
+            =order.aasm.human_state
+        td
+
+          - case order.state
+            - when 'confirmed'
+              = link_to '详情', task_path(order.task), class: 'ui button tiny positive'

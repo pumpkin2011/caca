@@ -10,6 +10,7 @@ table.ui.table
       th 价格
       th 佣金
       th 特殊需求
+      th 状态
       th
 
 
@@ -28,13 +29,16 @@ table.ui.table
             <br />
             span.ui.label.tiny = task.spec
         td
+          span.ui.label.green
+            = task.aasm.human_state
+        td
+          = link_to '详情', task_path(task), class: 'ui button tiny positive'
+          
           - case task.state
             - when 'pending'
-              = link_to '取消', task_path(task), method: 'delete', class: 'ui button positive'
+              = link_to '取消', task_path(task), method: 'delete', class: 'ui button tiny positive'
             - when 'talking'
               .ui.buttons.tiny
                 = link_to '同意', confirm_order_path(task.order), class: 'ui button positive'
                 .or
                 = link_to '拒绝', reject_order_path(task.order), class: 'ui button negative'
-            - else
-              = task.aasm.human_state

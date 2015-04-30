@@ -68,5 +68,14 @@ zh-CN:
         level: 小号最低等级
         chat: 假聊
         comment: 评论内容
+        state:
+          pending: 等待接手
+          talking: '等待审核'
+          confirmed: 已通过
+          rejected: 未通过
+          applying: 已使用
       order:
         <<: *common
+        state:
+          talking: '等待审核'
+          confirmed: 已通过
