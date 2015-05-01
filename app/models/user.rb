@@ -5,6 +5,7 @@
 #  id                     :integer          not null, primary key
 #  email                  :string(255)      default(""), not null
 #  amount                 :decimal(10, 2)   default(0.0)
+#  frozen_amount          :decimal(10, 2)   default(0.0)
 #  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
 #  reset_password_sent_at :datetime
@@ -41,6 +42,7 @@ class User < ActiveRecord::Base
   has_many :shops
   has_many :tasks
   has_many :orders
+
 
 
 end
