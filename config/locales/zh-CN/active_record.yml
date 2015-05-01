@@ -7,7 +7,7 @@ zh-CN:
         ten: "10分钟"
         fifteen: "15分钟"
         twenty: "20分钟"
-        twenty_five: "25分钟"
+        twentyfive: "25分钟"
         thirty: "30分钟"
         forty: "40分钟"
       level:
@@ -22,6 +22,9 @@ zh-CN:
         normal: "不需要"
         simple: "简单聊"
         complex: "认真聊"
+      task_type:
+        pc: "电脑单"
+        phone: "手机单"
   activerecord:
     models:
       user: 用户
@@ -59,10 +62,11 @@ zh-CN:
       shop:
         <<: *common
         account: 掌柜名
+
       task:
         <<: *common
         shop_id: 掌柜名
-        type: 类型
+        task_type: 类型
         link: 宝贝地址
         keywords: 关键词
         price: 价格
@@ -70,6 +74,13 @@ zh-CN:
         level: 小号最低等级
         chat: 假聊
         comment: 评论内容
+        desc: '任务要求'
+        spec: '特殊要求'
+        extra: '增拍'
+        commission: '佣金'
+        commission_extra: '追加佣金'
+        receive_time: '收获时间'
+        comment_time: '评价时间'
         state:
           pending: 等待接手
           talking: '等待审核'

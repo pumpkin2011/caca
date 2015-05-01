@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501135442) do
+ActiveRecord::Schema.define(version: 20150501173726) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -82,24 +82,26 @@ ActiveRecord::Schema.define(version: 20150501135442) do
   add_index "shops", ["user_id"], name: "index_shops_on_user_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
-    t.integer  "user_id",      limit: 4
-    t.integer  "shop_id",      limit: 4
-    t.boolean  "type",         limit: 1
-    t.string   "link",         limit: 255
-    t.string   "keywords",     limit: 255
-    t.decimal  "price",                    precision: 10, scale: 2
-    t.string   "duration",     limit: 10
-    t.string   "level",        limit: 10
-    t.string   "chat",         limit: 10
-    t.string   "desc",         limit: 255
-    t.string   "spec",         limit: 255
-    t.boolean  "receive_time", limit: 1
-    t.boolean  "comment_time", limit: 1
-    t.string   "comment",      limit: 255
-    t.string   "extra",        limit: 10
-    t.string   "state",        limit: 10
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.integer  "user_id",          limit: 4
+    t.integer  "shop_id",          limit: 4
+    t.string   "link",             limit: 255
+    t.string   "keywords",         limit: 255
+    t.decimal  "price",                        precision: 10, scale: 2
+    t.string   "duration",         limit: 10
+    t.string   "level",            limit: 10
+    t.string   "chat",             limit: 10
+    t.string   "desc",             limit: 255
+    t.string   "spec",             limit: 255
+    t.boolean  "receive_time",     limit: 1
+    t.boolean  "comment_time",     limit: 1
+    t.string   "comment",          limit: 255
+    t.string   "extra",            limit: 10
+    t.string   "state",            limit: 10
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+    t.decimal  "commission",                   precision: 10, scale: 2
+    t.decimal  "commission_extra",             precision: 10, scale: 2
+    t.string   "task_type",        limit: 10
   end
 
   add_index "tasks", ["duration"], name: "index_tasks_on_duration", using: :btree
@@ -107,6 +109,7 @@ ActiveRecord::Schema.define(version: 20150501135442) do
   add_index "tasks", ["level"], name: "index_tasks_on_level", using: :btree
   add_index "tasks", ["shop_id"], name: "index_tasks_on_shop_id", using: :btree
   add_index "tasks", ["state"], name: "index_tasks_on_state", using: :btree
+  add_index "tasks", ["task_type"], name: "index_tasks_on_task_type", using: :btree
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|

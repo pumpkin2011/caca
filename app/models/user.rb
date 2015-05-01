@@ -40,9 +40,9 @@ class User < ActiveRecord::Base
          :confirmable
 
   validates_presence_of :name, :qq
-  validates :name, length: {in: 2..10}, uniqueness: true, allow_blank: true
-  validates :qq, length: {in: 4..15}, uniqueness: true, allow_blank: true
-  
+  validates :name, length: {in: 2..10}, uniqueness: true, allow_blank: true, on: :create
+  validates :qq, length: {in: 4..15}, uniqueness: true, allow_blank: true, on: :create
+
   has_many :deposits
   has_many :delivers
   has_one :deliver, foreign_key: 'owner_id'

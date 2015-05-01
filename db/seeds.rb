@@ -7,8 +7,14 @@ require 'faker'
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 puts 'Create User'
-user_demo01 = User.create(email: 'demo01@waitaowang.com',password: 'password',confirmed_at: Time.now, amount: 1000)
-user_demo02 = User.create(email: 'demo02@waitaowang.com',password: 'password',confirmed_at: Time.now, amount: 1000)
+user_demo01 = User.create(
+  email: 'demo01@waitaowang.com',password: 'password',confirmed_at: Time.now, amount: 1000,
+  name: '测试用户_01', qq: 626431918
+)
+user_demo02 = User.create(
+  email: 'demo02@waitaowang.com',password: 'password',confirmed_at: Time.now, amount: 1000,
+  name: '测试用户_02', qq: 378753833
+)
 
 puts 'Create Admin'
 Admin.create(email: 'admin@waitaowang.com', password: 'password')

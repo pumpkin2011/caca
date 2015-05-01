@@ -4,11 +4,18 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new
+    @task = Task.new(receive_time: true, comment_time: true)
     @shops = current_user.shops.confirmed
     if @shops.blank?
       flash[:error] = '发布任务前需要绑定店铺掌柜'
       redirect_to shops_path
+      return
+    end
+
+    if current_user.frozen_amount < 100
+      flash[:error] = '发布任务前需要申请冻结资金100元'
+      redirect_to deposits_path
+      return
     end
   end
 
@@ -19,6 +26,7 @@ class TasksController < ApplicationController
       flash[:success] = "任务发布成功"
       redirect_to my_task_path
     else
+      @shops = current_user.shops.confirmed
       render :new
     end
   end

@@ -23,13 +23,15 @@ table.ui.table
             = task.order.wangwang.account
             = link_to "tencent://Message/?Uin=#{task.order.user.qq}" do
               = image_tag "http://wpa.qq.com/pa?p=1:#{task.order.user.qq}:41"
-          
-        td 6.00
-        td 1.00
+
+        td = number_to_currency(task.price)
+        td = number_to_currency(task.commission)
         td
-          span.ui.label.tiny 手机单
           span.ui.label.tiny = task.level_text
-          span.ui.label.tiny 增拍3个
+          - if task.task_type == 'phone'
+            span.ui.label.tiny 手机单
+          - unless task.extra.blank?
+            span.ui.label.tiny = "增拍#{task.extra}个"
           - unless task.spec.blank?
             <br />
             span.ui.label.tiny = task.spec

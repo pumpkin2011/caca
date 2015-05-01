@@ -1,22 +1,25 @@
 h2 发布任务
 
+= render partial: 'shared/error', locals: {title: '任务发布失败', error: @task}
 = form_for @task, html:{class: 'ui form'} do |f|
-  .fields
-    .field.four.wide
-      = f.label :shop_id
-      = f.select :shop_id,
-          options_from_collection_for_select(@shops, :id, :account),
-          {include_blank: true},{class: 'ui dropdown'}
-
-
+  .field.four.wide
+    = f.label :shop_id
+    = f.select :shop_id,
+        options_from_collection_for_select(@shops, :id, :account),
+        {include_blank: true},{class: 'ui dropdown'}
 
   .field
     = f.label :link
     = f.text_field :link
 
-  .field
-    = f.label :keywords
-    = f.text_field :keywords
+  .fields.two
+    .field
+      = f.label :keywords
+      = f.text_field :keywords
+
+    .field
+      = f.label :spec
+      = f.text_field :spec
 
   .fields
     .field.two.wide
@@ -43,33 +46,51 @@ h2 发布任务
           Task.chat.options,
           {include_blank: true},{class: 'ui dropdown'}
 
+    .field
+      = f.label :task_type
+      = f.select :task_type,
+          Task.task_type.options,
+          {include_blank: false},{class: 'ui dropdown'}
+
+  .fields
+    .field
+      = f.label :extra
+      .ui.left.icon.input
+        = f.text_field :extra
+        i.icon.add.square
+    .field
+      = f.label :commission_extra
+      .ui.left.icon.input
+        = f.text_field :commission_extra
+        i.icon.yen
+
   .fields.two.wide
     .field
       = f.label :desc, '任务要求'
       = f.text_area :desc
 
-    .field
-      .field
-        = f.label :spec, '特殊要求'
-        = f.text_area :spec
 
   .fields.two.wide
     .field
       = f.label :receive_time, '收获时间'
       .ui.two.column.center.aligned.stackable.divided.grid.segment
-        - ['系统默认', '根据物流'].each do |amount|
-          .column
-            .ui.checkbox.toggle
-              = f.radio_button :receive_time, amount
-              = f.label :receive_time, amount
+
+        .column
+          .ui.checkbox.toggle
+            = f.radio_button :receive_time, true
+            = f.label :receive_time, '系统默认'
+        .column
+          .ui.checkbox.toggle
+            = f.radio_button :receive_time, false
+            = f.label :receive_time, '根据物流'
     .field
       = f.label :comment_time, '评价时间'
       .ui.two.column.center.aligned.stackable.divided.grid.segment
-        - ['系统默认', '根据物流'].each do |amount|
+        - [[true, '系统默认'], [false, '根据物流']].each do |amount|
           .column
             .ui.checkbox.toggle
-              = f.radio_button :comment_time, amount
-              = f.label :comment_time, amount
+              = f.radio_button :comment_time, amount[0]
+              = f.label :comment_time, amount[1]
 
   .field
      = f.label :comment

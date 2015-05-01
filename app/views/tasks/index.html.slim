@@ -18,8 +18,8 @@ table.ui.table
           <br />
           = task.created_at
         td = task.shop.user.name
-        td ￥6.00
-        td ￥1.00
+        td = number_to_currency(task.price)
+        td = number_to_currency(task.commission)
         td
           span.ui.label.tiny 手机单
           span.ui.label.tiny = task.level_text
