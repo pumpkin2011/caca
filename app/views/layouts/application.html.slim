@@ -30,7 +30,8 @@ html
                   = link_to '个人中心', profile_path, class: 'item'
                   = link_to '退出', destroy_user_session_path, class: 'item',
                                    method: 'delete'
-    .ui.grid.page
+    = render 'layouts/sidebar'
+    .ui.grid.page.pusher
       .column
         - flash.each do |name,msg|
           div class="ui message #{name}"

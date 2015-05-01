@@ -1,0 +1,20 @@
+.ui.vertical.sidebar.menu.left.thin
+  = link_to '资金管理', deposits_path, class: 'item'
+  = link_to '账户认证', '#', class: 'item'
+  = link_to '账户充值', '#', class: 'item'
+  = link_to '地址管理', '#', class: 'item'
+  = link_to '旺旺绑定', '#', class: 'item'
+  = link_to '掌柜绑定', '#', class: 'item'
+
+<div class="ui red big launch right attached fixed button">
+  <i class="content icon"></i>
+  <span class="text">个人中心</span>
+</div>
+
+- content_for(:js) do
+  javascript:
+    $(function(){
+      $('.fixed.launch.button').click(function(){
+        $('.sidebar').sidebar('toggle');
+      })
+    })
