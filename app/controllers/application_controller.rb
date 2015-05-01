@@ -7,6 +7,12 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
+  before_filter :configure_permitted_parameters, if: :devise_controller?
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up)<<:qq<<:name
+  end
+
   protected
     def main_layout
       if ['/admin/sign_in'].include?( request.path )

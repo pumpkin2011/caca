@@ -4,6 +4,8 @@
 #
 #  id                     :integer          not null, primary key
 #  email                  :string(255)      default(""), not null
+#  name                   :string(20)
+#  qq                     :string(15)
 #  amount                 :decimal(10, 2)   default(0.0)
 #  frozen_amount          :decimal(10, 2)   default(0.0)
 #  encrypted_password     :string(255)      default(""), not null
@@ -25,6 +27,8 @@
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_name                  (name)
+#  index_users_on_qq                    (qq)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 
@@ -35,6 +39,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
+  validates_presence_of :name, :qq
+  validates :name, length: {in: 2..10}, uniqueness: true, allow_blank: true
+  validates :qq, length: {in: 4..15}, uniqueness: true, allow_blank: true
+  
   has_many :deposits
   has_many :delivers
   has_one :deliver, foreign_key: 'owner_id'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501084803) do
+ActiveRecord::Schema.define(version: 20150501135442) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -111,6 +111,8 @@ ActiveRecord::Schema.define(version: 20150501084803) do
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255,                          default: "",  null: false
+    t.string   "name",                   limit: 20
+    t.string   "qq",                     limit: 15
     t.decimal  "amount",                             precision: 10, scale: 2, default: 0.0
     t.decimal  "frozen_amount",                      precision: 10, scale: 2, default: 0.0
     t.string   "encrypted_password",     limit: 255,                          default: "",  null: false
@@ -131,6 +133,8 @@ ActiveRecord::Schema.define(version: 20150501084803) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["name"], name: "index_users_on_name", using: :btree
+  add_index "users", ["qq"], name: "index_users_on_qq", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "wangwangs", force: :cascade do |t|

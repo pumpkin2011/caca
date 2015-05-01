@@ -45,6 +45,8 @@ zh-CN:
           applying: 已使用
       user:
         <<: *common
+        name: 用户名
+        qq: QQ号码
       deposit:
         <<: *common
       deliver:
