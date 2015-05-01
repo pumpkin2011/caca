@@ -1,5 +1,30 @@
 .ui.segment
-  p 充值提示
+  .ui.grid
+    .column.row
+      .column.four.wide
+        | 当前账户余额: #{number_to_currency current_user.amount}
+      .column.two.wide
+        
+      .column.four.wide
+        = form_tag '#', class: 'ui form' do
+          .field
+            .ui.left.icon.input.action
+              = text_field_tag :frozen_amount
+              i.icon.yen
+              button class="ui button positive" 提现
+    .column.row
+      .column.four.wide
+        | 已冻结资金: #{number_to_currency current_user.frozen_amount}
+      .column.two.wide
+        = link_to '解冻', deposits_path , class: 'ui button positive'
+      .column.four.wide
+        = form_tag '/frozen', class: 'ui form' do
+          .field
+            .ui.left.icon.input.action
+              = text_field_tag :frozen_amount
+              i.icon.yen
+              button class="ui button positive" 冻结
+
 h2 帐号充值
 = render 'deposits/form'
 

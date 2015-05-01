@@ -8,9 +8,10 @@ class WelcomeController < ApplicationController
 
   def frozen
     amount = params[:frozen_amount].to_i
-
-    if amount % 100 != 0
-      flash['error'] = '充值金额必须是100的倍数'
+    if amount == 0
+      flash[:error] = '请输入要冻结的额度'
+    elsif amount % 100 != 0
+      flash[:error] = '冻结资金必须是100的倍数'
     elsif current_user.amount < amount
       flash[:error] = '冻结资金不能超过当前账户余额'
     else
@@ -20,7 +21,7 @@ class WelcomeController < ApplicationController
         flash[:success] = '冻结资金成功'
       end
     end
-    redirect_to profile_path
+    redirect_to deposits_path
 
   end
 end
