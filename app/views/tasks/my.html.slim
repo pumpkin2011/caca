@@ -18,7 +18,12 @@ table.ui.table
   - @tasks.each do |task|
       tr
         td = task.id
-        td = task.order.wangwang.account if task.state != 'pending'
+        td
+          - if task.state != 'pending'
+            = task.order.wangwang.account
+            = link_to "tencent://Message/?Uin=#{task.order.user.qq}" do
+              = image_tag "http://wpa.qq.com/pa?p=1:#{task.order.user.qq}:41"
+          
         td 6.00
         td 1.00
         td
@@ -33,7 +38,7 @@ table.ui.table
             = task.aasm.human_state
         td
           = link_to '详情', task_path(task), class: 'ui button tiny positive'
-          
+
           - case task.state
             - when 'pending'
               = link_to '取消', task_path(task), method: 'delete', class: 'ui button tiny positive'

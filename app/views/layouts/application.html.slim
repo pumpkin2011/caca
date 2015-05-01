@@ -24,7 +24,7 @@ html
               = link_to '登录', new_user_session_path, class: 'item'
             - else
               .ui.dropdown.item
-                = current_user.email
+                = current_user.name
                 i.icon.dropdown
                 .menu
                   = link_to '个人中心', profile_path, class: 'item'
