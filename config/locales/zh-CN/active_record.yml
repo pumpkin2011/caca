@@ -28,6 +28,8 @@ zh-CN:
   activerecord:
     models:
       user: 用户
+      bank: 银行卡
+      identity: 身份证
     attributes:
       common: &common
         email: 邮箱
@@ -50,6 +52,11 @@ zh-CN:
         <<: *common
         name: 用户名
         qq: QQ号码
+        state:
+          uploading: 等待更新资料
+          pending: 等待审核
+          checked: 已通过审核
+          waitao: 歪淘认证
       deposit:
         <<: *common
       deliver:
@@ -92,3 +99,16 @@ zh-CN:
         state:
           talking: '等待审核'
           confirmed: 已通过
+      bank:
+        <<: *common
+        front: 银行卡正面
+        name: 收款人
+        account: 帐号
+        deposit: 开户行
+      identity:
+        <<: *common
+        front: 身份证正面
+        back: 身份证反面
+        handheld: 手持身份证
+        name: 姓名
+        number: 身份证号码

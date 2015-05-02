@@ -19,4 +19,9 @@
 class Bank < ActiveRecord::Base
   belongs_to :user
   mount_uploader :front, IdentityUploader
+
+  validates_presence_of :name, :account, :deposit
+  validates :name , length: {in: 2..10}, allow_blank: true
+  validates :account, length:{in: 15..19}, allow_blank: true
+  validates :deposit, length: {in: 4..20}, allow_blank: true
 end

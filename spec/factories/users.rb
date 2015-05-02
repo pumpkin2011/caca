@@ -23,6 +23,7 @@
 #  unconfirmed_email      :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  state                  :string(10)
 #
 # Indexes
 #
@@ -30,6 +31,7 @@
 #  index_users_on_name                  (name)
 #  index_users_on_qq                    (qq)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_state                 (state)
 #
 
 FactoryGirl.define do

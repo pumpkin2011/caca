@@ -6,37 +6,29 @@ class AuthenticatesController < ApplicationController
 
 
   def edit
-    current_user.identity || current_user.build_identity
-    current_user.bank || current_user.build_bank
-    # current_user.alipay || current_user.build_alipay
   end
 
-
   def update
-    identity = Identity.find_or_initialize_by(user: current_user)
-    identity.update( identity_params )
-
-    bank = Bank.find_or_initialize_by(user: current_user)
-    bank.update( bank_params )
-
-    # alipay = Alipay.find_or_initialize_by(user: current_user)
-    # alipay.update( alipay_params )
-
+    unless ['confirmed', 'officialed'].include?(current_user.state)
+        if current_user.update(auth_params)
+          current_user.update(state: 'pending')
+          flash[:success] = '资料更新成功'
+        else
+          render :edit
+          return
+        end
+    else
+        flash[:error] = '已认证资料不能修改'
+    end
     redirect_to root_path
-
-
   end
 
   private
-    def bank_params
-      params.require(:user).require(:bank).permit(:name, :account, :deposit, :front)
-    end
+    def auth_params
 
-    def identity_params
-      params.require(:user).require(:identity).permit(:name, :number, :front, :back, :handheld)
+      params.require(:user).permit(
+          bank_attributes: [:name, :account, :deposit],
+          identity_attributes: [:name, :number, :front, :back, :handheld]
+      )
     end
-
-    # def alipay_params
-    #   params.require(:user).require(:alipay).permit(:name, :account)
-    # end
 end

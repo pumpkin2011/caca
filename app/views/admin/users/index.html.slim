@@ -1,0 +1,25 @@
+table.ui.table
+  thead
+    tr
+      th #
+      th 用户
+      th 余额/冻结
+      th 店铺
+      th 旺旺
+      th 地址
+      th 任务
+      th 接单
+      th 状态
+
+  tbody
+    - @users.each do |user|
+      tr
+        td = user.id
+        td = user.name
+        td = "#{number_to_currency user.amount}/#{number_to_currency user.frozen_amount}"
+        td = user.shops.confirmed.count
+        td = user.wangwangs.confirmed.count
+        td = user.delivers.confirmed.count
+        td = user.tasks.count
+        td = user.orders.count
+        td = user.aasm.human_state

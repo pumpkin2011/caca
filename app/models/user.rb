@@ -23,6 +23,7 @@
 #  unconfirmed_email      :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  state                  :string(10)
 #
 # Indexes
 #
@@ -30,9 +31,11 @@
 #  index_users_on_name                  (name)
 #  index_users_on_qq                    (qq)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_state                 (state)
 #
 
 class User < ActiveRecord::Base
+  include AASM
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -51,9 +54,36 @@ class User < ActiveRecord::Base
   has_many :tasks
   has_many :orders
   # 基本身份验证
- has_one :identity, dependent: :destroy
- has_one :bank, dependent: :destroy
- 
+  has_one :identity, dependent: :destroy
+  has_one :bank, dependent: :destroy
+  accepts_nested_attributes_for :identity
+  accepts_nested_attributes_for :bank
+
+  # 用户状态
+  aasm column: :state do
+    state :uploading, initial: true
+    state :pending
+    state :checked
+    state :officialed
+
+    event :check_in do
+      transitions from: :pending, to: :checked
+    end
+
+    event :check_out do
+      transitions from: :pending, to: :uploading
+    end
+
+    event :official do
+      transitions from: :checked, to: :officialed
+    end
+  end
+
+  after_create do |user|
+    user.create_identity
+    user.create_bank
+  end
+
 
 
 

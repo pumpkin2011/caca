@@ -22,4 +22,8 @@ class Identity < ActiveRecord::Base
   mount_uploader :front, IdentityUploader
   mount_uploader :back, IdentityUploader
   mount_uploader :handheld, IdentityUploader
+
+  validates_presence_of :name, :number
+  validates :name, length: {in: 2..6}, allow_blank: true
+  validates :number, length: {is: 18}, allow_blank: true
 end

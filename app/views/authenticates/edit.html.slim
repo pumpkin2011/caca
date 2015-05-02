@@ -1,8 +1,8 @@
-
+= render partial: 'shared/error', locals: {title: '资料提交失败', error: current_user}
 = form_for current_user, url: authenticates_path, html:{class: 'ui form'} do |f|
   h2 身份信息
   .ui.divider
-  = f.fields_for current_user.identity do |identity_from|
+  = f.fields_for :identity do |identity_from|
     .field
       = identity_from.label :front
       = identity_from.file_field :front
@@ -27,7 +27,7 @@
 
   h2 银行卡
   .ui.divider
-  = f.fields_for current_user.bank do |bank_form|
+  = f.fields_for :bank do |bank_form|
     .field
       = bank_form.label :front
       = bank_form.file_field :front
