@@ -79,12 +79,4 @@ class User < ActiveRecord::Base
     end
   end
 
-  after_create do |user|
-    user.create_identity
-    user.create_bank
-  end
-
-
-
-
 end
