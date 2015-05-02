@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     get 'confirm', on: :member
   end
 
+  resource :authenticates, only:[:edit, :update]
+
   namespace :admin do
     root 'welcome#index'
     resources :deposits, only: [:index, :create]

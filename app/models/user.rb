@@ -50,6 +50,10 @@ class User < ActiveRecord::Base
   has_many :shops
   has_many :tasks
   has_many :orders
+  # 基本身份验证
+ has_one :identity, dependent: :destroy
+ has_one :bank, dependent: :destroy
+ 
 
 
 

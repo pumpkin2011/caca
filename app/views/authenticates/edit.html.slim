@@ -1,0 +1,46 @@
+
+= form_for current_user, url: authenticates_path, html:{class: 'ui form'} do |f|
+  h2 身份信息
+  .ui.divider
+  = f.fields_for current_user.identity do |identity_from|
+    .field
+      = identity_from.label :front
+      = identity_from.file_field :front
+
+    .field
+      = identity_from.label :back
+      = identity_from.file_field :back
+
+    .field
+      = identity_from.label :handheld
+      = identity_from.file_field :handheld
+
+    .field
+      = identity_from.label :name
+      = identity_from.text_field :name
+
+    .field
+      = identity_from.label :number
+      = identity_from.text_field :number
+
+
+
+  h2 银行卡
+  .ui.divider
+  = f.fields_for current_user.bank do |bank_form|
+    .field
+      = bank_form.label :front
+      = bank_form.file_field :front
+    .field
+      = bank_form.label :name
+      = bank_form.text_field :name
+    .field
+      = bank_form.label :account
+      = bank_form.text_field :account
+    .field
+      = bank_form.label :deposit
+      = bank_form.text_field :deposit
+
+
+
+  = f.submit '确定', class: 'ui button'

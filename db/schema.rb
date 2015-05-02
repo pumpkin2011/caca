@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501173726) do
+ActiveRecord::Schema.define(version: 20150502090139) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -22,6 +22,18 @@ ActiveRecord::Schema.define(version: 20150501173726) do
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
+
+  create_table "banks", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "name",       limit: 255
+    t.string   "account",    limit: 255
+    t.string   "deposit",    limit: 255
+    t.string   "front",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "banks", ["user_id"], name: "index_banks_on_user_id", using: :btree
 
   create_table "delivers", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -55,6 +67,19 @@ ActiveRecord::Schema.define(version: 20150501173726) do
   add_index "deposits", ["admin_id"], name: "index_deposits_on_admin_id", using: :btree
   add_index "deposits", ["sn"], name: "index_deposits_on_sn", unique: true, using: :btree
   add_index "deposits", ["user_id"], name: "index_deposits_on_user_id", using: :btree
+
+  create_table "identities", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "name",       limit: 255
+    t.string   "number",     limit: 255
+    t.string   "front",      limit: 255
+    t.string   "back",       limit: 255
+    t.string   "handheld",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -151,10 +176,12 @@ ActiveRecord::Schema.define(version: 20150501173726) do
   add_index "wangwangs", ["state"], name: "index_wangwangs_on_state", using: :btree
   add_index "wangwangs", ["user_id"], name: "index_wangwangs_on_user_id", using: :btree
 
+  add_foreign_key "banks", "users"
   add_foreign_key "delivers", "users"
   add_foreign_key "delivers", "users", column: "owner_id"
   add_foreign_key "deposits", "admins"
   add_foreign_key "deposits", "users"
+  add_foreign_key "identities", "users"
   add_foreign_key "orders", "tasks"
   add_foreign_key "orders", "users"
   add_foreign_key "orders", "wangwangs"
