@@ -38,5 +38,8 @@ table.ui.table
         td = full_address(deliver)
         td = deliver.aasm.human_state
         td
+          = link_to '删除', deliver_path(deliver),
+                    method: 'delete', data: {confirm: '确定删除地址'},
+                    class: 'ui button negative'
 
 = link_to '添加新地址', new_deliver_path, class: 'ui button positive'

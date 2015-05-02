@@ -4,24 +4,28 @@ table.ui.table
   thead
     tr
       th #
+      th 提供者
+      - if params[:type] == 'applying'
+        th 使用者
       th 收件人
       th 联系电话
       th 地址
-      th
+      - if params[:type] == 'pending'
+        th 操作
 
   tbody
     - @delivers.each do |deliver|
       tr
         td = deliver.id
+        td = deliver.user.name
+        - if params[:type] == 'applying'
+          td = deliver.owner.name
         td = deliver.name
         td = deliver.phone
         td = full_address(deliver)
-        td
-          - case params[:type]
-            - when 'pending'
-              .ui.buttons
-                = link_to '同意', confirm_admin_deliver_path(deliver), class: 'ui button positive'
-                .or
-                = link_to '拒绝', reject_admin_deliver_path(deliver), class: 'ui button negative'
-            - when 'applying'
-              = deliver.owner.email
+        - if params[:type] == 'pending'
+          td
+            .ui.buttons
+              = link_to '同意', confirm_admin_deliver_path(deliver), class: 'ui button positive'
+              .or
+              = link_to '拒绝', reject_admin_deliver_path(deliver), class: 'ui button negative'

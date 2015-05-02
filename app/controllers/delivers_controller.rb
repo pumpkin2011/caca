@@ -27,6 +27,14 @@ class DeliversController < ApplicationController
     redirect_to delivers_path
   end
 
+
+  #TODO 已经被使用的地址删除时发送消息给使用者
+  def destroy
+    Deliver.find(params[:id]).destroy
+    flash[:success] = '地址删除成功'
+    redirect_to delivers_path
+  end
+
   private
   def deliver_params
     params.require(:deliver).permit(:name, :phone, :province, :city, :district, :town, :address, :zip)
