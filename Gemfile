@@ -34,6 +34,7 @@ gem 'devise'
 gem 'china_city'
 gem 'aasm'
 gem 'enumerize'
+gem 'carrierwave-qiniu'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
