@@ -10,6 +10,7 @@ table.ui.table
       th 任务
       th 接单
       th 状态
+      th 操作
 
   tbody
     - @users.each do |user|
@@ -23,3 +24,4 @@ table.ui.table
         td = user.tasks.count
         td = user.orders.count
         td = user.aasm.human_state
+        td = link_to '详情', admin_user_path(user)

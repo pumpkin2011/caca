@@ -55,8 +55,8 @@ zh-CN:
         state:
           uploading: 等待更新资料
           pending: 等待审核
-          checked: 已通过审核
-          waitao: 歪淘认证
+          checked: 认证用户
+          officialed: 歪淘认证
       deposit:
         <<: *common
       deliver:

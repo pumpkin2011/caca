@@ -71,11 +71,15 @@ class User < ActiveRecord::Base
     end
 
     event :check_out do
-      transitions from: :pending, to: :uploading
+      transitions from: [:pending, :checked] , to: :uploading
     end
 
     event :official do
       transitions from: :checked, to: :officialed
+    end
+
+    event :cancel_official do
+      transitions from: :officialed, to: :checked
     end
   end
 

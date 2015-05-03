@@ -1,0 +1,21 @@
+-if @user.delivers.any?
+  h3 掌柜资料
+  table.ui.table
+    thead
+      tr
+        th #
+        th 收件人
+        th 联系电话
+        th 地址
+        th 添加时间
+        th 状态
+
+    tbody
+      - @user.delivers.each do |deliver|
+        tr
+          td = deliver.id
+          td = deliver.name
+          td = deliver.phone
+          td = full_address(deliver)
+          td = deliver.created_at
+          td = deliver.aasm.human_state

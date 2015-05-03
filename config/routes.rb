@@ -45,7 +45,12 @@ Rails.application.routes.draw do
       get 'reject', on: :member
       get 'confirm', on: :member
     end
-    resources :users, only: :index
+    resources :users do
+      get 'reject', on: :member
+      get 'confirm', on: :member
+      get 'official', on: :member
+      get 'cancel_official', on: :member
+    end
   end
 
   devise_for :users, path: ''

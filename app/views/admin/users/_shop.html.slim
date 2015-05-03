@@ -1,0 +1,17 @@
+-if @user.shops.any?
+  h3 掌柜资料
+  table.ui.table
+    thead
+      tr
+        th #
+        th 名称
+        th 添加时间
+        th 状态
+
+    tbody
+      - @user.shops.each do |shop|
+        tr
+          td = shop.id
+          td = shop.account
+          td = shop.created_at
+          td = shop.aasm.human_state

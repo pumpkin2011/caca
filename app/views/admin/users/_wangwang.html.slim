@@ -1,0 +1,17 @@
+-if @user.wangwangs.any?
+  h3 旺旺资料
+  table.ui.table
+    thead
+      tr
+        th #
+        th 名称
+        th 添加时间
+        th 状态
+
+    tbody
+      - @user.wangwangs.each do |wangwang|
+        tr
+          td = wangwang.id
+          td = wangwang.account
+          td = wangwang.created_at
+          td = wangwang.aasm.human_state
