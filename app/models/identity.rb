@@ -19,11 +19,19 @@
 
 class Identity < ActiveRecord::Base
   belongs_to :user
-  mount_uploader :front, IdentityUploader
-  mount_uploader :back, IdentityUploader
-  mount_uploader :handheld, IdentityUploader
 
-  validates_presence_of :name, :number
+  def front_url
+    self.front.blank? ? 'helen.jpg' : ENV['QINIU_BUCKET_DOMAIN']+self.front+'-authenticates'
+  end
+
+  def back_url
+    self.back.blank? ? 'helen.jpg' : ENV['QINIU_BUCKET_DOMAIN']+self.back+'-authenticates'
+  end
+
+  def handheld_url
+    self.handheld.blank? ? 'helen.jpg' : ENV['QINIU_BUCKET_DOMAIN']+self.handheld+'-authenticates'
+  end
+  validates_presence_of :name, :number, :front, :back, :handheld
   validates :name, length: {in: 2..6}, allow_blank: true
   validates :number, length: {is: 18}, allow_blank: true
 end

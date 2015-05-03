@@ -34,7 +34,7 @@ gem 'devise'
 gem 'china_city'
 gem 'aasm'
 gem 'enumerize'
-gem 'carrierwave-qiniu'
+gem 'qiniu'
 gem "jquery-fileupload-rails"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

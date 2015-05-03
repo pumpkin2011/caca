@@ -15,9 +15,11 @@
 //= require turbolinks
 //= require semantic-ui
 //= require 'china_city/jquery.china_city'
-//= require jquery-fileupload/basic
-//= require jquery-fileupload/vendor/load-image.all.min
-//= require_tree .
+//= require qiniu
+//= require plupload.full.min
+//= require plupload.zh_CN
+//= require qiniu_uploader
+
 
 $(function(){
   $('.ui.dropdown').dropdown();

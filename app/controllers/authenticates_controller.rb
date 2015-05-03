@@ -29,7 +29,7 @@ class AuthenticatesController < ApplicationController
     def auth_params
 
       params.require(:user).permit(
-          bank_attributes: [:name, :account, :deposit],
+          bank_attributes: [:name, :account, :deposit, :front],
           identity_attributes: [:name, :number, :front, :back, :handheld]
       )
     end

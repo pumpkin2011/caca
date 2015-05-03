@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get '/profile'=> 'welcome#profile', as: :profile
   post '/frozen' => 'welcome#frozen'
+  get '/qiniu_token' => 'welcome#qiniu_token'
   get '/task' =>'tasks#my', as: :my_task
 
   resources :deposits, only: [:index, :create]

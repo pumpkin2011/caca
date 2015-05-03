@@ -5,51 +5,40 @@
   h2 身份信息
   .ui.divider
   = f.fields_for :identity do |identity_from|
-    .field
-      .ui.cards
-        .card
-          .dimmable.image
-            .ui.dimmer
-              .content
-                .center.fileinput-button
-                  .ui.inverted.button 更换照片
-                  = identity_from.file_field :front
-            - unless current_user.identity.front.blank?
-              = image_tag(current_user.identity.front_url+'-authenticates')
-            -else
-              = image_tag('jenny.jpg')
-          .content
-            .header 身份证正面照片
+    .field.ui.cards
+      .card
+        .dimmable.image
+          .ui.dimmer
+            .content
+              .center
+                .ui.inverted.button#front 更换照片
+          = image_tag(current_user.identity.front_url)
+          = identity_from.hidden_field :front
+        .content
+          .header 身份证正面照片
 
-        .card
-          .dimmable.image
-            .ui.dimmer
-              .content
-                .center.fileinput-button
-                  .ui.inverted.button 更换照片
-                  = identity_from.file_field :back
-            - unless current_user.identity.back.blank?
-              = image_tag(current_user.identity.back_url+'-authenticates')
-            -else
-              = image_tag('jenny.jpg')
+      .card
+        .dimmable.image
+          .ui.dimmer
+            .content
+              .center
+                .ui.inverted.button#back 更换照片
+          = identity_from.hidden_field :back
+          = image_tag(current_user.identity.back_url)
+        .content
+          .header 身份证正面照片
 
+      .card
+        .dimmable.image
+          .ui.dimmer
+            .content
+              .center
+                .ui.inverted.button#handheld 更换照片
+          = image_tag(current_user.identity.handheld_url)
+          = identity_from.hidden_field :handheld
+        .content
+          .header 身份证正面照片
 
-          .content
-            .header 身份证反面照片
-
-        .card
-          .dimmable.image
-            .ui.dimmer
-              .content
-                .center.fileinput-button
-                  .ui.inverted.button 更换照片
-                  = identity_from.file_field :handheld
-            - unless current_user.identity.handheld.blank?
-              = image_tag(current_user.identity.handheld_url+'-authenticates')
-            -else
-              = image_tag('jenny.jpg')
-          .content
-            .header 手持身份证照片
     .fields
       .field.four.wide
         = identity_from.label :name
@@ -64,9 +53,17 @@
   h2 银行卡
   .ui.divider
   = f.fields_for :bank do |bank_form|
-    .field
-      = bank_form.label :front
-      = bank_form.file_field :front
+    .field.cards.ui
+      .card
+        .dimmable.image
+          .ui.dimmer
+            .content
+              .center
+                .ui.inverted.button#bank 更换照片
+          = image_tag(current_user.bank.front_url)
+          = bank_form.hidden_field :front
+        .content
+          .header 身份证正面照片
     .field
       = bank_form.label :name
       = bank_form.text_field :name
@@ -81,28 +78,18 @@
 
   = f.submit '确定', class: 'ui button'
 
-- content_for :js do
-  javascript:
+- content_for(:js) do
+
+  coffee:
+    # 图片上传
+    new QiniuUploader
+      button: 'front'
+    new QiniuUploader
+      button: 'back'
+    new QiniuUploader
+      button: 'handheld'
+    new QiniuUploader
+      button: 'bank'
+
+    # 图片效果
     $('.cards .image').dimmer({on: 'hover'});
-
-
-    $('.cards input[type="file"]').change(function(e){
-      index = $('.cards input').index(this);
-
-
-      loadImage(
-        e.target.files[0],
-        function(img){
-          $('.cards .card .image img, .cards .card .image canvas').eq(index).replaceWith(img)
-        },
-        {
-            maxWidth: 290,
-            maxHeight: 290,
-            minWidth: 290,
-            minHeight: 290,
-            crop: true,
-            canvas: false
-        }
-
-      );
-    })

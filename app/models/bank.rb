@@ -18,9 +18,12 @@
 
 class Bank < ActiveRecord::Base
   belongs_to :user
-  mount_uploader :front, IdentityUploader
 
-  validates_presence_of :name, :account, :deposit
+  def front_url
+    self.front.blank? ? 'helen.jpg' : ENV['QINIU_BUCKET_DOMAIN']+self.front+'-authenticates'
+  end
+
+  validates_presence_of :name, :account, :deposit, :front
   validates :name , length: {in: 2..10}, allow_blank: true
   validates :account, length:{in: 15..19}, allow_blank: true
   validates :deposit, length: {in: 4..20}, allow_blank: true
