@@ -1,27 +1,63 @@
+
+
 = render partial: 'shared/error', locals: {title: '资料提交失败', error: current_user}
 = form_for current_user, url: authenticates_path, html:{class: 'ui form'} do |f|
   h2 身份信息
   .ui.divider
   = f.fields_for :identity do |identity_from|
     .field
-      = identity_from.label :front
-      = identity_from.file_field :front
+      .ui.cards
+        .card
+          .dimmable.image
+            .ui.dimmer
+              .content
+                .center.fileinput-button
+                  .ui.inverted.button 更换照片
+                  = identity_from.file_field :front
+            - unless current_user.identity.front.blank?
+              = image_tag(current_user.identity.front_url+'-authenticates')
+            -else
+              = image_tag('jenny.jpg')
+          .content
+            .header 身份证正面照片
 
-    .field
-      = identity_from.label :back
-      = identity_from.file_field :back
+        .card
+          .dimmable.image
+            .ui.dimmer
+              .content
+                .center.fileinput-button
+                  .ui.inverted.button 更换照片
+                  = identity_from.file_field :back
+            - unless current_user.identity.back.blank?
+              = image_tag(current_user.identity.back_url+'-authenticates')
+            -else
+              = image_tag('jenny.jpg')
 
-    .field
-      = identity_from.label :handheld
-      = identity_from.file_field :handheld
 
-    .field
-      = identity_from.label :name
-      = identity_from.text_field :name
+          .content
+            .header 身份证反面照片
 
-    .field
-      = identity_from.label :number
-      = identity_from.text_field :number
+        .card
+          .dimmable.image
+            .ui.dimmer
+              .content
+                .center.fileinput-button
+                  .ui.inverted.button 更换照片
+                  = identity_from.file_field :handheld
+            - unless current_user.identity.handheld.blank?
+              = image_tag(current_user.identity.handheld_url+'-authenticates')
+            -else
+              = image_tag('jenny.jpg')
+          .content
+            .header 手持身份证照片
+    .fields
+      .field.four.wide
+        = identity_from.label :name
+        = identity_from.text_field :name
+
+      .field.eight.wide
+        = identity_from.label :number
+        = identity_from.text_field :number
 
 
 
@@ -44,3 +80,29 @@
 
 
   = f.submit '确定', class: 'ui button'
+
+- content_for :js do
+  javascript:
+    $('.cards .image').dimmer({on: 'hover'});
+
+
+    $('.cards input[type="file"]').change(function(e){
+      index = $('.cards input').index(this);
+
+
+      loadImage(
+        e.target.files[0],
+        function(img){
+          $('.cards .card .image img, .cards .card .image canvas').eq(index).replaceWith(img)
+        },
+        {
+            maxWidth: 290,
+            maxHeight: 290,
+            minWidth: 290,
+            minHeight: 290,
+            crop: true,
+            canvas: false
+        }
+
+      );
+    })

@@ -15,6 +15,8 @@
 //= require turbolinks
 //= require semantic-ui
 //= require 'china_city/jquery.china_city'
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/load-image.all.min
 //= require_tree .
 
 $(function(){

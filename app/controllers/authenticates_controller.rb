@@ -6,8 +6,8 @@ class AuthenticatesController < ApplicationController
 
 
   def edit
-    current_user.build_identity
-    current_user.build_bank
+    current_user.identity || current_user.build_identity
+    current_user.bank || current_user.build_bank
   end
 
   def update
