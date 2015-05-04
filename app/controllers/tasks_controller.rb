@@ -33,6 +33,8 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
+    @shops = current_user.shops.confirmed
+    render :new
   end
 
   def validate

@@ -39,7 +39,7 @@ class Task < ActiveRecord::Base
   extend Enumerize
 
   include AASM
-  belongs_to :user, autosave: true
+  belongs_to :user
   belongs_to :shop
   has_one :order
 
@@ -89,8 +89,7 @@ class Task < ActiveRecord::Base
 
   validates_presence_of :shop_id, :link, :keywords,
                         :price, :duration, :level,
-                        :chat, :task_type, :desc,
-                        :receive_time, :comment_time
+                        :chat, :task_type, :desc
 
   validate :commission_within_limit, on: :create
 

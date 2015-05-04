@@ -20,7 +20,7 @@ table.ui.table
         td = task.id
         td
           - if task.state != 'pending'
-            = task.order.wangwang.account
+            = link_to task.order.wangwang.account, '#', class: 'order_user', 'data-id': task.id
             = link_to "tencent://Message/?Uin=#{task.order.user.qq}" do
               = image_tag "http://wpa.qq.com/pa?p=1:#{task.order.user.qq}:41"
 
@@ -49,3 +49,26 @@ table.ui.table
                 = link_to '同意', confirm_order_path(task.order), class: 'ui button positive'
                 .or
                 = link_to '拒绝', reject_order_path(task.order), class: 'ui button negative'
+.ui.modal
+  i.close.icon
+  .header 接单人信息
+  .content 加载中...
+  .actions
+    .ui.button.positive 关闭
+
+
+- content_for(:js) do
+  javascript:
+    $(function(){
+      $('.order_user').click(function(){
+        $.get('/profile/'+$(this).data('id'), function(data){
+          content = "<p>姓名: "+data.name+"</p>";
+          content += "<p>旺旺: "+data.wangwang+"</p>";
+          content += "<h4>收获地址</h4>"
+          content += "<p>收件人: "+data.deliver_name+"</p>"
+          content += "<p>地址: "+data.deliver_address+"</p>"
+          $('.ui.modal .content').html(content);
+        });
+        $('.ui.modal').modal('show');
+      })
+    })

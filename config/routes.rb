@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
   get '/profile'=> 'welcome#profile', as: :profile
+  get '/profile/:id' => 'users#profile'
   post '/frozen' => 'welcome#frozen'
   get '/qiniu_token' => 'welcome#qiniu_token'
   get '/task' =>'tasks#my', as: :my_task
