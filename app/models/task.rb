@@ -23,6 +23,7 @@
 #  commission       :decimal(10, 2)
 #  commission_extra :decimal(10, 2)
 #  task_type        :string(10)
+#  cover            :string(255)
 #
 # Indexes
 #
@@ -42,6 +43,10 @@ class Task < ActiveRecord::Base
   belongs_to :user
   belongs_to :shop
   has_one :order
+
+  def cover_url
+    self.cover.blank? ? 'helen.jpg' : ENV['QINIU_BUCKET_DOMAIN']+self.cover+'-task'
+  end
 
   enumerize :duration, in: [
     :three, :six, :ten, :fifteen, :twenty, :twentyfive,

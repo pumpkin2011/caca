@@ -12,14 +12,13 @@ h2 发布任务
     = f.label :link
     = f.text_field :link
 
-  .fields.two
-    .field
-      = f.label :keywords
-      = f.text_field :keywords
+  .field.eight.wide
+    = f.label :keywords
+    = f.text_field :keywords
 
-    .field
-      = f.label :spec
-      = f.text_field :spec
+  .field.eight.wide
+    = f.label :spec
+    = f.text_field :spec
 
   .fields
     .field.two.wide
@@ -39,7 +38,7 @@ h2 发布任务
       = f.select :level,
           Task.level.options,
           {include_blank: false},{class: 'ui dropdown'}
-
+  .fields
     .field
       = f.label :chat
       = f.select :chat,
@@ -65,10 +64,18 @@ h2 发布任务
         i.icon.yen
 
   .fields.two.wide
-    .field
-      = f.label :desc, '任务要求'
-      = f.text_area :desc
-
+      .field
+        = f.label :desc, '任务要求'
+        = f.text_area :desc
+      .field
+        .ui.card.fluid.task
+          .dimmable.image
+            .ui.dimmer
+              .content
+                .center
+                  .ui.inverted.button#cover 更换照片
+            = f.hidden_field :cover
+            = image_tag(@task.cover_url)
 
   .fields.two.wide
     .field
@@ -95,5 +102,13 @@ h2 发布任务
   .field
      = f.label :comment
      = f.text_field :comment
-  - if params[:action] == 'new'
+  - if @task.new_record?
     = f.submit '确定', class: 'ui button green'
+
+- if @task.new_record?
+  - content_for(:js) do
+    javascript:
+      $(function(){
+        new QiniuUploader({button: 'cover'})
+        $('.card .image').dimmer({on: 'hover'});
+      })

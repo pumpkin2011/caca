@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150502120927) do
+ActiveRecord::Schema.define(version: 20150504180517) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20150502120927) do
     t.decimal  "commission",                   precision: 10, scale: 2
     t.decimal  "commission_extra",             precision: 10, scale: 2
     t.string   "task_type",        limit: 10
+    t.string   "cover",            limit: 255
   end
 
   add_index "tasks", ["duration"], name: "index_tasks_on_duration", using: :btree
