@@ -1,0 +1,9 @@
+- unless @task.new_record?
+  - if @task.state == 'talking' && current_user.id == @task.order.user_id
+      = form_for @task, url: validate_task_path(@task), html:{class: 'ui form'} do |f|
+        .field
+          .ui.input.action.left.labeled.big
+            .ui.label 宝贝地址
+            = text_field_tag :link
+
+            button class="ui button positive" 验证

@@ -84,6 +84,7 @@ zh-CN:
         desc: '任务要求'
         spec: '特殊要求'
         extra: '增拍'
+        cover: 宝贝照片
         commission: '佣金'
         commission_extra: '追加佣金'
         receive_time: '收获时间'

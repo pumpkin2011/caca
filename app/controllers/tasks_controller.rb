@@ -17,6 +17,12 @@ class TasksController < ApplicationController
       redirect_to deposits_path
       return
     end
+
+    unless ['checked', 'officialed'].include?(current_user.state)
+      flash[:error] = '发布任务前需要进行账户认证'
+      redirect_to edit_authenticates_path
+      return
+    end
   end
 
 
@@ -39,7 +45,7 @@ class TasksController < ApplicationController
 
   def validate
     @task = Task.find(params[:id])
-    if @task.link == params[:link]
+    if @task.link.match(/id=\d+/) == params[:link].match(/id=\d+/)
       @task.apply!
       flash[:success] = '宝贝地址验证成功'
     else

@@ -1,4 +1,9 @@
-h2 发布任务
+= render 'tasks/validate'
+
+- if @task.new_record?
+  h2 发布任务
+- else
+  h2 任务详情
 
 = render partial: 'shared/error', locals: {title: '任务发布失败', error: @task}
 = form_for @task, html:{class: 'ui form'} do |f|
@@ -73,7 +78,7 @@ h2 发布任务
             .ui.dimmer
               .content
                 .center
-                  .ui.inverted.button#cover 更换照片
+                  .ui.inverted.button#cover 更换宝贝照片
             = f.hidden_field :cover
             = image_tag(@task.cover_url)
 

@@ -94,7 +94,10 @@ class Task < ActiveRecord::Base
 
   validates_presence_of :shop_id, :link, :keywords,
                         :price, :duration, :level,
-                        :chat, :task_type, :desc
+                        :chat, :task_type, :desc, :cover
+  validates :link, format: {with: /id=\d+/}, allow_blank: true
+  validates :price, :commission_extra, numericality:true, allow_blank: true
+  validates :extra, numericality:{ only_integer: true}, allow_blank: true
 
   validate :commission_within_limit, on: :create
 
