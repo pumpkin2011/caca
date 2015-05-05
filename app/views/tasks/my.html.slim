@@ -20,7 +20,7 @@ table.ui.table
         td = task.id
         td
           - if task.state != 'pending'
-            = link_to task.order.wangwang.account, '#', class: 'order_user', 'data-id': task.id
+            = link_to task.order.user.name, '#', class: 'order_user', 'data-id': task.id
             = link_to "tencent://Message/?Uin=#{task.order.user.qq}" do
               = image_tag "http://wpa.qq.com/pa?p=1:#{task.order.user.qq}:41"
 

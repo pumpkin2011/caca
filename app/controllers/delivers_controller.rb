@@ -19,6 +19,11 @@ class DeliversController < ApplicationController
   end
 
   def apply
+    unless current_user.delivers.confirmed.any?
+      flash[:error] = "申请地址前请绑定地址"
+      redirect_to delivers_path
+      return
+    end
     @deliver = Deliver.where.not(user: current_user).confirmed.take!
     @deliver.apply! do
       @deliver.update(owner: current_user)

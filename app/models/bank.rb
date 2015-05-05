@@ -25,6 +25,6 @@ class Bank < ActiveRecord::Base
 
   validates_presence_of :name, :account, :deposit, :front
   validates :name , length: {in: 2..10}, allow_blank: true
-  validates :account, length:{in: 15..19}, allow_blank: true
+  validates :account, uniqueness:true,length:{in: 15..19}, allow_blank: true
   validates :deposit, length: {in: 4..20}, allow_blank: true
 end

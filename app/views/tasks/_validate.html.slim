@@ -1,5 +1,5 @@
 - unless @task.new_record?
-  - if @task.state == 'talking' && current_user.id == @task.order.user_id
+  - if @task.state == 'confirmed' && current_user.id == @task.order.user_id
       = form_for @task, url: validate_task_path(@task), html:{class: 'ui form'} do |f|
         .field
           .ui.input.action.left.labeled.big

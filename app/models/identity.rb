@@ -33,5 +33,5 @@ class Identity < ActiveRecord::Base
   end
   validates_presence_of :name, :number, :front, :back, :handheld
   validates :name, length: {in: 2..6}, allow_blank: true
-  validates :number, length: {is: 18}, allow_blank: true
+  validates :number, uniqueness:true, length: {is: 18}, allow_blank: true
 end
