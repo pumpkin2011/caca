@@ -9,7 +9,7 @@
 = form_for @task, html:{class: 'ui form'} do |f|
   .field.four.wide
     = f.label :shop_id
-    - if @task.user_id == current_user.id
+    - if @task.user_id == current_user.id || @task.new_record?
       = f.select :shop_id,
           options_from_collection_for_select(@shops, :id, :account, @task.shop_id),
           {include_blank: true},{class: 'ui dropdown'}
