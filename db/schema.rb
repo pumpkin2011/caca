@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506135103) do
+ActiveRecord::Schema.define(version: 20150506153045) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -89,9 +89,11 @@ ActiveRecord::Schema.define(version: 20150506135103) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "ip",          limit: 20
+    t.integer  "shop_id",     limit: 4
   end
 
   add_index "orders", ["ip"], name: "index_orders_on_ip", using: :btree
+  add_index "orders", ["shop_id"], name: "index_orders_on_shop_id", using: :btree
   add_index "orders", ["state"], name: "index_orders_on_state", using: :btree
   add_index "orders", ["task_id"], name: "index_orders_on_task_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
@@ -187,9 +189,7 @@ ActiveRecord::Schema.define(version: 20150506135103) do
   add_foreign_key "deposits", "admins"
   add_foreign_key "deposits", "users"
   add_foreign_key "identities", "users"
-  add_foreign_key "orders", "tasks"
-  add_foreign_key "orders", "users"
-  add_foreign_key "orders", "wangwangs"
+  add_foreign_key "orders", "shops"
   add_foreign_key "shops", "users"
   add_foreign_key "tasks", "shops"
   add_foreign_key "tasks", "users"

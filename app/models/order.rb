@@ -24,6 +24,7 @@ class Order < ActiveRecord::Base
   include AASM
   belongs_to :user
   belongs_to :wangwang
+  belongs_to :shop
   belongs_to :task
 
   aasm column: :state do
@@ -37,6 +38,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  before_validation do |order|
+    order.shop = order.task.shop
+  end
+
   after_create do |order|
     order.task.talk!
   end
@@ -45,7 +50,7 @@ class Order < ActiveRecord::Base
     order.task.reject!
   end
 
-  validate :ip_count_within_limit, on: :create
+  validate :ip_count_within_limit, :shop_wangwang_within_limit, on: :create
   validates_presence_of :wangwang_id
 
   private
@@ -53,4 +58,13 @@ class Order < ActiveRecord::Base
       count = Order.where(user_id: self.user.id).where(ip: self.ip).where('created_at > ?', 1.days.ago).size
       errors.add(:base, "同一个IP地址24小时内最多接3个任务，请重启路由或更换IP地址") if count >=3
     end
+
+    def shop_wangwang_within_limit
+      count = Order.where(wangwang_id: self.wangwang_id)
+                   .where(shop_id: self.shop_id)
+                   .where('created_at >= ?', 30.days.ago).size
+
+      errors.add(:base, "您所选择的旺旺在30天已经接手过该店铺的任务，请使用其他旺旺!") if count >=1
+    end
+
 end
