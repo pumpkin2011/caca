@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :wangwang, only: [:new, :create ]
   def index
     @orders = current_user.orders
   end
@@ -6,7 +7,6 @@ class OrdersController < ApplicationController
   def new
     @task = Task.find(params[:task_id])
     @order = @task.build_order
-    @wangwangs = current_user.wangwangs.confirmed
 
     if current_user.deliver.blank?
       flash[:error] = '接手任务需要有收获地址'
@@ -41,7 +41,6 @@ class OrdersController < ApplicationController
       flash[:success] = "接单成功"
       redirect_to orders_path
     else
-      @wangwangs = current_user.wangwangs.confirmed
       render :new
     end
   end
@@ -61,5 +60,9 @@ class OrdersController < ApplicationController
   private
     def order_param
       params.require(:order).permit(:wangwang_id)
+    end
+
+    def wangwang
+      @wangwangs = current_user.wangwangs.available
     end
 end

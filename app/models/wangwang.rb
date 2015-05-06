@@ -38,16 +38,24 @@ class Wangwang < ActiveRecord::Base
     end
   end
 
+  def self.available
+    confirmed.find_all{|wang|
+      if wang.day_count<3 && wang.week_count < 6 && wang.month_count<12
+        wang
+      end
+    }
+  end
+
   def day_count
     self.orders.where('created_at > ?', 1.days.ago).count
   end
 
   def week_count
-    self.orders.where(user: self.user).where('created_at > ?', 7.days.ago).count
+    self.orders.where('created_at > ?', 7.days.ago).count
   end
 
   def month_count
-    self.orders.where(user: self.user).where('created_at > ?', 30.days.ago).count
+    self.orders.where('created_at > ?', 30.days.ago).count
   end
 
   validate :wangwangs_count_within_limit, on: :create
