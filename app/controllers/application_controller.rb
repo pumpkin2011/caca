@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   layout :main_layout
+  before_action Proc.new{ authenticate_user! unless params[:controller] =~ /^admin/ }
   before_action Proc.new{ authenticate_admin! if params[:controller] =~ /^admin/ }
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found

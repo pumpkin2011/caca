@@ -1,0 +1,18 @@
+h2 发送激活邮件
+
+p
+  | 如果您已注册用户，会发送一封激活邮件到您的邮箱(有可能会进入"垃圾邮件箱"), 您点击邮件中的链接即可激活账户。
+
+= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html:{class: 'ui form'}) do |f|
+
+  .ui.input.action.left.labeled
+    .ui.label 邮箱地址
+    = f.email_field :email, autofocus: true
+    button class="ui button positive" 发送邮件
+
+.ui.segment
+  p 如果您的问题已经解决，可以点击下面的链接继续。
+  p
+    = link_to "已有账号去登陆", new_session_path(resource_name), class: 'ui button positive'
+    = link_to "免费注册新账号", new_registration_path(resource_name), class: 'ui button positive'
+    = link_to "忘记密码?", new_password_path(resource_name), class: 'ui button positive'

@@ -1,0 +1,18 @@
+<p>你好: <%= @email %>!</p>
+<p>
+欢迎您加入歪淘网, 在您继续使用之前需要
+<%= link_to '激活账户', confirmation_url(@resource, confirmation_token: @token) %>
+如果您在使用过程中遇到了问题，可以及时联系我们(QQ: 14715363740)。
+<br />
+如果上面的链接不能直接点击，你也可以通过复制下面的链接到浏览器进行激活。
+<br />
+为了获得更好的体验，我们推荐您使用
+<a href="http://rj.baidu.com/soft/detail/14744.html" target="_blank">Chrome</a>,
+<a href="http://rj.baidu.com/soft/detail/11843.html" target="_blank">Firefox</a>
+等浏览器。
+</p>
+
+<p>
+激活地址:<br />
+<%= confirmation_url(@resource, confirmation_token: @token) %>
+</p>

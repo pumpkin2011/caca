@@ -1,25 +1,28 @@
-h2 用户注册
-= render partial: 'shared/error', locals: {title: '注册失败', error: resource}
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html:{class: 'ui form'}) do |f|
+.ui.grid.two.column
+  .column
+    h2 用户注册
+    = render partial: 'shared/error', locals: {title: '注册失败', error: resource}
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html:{class: 'ui form'}) do |f|
 
-  .field.four.wide
-    = f.label :email
-    = f.text_field :email
-  .fields
-    .field.four.wide
-      = f.label :name
-      = f.text_field :name
+      .field.eight.wide
+        = f.label :email
+        = f.text_field :email
 
-    .field.four.wide
-      = f.label :qq
-      = f.text_field :qq
+      .field.eight.wide
+        = f.label :name
+        = f.text_field :name
 
-  .fields
-    .field.four.wide
-      = f.label :password
-      = f.password_field :password, autocomplete: "off"
-    .field.four.wide
-      = f.label :password_confirmation
-      = f.password_field :password_confirmation, autocomplete: "off"
+      .field.eight.wide
+        = f.label :qq
+        = f.text_field :qq
 
-  = f.submit "注册", class: 'ui button positive'
+      .field.eight.wide
+        = f.label :password
+        = f.password_field :password, autocomplete: "off"
+      .field.eight.wide
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation, autocomplete: "off"
+
+      = f.submit "注册", class: 'ui button positive'
+      = link_to "已有账号", new_session_path(resource_name), class: 'ui button'
+    .column
