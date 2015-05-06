@@ -6,6 +6,19 @@ class DepositsController < ApplicationController
 
   #TODO: 机器恶意充值处理
   def create
+    if deposit_param[:sn].blank?
+      flash[:error] = "请输入充值流水号"
+      redirect_to deposits_path
+      return
+    end
+
+    if deposit_param[:amount].blank?
+      flash[:error] = "没有选择充值"
+      redirect_to deposits_path
+      return
+    end
+
+
     @depost = Deposit.pending.find_by!(deposit_param)
     if @depost.update(user: current_user)
       flash[:success] = "充值成功"
