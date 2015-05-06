@@ -9,9 +9,11 @@
 #  state       :string(10)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  ip          :string(20)
 #
 # Indexes
 #
+#  index_orders_on_ip           (ip)
 #  index_orders_on_state        (state)
 #  index_orders_on_task_id      (task_id)
 #  index_orders_on_user_id      (user_id)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150504180517) do
+ActiveRecord::Schema.define(version: 20150506135103) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -88,8 +88,10 @@ ActiveRecord::Schema.define(version: 20150504180517) do
     t.string   "state",       limit: 10
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "ip",          limit: 20
   end
 
+  add_index "orders", ["ip"], name: "index_orders_on_ip", using: :btree
   add_index "orders", ["state"], name: "index_orders_on_state", using: :btree
   add_index "orders", ["task_id"], name: "index_orders_on_task_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree

@@ -1,4 +1,4 @@
-
+= render partial: 'shared/error', locals: {title: '接单失败', error: @order}
 h2 任务
 
 table.ui.table
@@ -27,7 +27,7 @@ table.ui.table
             <br />
             span.ui.label.tiny = @task.spec
 
-=  form_for [@task, @task.build_order], html:{class: 'ui form'} do |f|
+=  form_for [@task, @order], html:{class: 'ui form'} do |f|
   .field
     = f.label :wangwang_id
     = f.select :wangwang_id,

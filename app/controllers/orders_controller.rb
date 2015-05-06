@@ -5,6 +5,7 @@ class OrdersController < ApplicationController
 
   def new
     @task = Task.find(params[:task_id])
+    @order = @task.build_order
     @wangwangs = current_user.wangwangs.confirmed
 
     if current_user.deliver.blank?
@@ -32,13 +33,15 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @task = Task.find(params[:task_id])
+    @task = Task.pending.find(params[:task_id])
     @order = @task.build_order(order_param)
     @order.user = current_user
+    @order.ip = request.remote_ip
     if @order.save
       flash[:success] = "接单成功"
       redirect_to orders_path
     else
+      @wangwangs = current_user.wangwangs.confirmed
       render :new
     end
   end

@@ -97,6 +97,7 @@ zh-CN:
           applying: 已完成
       order:
         <<: *common
+        wangwang_id: 旺旺
         state:
           talking: '等待审核'
           confirmed: 已通过
