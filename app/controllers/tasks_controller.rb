@@ -55,7 +55,19 @@ class TasksController < ApplicationController
   end
 
   def my
-    @tasks = current_user.tasks
+    @pending_count = current_user.tasks.pending.count
+    @talking_count = current_user.tasks.talking.count
+    @confirmed_count = current_user.tasks.confirmed.count
+    @applying_count = current_user.tasks.applying.count
+    @all_count = current_user.tasks.count
+
+    if %w(pending talking confirmed applying).include?( params[:type] )
+      @tasks = current_user.tasks.send(params[:type].to_sym)
+    else
+      @tasks = current_user.tasks
+    end
+
+
   end
 
   def destroy

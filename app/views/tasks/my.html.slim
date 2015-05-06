@@ -1,6 +1,17 @@
 
 = render 'tasks/nav'
-h2 我发出的任务
+
+- case params[:type]
+- when 'pending'
+  h2 等待接手的任务
+- when 'talking'
+  h2 等待审核的任务
+- when 'confirmed'
+  h2 进行中的任务
+- when 'applying'
+  h2 已完成的任务
+- else
+  h2 我发布的任务
 = link_to '发布任务', new_task_path, class: 'ui button positive'
 table.ui.table
   thead

@@ -1,5 +1,11 @@
-.ui.menu.item.four
-  = link_to "全部", '#', class: 'item'
-  = link_to "等待接手", '#', class: 'item'
-  = link_to "等待审核", '#', class: 'item'
-  = link_to "已完成", '#', class: 'item'
+.ui.menu.item.five
+  = link_to "全部( #{@all_count} )",
+          my_task_path, class: 'item'
+  = link_to "等待接手( #{@pending_count} )",
+          my_task_path(type: 'pending'), class: 'item'
+  = link_to "等待审核( #{@talking_count} )",
+          my_task_path(type: 'talking'), class: 'item'
+  = link_to "进行中( #{@confirmed_count} )",
+          my_task_path(type: 'confirmed'), class: 'item'
+  = link_to "已完成( #{@applying_count} )",
+          my_task_path(type: 'applying'), class: 'item'

@@ -19,7 +19,7 @@ table.ui.table
           = task.created_at
         td = task.shop.user.name
         td = number_to_currency(task.price)
-        td = number_to_currency(task.commission)
+        td = number_to_currency(task.commission_for_user)
         td
           span.ui.label.tiny = task.level_text
           - if task.task_type == 'phone'

@@ -94,7 +94,7 @@ zh-CN:
           talking: '等待审核'
           confirmed: 已通过
           rejected: 未通过
-          applying: 已使用
+          applying: 已完成
       order:
         <<: *common
         state:

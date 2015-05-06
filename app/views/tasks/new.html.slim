@@ -15,7 +15,8 @@
           {include_blank: true},{class: 'ui dropdown'}
     -else
       = @task.shop.account
-  - if @task.user_id == current_user.id
+
+  - if @task.new_record? || @task.user_id == current_user.id
     .field
       = f.label :link
       = f.text_field :link

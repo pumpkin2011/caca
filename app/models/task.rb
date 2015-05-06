@@ -48,6 +48,10 @@ class Task < ActiveRecord::Base
     self.cover.blank? ? 'helen.jpg' : ENV['QINIU_BUCKET_DOMAIN']+self.cover+'-task'
   end
 
+  def commission_for_user
+    self.commission * 0.8
+  end
+
   enumerize :duration, in: [
     :three, :six, :ten, :fifteen, :twenty, :twentyfive,
     :thirty, :forty
