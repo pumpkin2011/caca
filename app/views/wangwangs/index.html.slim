@@ -12,6 +12,9 @@ table.ui.table
     tr
       th #
       th 旺旺名
+      th 1天内使用次数
+      th 7天内使用次数
+      th 30天内使用次数
       th 添加时间
       th 状态
 
@@ -21,5 +24,8 @@ table.ui.table
       tr
         td = wangwang.id
         td = wangwang.account
+        td = wangwang.day_count
+        td = wangwang.week_count
+        td = wangwang.month_count
         td = wangwang.created_at
         td = wangwang.aasm.human_state
