@@ -52,6 +52,9 @@ table.ui.table
         td
           = link_to '详情', task_path(task), class: 'ui button tiny positive'
 
+          - if task.state == 'confirmed' && Time.now - task.updated_at > 30.minutes
+            = link_to '更换刷手', reject_order_path(task.order), class: 'ui button negative'
+
           - case task.state
             - when 'pending'
               = link_to '取消', task_path(task), method: 'delete', class: 'ui button tiny positive'

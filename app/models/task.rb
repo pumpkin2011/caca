@@ -82,7 +82,7 @@ class Task < ActiveRecord::Base
       transitions from: :pending, to: :talking
     end
     event :reject do
-      transitions from: :talking, to: :pending
+      transitions from: [:confirmed, :talking], to: :pending
     end
     event :confirm do
       transitions from: :talking, to: :confirmed

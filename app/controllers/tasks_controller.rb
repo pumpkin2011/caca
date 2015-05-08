@@ -71,7 +71,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    Task.pending.find(params[:id]).destroy
+    current_user.tasks.find(params[:id]).destroy
     flash[:success] = '任务取消成功'
     redirect_to my_task_path
   end
