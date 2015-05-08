@@ -30,7 +30,7 @@ class TasksController < ApplicationController
     @task = current_user.tasks.build(task_param)
     if @task.save
       flash[:success] = "任务发布成功"
-      redirect_to my_task_path
+      redirect_to task_path(@task)
     else
       @shops = current_user.shops.confirmed
       render :new
