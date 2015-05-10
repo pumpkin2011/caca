@@ -1,4 +1,5 @@
 class WangwangsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @wangwang = Wangwang.new
     @wangwangs = current_user.wangwangs

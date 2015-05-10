@@ -1,4 +1,5 @@
 class DepositsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @deposit = Deposit.new
     @deposits = current_user.deposits

@@ -12,30 +12,68 @@ html
     = csrf_meta_tags
 
   body class="#{params[:action]}" id="#{params[:controller].gsub('/','_')}"
-    .ui.segment.inverted.red
-      .ui.grid.page
-        .ui.menu.inverted.red
-          = link_to '任务大厅', tasks_path, class: 'item'
-          = link_to '刷手中心', orders_path, class: 'item'
-          = link_to '商家中心', my_task_path, class: 'item'
-          .right.menu
-            - unless user_signed_in?
-              = link_to '注册', new_user_registration_path, class: 'item'
-              = link_to '登录', new_user_session_path, class: 'item'
-            - else
-              .ui.dropdown.item
+
+    .ui.segment
+      .ui.grid.two.column.page
+        .column
+          .ui.list.horizontal.divided
+            = link_to '#', class: 'item' do
+             i.icon.qq
+             .content.aligned.middle 在线客服
+            = link_to '#', class: 'item' do
+             i.icon.mail.outline
+             .content.aligned.middle talk@waitaowang.com
+        .column.right.aligned
+          - unless user_signed_in?
+            .ui.list.horizontal.divided
+              = link_to new_user_session_path, class: 'item' do
+               .content.aligned.middle 登陆
+              = link_to new_user_registration_path, class: 'item' do
+               .content.aligned.middle 注册
+          - else
+            .ui.dropdown
                 = current_user.name
                 i.icon.dropdown
                 .menu
                   = link_to '个人中心', profile_path, class: 'item'
                   = link_to '退出', destroy_user_session_path, class: 'item',
                                    method: 'delete'
-    = render 'layouts/sidebar'
+
+        .column
+          = image_tag('logo_big.png')
+        .column
+          .ui.menu.fluid.four.item
+            = link_to '首页', root_path, class: 'item red'
+            = link_to '赚佣金', tasks_path, class: 'item'
+            = link_to '有销量', new_task_path, class: 'item'
+            = link_to '关于', '#', class: 'item'
+    - if request.path == '/'
+      .fullwidthbanner-container.revolution-slider
+        .fullwidthabnner
+          ul#revolutionul
+            li data-delay="9400" data-masterspeed="700" data-slotamount="8" data-transition="fade"
+              /! THE MAIN IMAGE IN THE FIRST SLIDE
+              = image_tag('ad01.jpg')
+
+            li data-delay="9400" data-masterspeed="700" data-slotamount="8" data-transition="fade"
+              /! THE MAIN IMAGE IN THE FIRST SLIDE
+              = image_tag('ad02.jpg')
+            li data-delay="9400" data-masterspeed="700" data-slotamount="8" data-transition="fade"
+              /! THE MAIN IMAGE IN THE FIRST SLIDE
+              = image_tag('ad03.jpg')
+          .tp-bannertimer.tp-bottom
+    - if user_signed_in?
+      = render 'layouts/sidebar'
     .ui.grid.page.pusher
       .column
         - flash.each do |name,msg|
           div class="ui message #{name}"
             p = msg
         = yield
+
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = yield :js
+    javascript:
+      $(function(){
+        RevosliderInit.initRevoSlider();
+      })

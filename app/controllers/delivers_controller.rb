@@ -1,4 +1,5 @@
 class DeliversController < ApplicationController
+  before_action :authenticate_user!
   def index
     @delivers = current_user.delivers
     @deliver = current_user.deliver

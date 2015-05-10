@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
   before_action :wangwang, only: [:new, :create ]
   def index
     @orders = current_user.orders

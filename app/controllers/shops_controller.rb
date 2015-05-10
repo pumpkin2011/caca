@@ -1,4 +1,5 @@
 class ShopsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @shop = Shop.new
     @shops = current_user.shops

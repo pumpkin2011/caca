@@ -1,5 +1,5 @@
 class AuthenticatesController < ApplicationController
-
+  before_action :authenticate_user!
   # TODO: 图片上传及时预览
   # TODO: 支付宝帐号认证
 

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   include DeliversHelper
-
+  before_action :authenticate_user!
+  
   def profile
 
     # 真实姓名
