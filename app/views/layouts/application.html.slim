@@ -12,15 +12,14 @@ html
     = csrf_meta_tags
 
   body class="#{params[:action]}" id="#{params[:controller].gsub('/','_')}"
-
     .ui.segment
       .ui.grid.two.column.page
         .column
           .ui.list.horizontal.divided
-            = link_to '#', class: 'item' do
+            = link_to '#', class: 'item contact_qq' do
              i.icon.qq
              .content.aligned.middle 在线客服
-            = link_to '#', class: 'item' do
+            = mail_to 'talk@waitaowang.com', class: 'item' do
              i.icon.mail.outline
              .content.aligned.middle talk@waitaowang.com
         .column.right.aligned
@@ -62,6 +61,8 @@ html
               /! THE MAIN IMAGE IN THE FIRST SLIDE
               = image_tag('ad03.jpg')
           .tp-bannertimer.tp-bottom
+
+      = render 'layouts/service'
     - if user_signed_in?
       = render 'layouts/sidebar'
     .ui.grid.page.pusher
@@ -71,9 +72,26 @@ html
             p = msg
         = yield
 
+    .ui.modal.contact_qq
+      i.close.icon
+      .header 客服信息
+      .content
+        p
+          | 上班时间: 8:00 ~ 20:00
+        p
+          | 客服QQ: 14715363740
+        p
+          | 新手交流群: 61880720
+        p
+          | 验证消息: 歪淘网(专业淘宝营销平台)
+      .actions
+        .ui.button.positive 关闭
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = yield :js
     javascript:
       $(function(){
         RevosliderInit.initRevoSlider();
+        $('.item.contact_qq').click(function(){
+          $('.ui.modal.contact_qq').modal('show');
+        })
       })
