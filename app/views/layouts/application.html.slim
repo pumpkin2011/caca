@@ -41,11 +41,22 @@ html
         .column
           = image_tag('logo_big.png')
         .column
-          .ui.menu.fluid.four.item
-            = link_to '首页', root_path, class: 'item red'
-            = link_to '赚佣金', tasks_path, class: 'item'
-            = link_to '有销量', new_task_path, class: 'item'
-            = link_to '关于', '#', class: 'item'
+
+
+            - if user_signed_in?
+              .ui.menu.fluid.five.item
+                = link_to '首页', root_path, class: 'item red'
+                = link_to '任务大厅', tasks_path, class: 'item'
+                = link_to '刷手中心', orders_path, class: 'item'
+                = link_to '商家中心', my_task_path, class: 'item'
+                = link_to '关于', '#', class: 'item'
+            - else
+              .ui.menu.fluid.four.item
+                = link_to '首页', root_path, class: 'item red'
+                = link_to '赚佣金', tasks_path, class: 'item'
+                = link_to '有销量', new_task_path, class: 'item'
+                = link_to '关于', '#', class: 'item'
+
     - if request.path == '/'
       .fullwidthbanner-container.revolution-slider
         .fullwidthabnner
