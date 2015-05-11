@@ -7,14 +7,22 @@
 
 = render partial: 'shared/error', locals: {title: '任务发布失败', error: @task}
 = form_for @task, html:{class: 'ui form'} do |f|
-  .field.four.wide
-    = f.label :shop_id
-    - if @task.user_id == current_user.id || @task.new_record?
-      = f.select :shop_id,
-          options_from_collection_for_select(@shops, :id, :account, @task.shop_id),
-          {include_blank: true},{class: 'ui dropdown'}
-    -else
-      = @task.shop.account
+  .fields
+    .field.four.wide
+      = f.label :shop_id
+      - if @task.user_id == current_user.id || @task.new_record?
+        = f.select :shop_id,
+            options_from_collection_for_select(@shops, :id, :account, @task.shop_id),
+            {include_blank: true},{class: 'ui dropdown'}
+      -else
+        = @task.shop.account
+
+    - if @task.new_record?
+      .field.four.wide
+        = label_tag :template_id, '模版名称'
+        = select_tag :template_id,
+            options_from_collection_for_select(@templates, :id, :name, @template_id),
+            include_blank: true, class: 'ui dropdown'
 
   - if @task.new_record? || @task.user_id == current_user.id
     .field
@@ -112,7 +120,13 @@
      = f.label :comment
      = f.text_field :comment
   - if @task.new_record?
-    = f.submit '确定', class: 'ui button green'
+    .fileds
+
+        = f.submit '确定', class: 'ui button green'
+        .ui.input.action.left.labeled
+          .ui.label 模版名称
+          = text_field_tag(:name)
+          button class="ui button positive" id="template" 保存为模版
 
 - if @task.new_record?
   - content_for(:js) do
@@ -120,4 +134,17 @@
       $(function(){
         new QiniuUploader({button: 'cover'})
         $('.card .image').dimmer({on: 'hover'});
+
+        // 天假模版
+        $('#template').click(function(){
+          $('#new_task').ajaxSubmit({
+            url: '/templates',
+            type: 'post',
+          });
+          return false;
+        })
+        // 模版切换
+        $('#template_id').change(function(){
+            location.href='/tasks/new?template_id='+$(this).val();
+        })
       })

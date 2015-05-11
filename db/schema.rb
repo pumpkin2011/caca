@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506153045) do
+ActiveRecord::Schema.define(version: 20150511155059) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -110,6 +110,16 @@ ActiveRecord::Schema.define(version: 20150506153045) do
   add_index "shops", ["state"], name: "index_shops_on_state", using: :btree
   add_index "shops", ["user_id"], name: "index_shops_on_user_id", using: :btree
 
+  create_table "task_templates", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "name",       limit: 20
+    t.text     "content",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "task_templates", ["user_id"], name: "index_task_templates_on_user_id", using: :btree
+
   create_table "tasks", force: :cascade do |t|
     t.integer  "user_id",          limit: 4
     t.integer  "shop_id",          limit: 4
@@ -190,7 +200,11 @@ ActiveRecord::Schema.define(version: 20150506153045) do
   add_foreign_key "deposits", "users"
   add_foreign_key "identities", "users"
   add_foreign_key "orders", "shops"
+  add_foreign_key "orders", "tasks"
+  add_foreign_key "orders", "users"
+  add_foreign_key "orders", "wangwangs"
   add_foreign_key "shops", "users"
+  add_foreign_key "task_templates", "users"
   add_foreign_key "tasks", "shops"
   add_foreign_key "tasks", "users"
   add_foreign_key "wangwangs", "users"

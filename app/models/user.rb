@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
   has_many :shops
   has_many :tasks
   has_many :orders
+  has_many :templates, class_name: 'TaskTemplate'
   # 基本身份验证
   has_one :identity, dependent: :destroy
   has_one :bank, dependent: :destroy

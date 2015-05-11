@@ -1,0 +1,19 @@
+h2 我的任务模版
+table.ui.table
+  thead
+    tr
+      th #
+      th 模版名称
+      th 创建时间
+      th 操作
+
+
+  tbody
+    - @templates.each do |template|
+      tr
+        td = template.id
+        td = template.name
+        td = template.created_at
+        td
+          = link_to '删除', template_path(template), method: :delete,
+                  data: { confirm: '确定删除'}, class: 'ui button'

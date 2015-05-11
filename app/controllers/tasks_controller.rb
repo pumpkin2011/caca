@@ -5,8 +5,19 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new(receive_time: true, comment_time: true)
+    @template_id = params[:template_id]
+
+    if @template_id
+      @task = Task.new(JSON.parse(current_user.templates.find(@template_id).content))
+    elsif cookies[:task_param]
+      @task = Task.new(JSON.parse(cookies[:task_param]))
+    else
+      @task = Task.new(receive_time: true, comment_time: true)
+    end
+
+
     @shops = current_user.shops.confirmed
+    @templates = current_user.templates
     if @shops.blank?
       flash[:error] = '发布任务前需要绑定店铺掌柜'
       redirect_to shops_path
@@ -31,7 +42,8 @@ class TasksController < ApplicationController
     @task = current_user.tasks.build(task_param)
     if @task.save
       flash[:success] = "任务发布成功"
-      redirect_to task_path(@task)
+      cookies[:task_param] = JSON.generate(task_param)
+      redirect_to new_task_path
     else
       @shops = current_user.shops.confirmed
       render :new
@@ -77,8 +89,10 @@ class TasksController < ApplicationController
     redirect_to my_task_path
   end
 
+
   private
     def task_param
       params.require(:task).permit!
     end
+
 end

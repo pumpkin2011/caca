@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     resources :orders, only: [:new, :create]
     patch 'validate', on: :member
   end
+
+  resources :templates, only: [:index, :destroy, :create]
   resources :orders, only: [:index] do
     get 'reject', on: :member
     get 'confirm', on: :member

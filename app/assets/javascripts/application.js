@@ -22,6 +22,7 @@
 //= require jquery.themepunch.revolution
 //= require jquery.themepunch.tools.min
 //= require revo-slider-init
+//= require jquery.form.js
 
 
 $(function(){
