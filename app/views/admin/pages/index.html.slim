@@ -1,0 +1,23 @@
+= link_to '添加页面', new_admin_page_path, class: 'ui button positive'
+table.ui.table
+  thead
+    tr
+      th #
+      th 名称
+      th 编码
+      th 分类
+      th 创建时间
+      th 操作
+
+  tbody
+    - @pages.each do |page|
+      tr
+        td = page.id
+        td = page.name
+        td = page.code
+        td = page.category.nil? ? '' : page.category.name
+        td = page.created_at
+        td
+          = link_to '编辑', edit_admin_page_path(page), class: 'ui button positive'
+          = link_to '删除', admin_page_path(page), method: 'delete',
+                      data: {confirm: '确定删除'}, class: 'ui button negative'

@@ -1,0 +1,8 @@
+.ui.menu.vertical
+  .header.item 帮助中心
+  - @categories.each do |category|
+    .item
+      = category.name
+      .menu
+        - category.pages.each do |page|
+          = link_to page.name, "/pages/#{page.code}", class: 'item'

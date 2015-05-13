@@ -36,6 +36,9 @@ gem 'aasm'
 gem 'enumerize'
 gem 'qiniu'
 gem "jquery-fileupload-rails"
+gem 'summernote-rails'
+gem 'font-awesome-rails'
+gem 'bootstrap-sass'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

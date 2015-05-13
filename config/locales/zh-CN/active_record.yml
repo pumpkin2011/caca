@@ -114,3 +114,8 @@ zh-CN:
         handheld: 手持身份证
         name: 姓名
         number: 身份证号码
+      page:
+        name: 名称
+        code: 编码
+        content: 内容
+        category_id: 分类

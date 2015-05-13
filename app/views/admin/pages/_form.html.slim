@@ -1,0 +1,32 @@
+= render partial: 'shared/error', locals: {title: '页面发布失败', error: @page}
+= form_for [:admin, @page], html:{class: 'ui form'} do |f|
+
+  .fields
+    .field.four.wide
+      = f.label :name
+      = f.text_field :name
+    .field.four.wide
+      = f.label :code
+      = f.text_field :code
+    .field.four.wide
+      = f.label :category_id
+      = f.select :category_id,
+          options_from_collection_for_select(@categories, :id, :name, @page.category_id),
+          {include_blank: true},{class: 'ui dropdown'}
+  .field
+    = f.label :content
+    = f.text_area :content, class: 'summernote'
+
+  = f.submit '确定', class: 'ui button positive'
+
+- content_for :js do
+  javascript:
+    $(function(){
+      $('.summernote').summernote({
+        lang: 'zh-CN',
+        height: 400,
+        onblur: function(e){
+          $(e.target).parent().prev().val( $(e.target).html() );
+        }
+      });
+    })

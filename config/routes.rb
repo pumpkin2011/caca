@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  get 'pages/index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -30,6 +32,7 @@ Rails.application.routes.draw do
   end
 
   resource :authenticates, only:[:edit, :update]
+  resources :pages, only: [:index, :show]
 
   namespace :admin do
     root 'welcome#index'
@@ -54,6 +57,8 @@ Rails.application.routes.draw do
       get 'official', on: :member
       get 'cancel_official', on: :member
     end
+
+    resources :pages
   end
 
   devise_for :users, path: ''

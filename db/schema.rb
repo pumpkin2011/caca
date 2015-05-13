@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511155059) do
+ActiveRecord::Schema.define(version: 20150513093339) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -98,6 +98,23 @@ ActiveRecord::Schema.define(version: 20150511155059) do
   add_index "orders", ["task_id"], name: "index_orders_on_task_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
   add_index "orders", ["wangwang_id"], name: "index_orders_on_wangwang_id", using: :btree
+
+  create_table "page_categories", force: :cascade do |t|
+    t.string   "name",       limit: 20
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "code",        limit: 255
+    t.text     "content",     limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "category_id", limit: 4
+  end
+
+  add_index "pages", ["category_id"], name: "index_pages_on_category_id", using: :btree
 
   create_table "shops", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
