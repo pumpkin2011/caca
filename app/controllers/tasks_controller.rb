@@ -37,7 +37,7 @@ class TasksController < ApplicationController
 
   def validate
     @task = Task.find(params[:id])
-    if @task.link.match(/id=\d+/) == params[:link].match(/id=\d+/)
+    if @task.link.match(/id=\d+/).to_a[0] == params[:link].match(/id=\d+/).to_a[0]
       @task.apply!
       flash[:success] = '宝贝地址验证成功'
     else
@@ -61,7 +61,8 @@ class TasksController < ApplicationController
     @task.ip = request.remote_ip
     if @task.update(task_consumer_param)
       @task.talk!
-      redirecht_to my_order_tasks_path
+      redirect_to my_order_tasks_path
+
     else
       render :edit
     end
