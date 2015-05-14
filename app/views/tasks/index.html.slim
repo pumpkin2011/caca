@@ -3,7 +3,8 @@ h2 任务大厅
 table.ui.table
   thead
     tr
-      th 任务ID和时间
+      th 任务ID
+      th 发布时间
       th 发布人
       th 价格
       th 佣金
@@ -13,10 +14,8 @@ table.ui.table
   tbody
   - @tasks.each do |task|
       tr
-        td
-          = task.id
-          <br />
-          = task.created_at
+        td = task.id
+        td = task.created_at.to_minute
         td = task.shop.user.name
         td = number_to_currency(task.price)
         td = number_to_currency(task.commission_for_user)
