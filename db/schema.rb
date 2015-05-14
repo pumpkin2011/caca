@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513093339) do
+ActiveRecord::Schema.define(version: 20150514064625) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -138,8 +138,11 @@ ActiveRecord::Schema.define(version: 20150513093339) do
   add_index "task_templates", ["user_id"], name: "index_task_templates_on_user_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
-    t.integer  "user_id",          limit: 4
+    t.integer  "producer_id",      limit: 4
+    t.integer  "consumer_id",      limit: 4
     t.integer  "shop_id",          limit: 4
+    t.integer  "wangwang_id",      limit: 4
+    t.string   "ip",               limit: 20
     t.string   "link",             limit: 255
     t.string   "keywords",         limit: 255
     t.decimal  "price",                        precision: 10, scale: 2
@@ -161,13 +164,16 @@ ActiveRecord::Schema.define(version: 20150513093339) do
     t.string   "cover",            limit: 255
   end
 
+  add_index "tasks", ["consumer_id"], name: "index_tasks_on_consumer_id", using: :btree
   add_index "tasks", ["duration"], name: "index_tasks_on_duration", using: :btree
   add_index "tasks", ["extra"], name: "index_tasks_on_extra", using: :btree
+  add_index "tasks", ["ip"], name: "index_tasks_on_ip", using: :btree
   add_index "tasks", ["level"], name: "index_tasks_on_level", using: :btree
+  add_index "tasks", ["producer_id"], name: "index_tasks_on_producer_id", using: :btree
   add_index "tasks", ["shop_id"], name: "index_tasks_on_shop_id", using: :btree
   add_index "tasks", ["state"], name: "index_tasks_on_state", using: :btree
   add_index "tasks", ["task_type"], name: "index_tasks_on_task_type", using: :btree
-  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
+  add_index "tasks", ["wangwang_id"], name: "index_tasks_on_wangwang_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255,                          default: "",  null: false
@@ -223,6 +229,5 @@ ActiveRecord::Schema.define(version: 20150513093339) do
   add_foreign_key "shops", "users"
   add_foreign_key "task_templates", "users"
   add_foreign_key "tasks", "shops"
-  add_foreign_key "tasks", "users"
   add_foreign_key "wangwangs", "users"
 end

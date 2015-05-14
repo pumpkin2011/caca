@@ -89,19 +89,14 @@ zh-CN:
         commission_extra: '追加佣金'
         receive_time: '收获时间'
         comment_time: '评价时间'
+        wangwang_id: 旺旺
         state:
           pending: 等待接手
           talking: '等待审核'
           confirmed: 已通过
           rejected: 未通过
           applying: 宝贝已验证
-      order:
-        <<: *common
-        wangwang_id: 旺旺
-        state:
-          talking: '等待审核'
-          confirmed: 已通过
-          applying: 宝贝已验证
+          finished: 已付款
       bank:
         <<: *common
         front: 银行卡正面

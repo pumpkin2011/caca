@@ -41,9 +41,9 @@ table.ui.table
         td = task.id
         td
           - if task.state != 'pending'
-            = link_to task.order.user.name, '#', class: 'order_user', 'data-id': task.id
-            = link_to "tencent://Message/?Uin=#{task.order.user.qq}" do
-              = image_tag "http://wpa.qq.com/pa?p=1:#{task.order.user.qq}:41"
+            = link_to task.consumer.name, '#', class: 'order_user', 'data-id': task.id
+            = link_to "tencent://Message/?Uin=#{task.consumer.qq}" do
+              = image_tag "http://wpa.qq.com/pa?p=1:#{task.consumer.qq}:41"
 
         td = number_to_currency(task.price)
         td = number_to_currency(task.commission)
@@ -70,9 +70,9 @@ table.ui.table
               = link_to '取消', task_path(task), method: 'delete', class: 'ui button tiny positive'
             - when 'talking'
               .ui.buttons.tiny
-                = link_to '同意', confirm_order_path(task.order), class: 'ui button positive'
+                = link_to '同意', confirm_task_path(task), class: 'ui button positive'
                 .or
-                = link_to '拒绝', reject_order_path(task.order), class: 'ui button negative'
+                = link_to '拒绝', reject_task_path(task), class: 'ui button negative'
 .ui.modal
   i.close.icon
   .header 接单人信息

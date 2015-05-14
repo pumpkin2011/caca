@@ -3,8 +3,11 @@
 # Table name: tasks
 #
 #  id               :integer          not null, primary key
-#  user_id          :integer
+#  producer_id      :integer
+#  consumer_id      :integer
 #  shop_id          :integer
+#  wangwang_id      :integer
+#  ip               :string(20)
 #  link             :string(255)
 #  keywords         :string(255)
 #  price            :decimal(10, 2)
@@ -27,30 +30,38 @@
 #
 # Indexes
 #
-#  index_tasks_on_duration   (duration)
-#  index_tasks_on_extra      (extra)
-#  index_tasks_on_level      (level)
-#  index_tasks_on_shop_id    (shop_id)
-#  index_tasks_on_state      (state)
-#  index_tasks_on_task_type  (task_type)
-#  index_tasks_on_user_id    (user_id)
+#  index_tasks_on_consumer_id  (consumer_id)
+#  index_tasks_on_duration     (duration)
+#  index_tasks_on_extra        (extra)
+#  index_tasks_on_ip           (ip)
+#  index_tasks_on_level        (level)
+#  index_tasks_on_producer_id  (producer_id)
+#  index_tasks_on_shop_id      (shop_id)
+#  index_tasks_on_state        (state)
+#  index_tasks_on_task_type    (task_type)
+#  index_tasks_on_wangwang_id  (wangwang_id)
 #
 
 class Task < ActiveRecord::Base
   extend Enumerize
+  include AASM
 
   default_scope { order 'updated_at DESC'}
 
-  include AASM
-  belongs_to :user
+  # 商家
+  belongs_to :producer, class_name: 'User'
+  # 刷手
+  belongs_to :consumer, class_name: 'User'
+  # 店铺
   belongs_to :shop
-  has_one :order
+  # 旺旺
+  belongs_to :wangwang
 
   def cover_url
     self.cover.blank? ? 'helen.jpg' : ENV['QINIU_BUCKET_DOMAIN']+self.cover+'-task'
   end
 
-  def commission_for_user
+  def commission_for_consumer
     self.commission * 0.8
   end
 
@@ -91,18 +102,14 @@ class Task < ActiveRecord::Base
     end
 
     event :apply  do
-      after do
-          self.order.apply!
-      end
      transitions from: :confirmed, to: :applying
     end
 
     event :finish  do
       after do
-        self.order.user.with_lock do
-          self.order.finish!
-          self.order.user.increment(:amount, self.commission_for_user)
-          self.order.user.save
+        self.consumer.with_lock do
+          self.consumer.increment(:amount, self.commission_for_consumer)
+          self.consumer.save
         end
       end
      transitions from: :applying, to: :finished
@@ -119,26 +126,31 @@ class Task < ActiveRecord::Base
 
   validate :commission_within_limit, on: :create
 
+  # 发布任务扣除佣金
   after_create do |task|
-    task.user.with_lock do
-      task.user.decrement(:amount, task.commission)
-      task.user.save
+    task.producer.with_lock do
+      task.producer.decrement(:amount, task.commission)
+      task.producer.save
     end
   end
 
+  # 取消任务返还资金
   before_destroy do |task|
-    task.user.with_lock do
-      task.user.increment(:amount, task.commission)
-      task.user.save
+    task.producer.with_lock do
+      task.producer.increment(:amount, task.commission)
+      task.producer.save
     end
   end
 
+  # 任务完成支付佣金给刷手
   def self.finish_task
-    applying.each do |task|
+    applying.where('updated_at < ?', 5.minutes.ago).each do |task|
       TaskWorker.perform_async(task.id)
     end
   end
+
   private
+    # 计算佣金总额
     def commission_within_limit
       # 基础价格
       self.commission = 3
@@ -175,6 +187,6 @@ class Task < ActiveRecord::Base
 
       # 追加佣金
       self.commission += self.commission_extra.to_i.abs
-      errors.add(:base, '余额不足') if self.commission > self.user.amount
+      errors.add(:base, '余额不足') if self.commission > self.producer.amount
     end
 end

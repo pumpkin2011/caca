@@ -18,6 +18,6 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-every 10.minutes do
+every 1.minutes do
   runner "Task.finish_task"
 end

@@ -47,8 +47,8 @@ html
               .ui.menu.fluid.five.item
                 = link_to '首页', root_path, class: 'item red'
                 = link_to '任务大厅', tasks_path, class: 'item'
-                = link_to '刷手中心', orders_path, class: 'item'
-                = link_to '商家中心', my_task_path, class: 'item'
+                = link_to '刷手中心', '/tasks/my_order', class: 'item'
+                = link_to '商家中心', '/tasks/my_task', class: 'item'
                 = link_to '关于', '/pages/about', class: 'item'
             - else
               .ui.menu.fluid.four.item

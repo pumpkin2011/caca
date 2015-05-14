@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get '/profile/:id' => 'users#profile'
   post '/frozen' => 'welcome#frozen'
   get '/qiniu_token' => 'welcome#qiniu_token'
-  get '/task' =>'tasks#my', as: :my_task
+
 
   resources :deposits, only: [:index, :create]
   resources :delivers do
@@ -19,8 +19,17 @@ Rails.application.routes.draw do
   resources :wangwangs, only: [:index, :create]
   resources :shops, only: [:index, :create]
   resources :tasks do
-    resources :orders, only: [:new, :create]
-    patch 'validate', on: :member
+    collection do
+      get 'my_task'
+      get 'my_order'
+    end
+
+    member do
+      patch 'validate'
+      get 'reject'
+      get 'confirm'
+    end
+
   end
 
   resources :templates, only: [:index, :destroy, :create]
@@ -57,7 +66,7 @@ Rails.application.routes.draw do
     end
 
     resources :pages
-    
+
     authenticate :admin do
       mount Sidekiq::Web => '/sidekiq'
     end

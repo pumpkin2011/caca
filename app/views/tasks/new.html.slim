@@ -10,14 +10,15 @@
   .fields
     .field.four.wide
       = f.label :shop_id
-      - if @task.user_id == current_user.id || @task.new_record?
+      - if @task.new_record?
         = f.select :shop_id,
             options_from_collection_for_select(@shops, :id, :account, @task.shop_id),
             {include_blank: true},{class: 'ui dropdown'}
-      -else
-        = @task.shop.account
+      - else
+        = text_field_tag(:shop_id, @task.shop.account)
 
-  - if @task.new_record? || @task.user_id == current_user.id
+
+  - if @task.new_record? || @task.producer == current_user
     .field
       = f.label :link
       = f.text_field :link

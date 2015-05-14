@@ -1,22 +1,24 @@
-h2 任务大厅
-
+h1 我接到的任务
 table.ui.table
   thead
     tr
       th 任务ID
-      th 发布时间
       th 发布人
       th 价格
       th 佣金
       th 特殊需求
-      th 操作
+      th 状态
+      th
 
   tbody
   - @tasks.each do |task|
       tr
         td = task.id
-        td = task.created_at.to_minute
-        td = task.shop.user.name
+        td
+          = task.producer.name
+          = link_to "tencent://Message/?Uin=#{task.producer.qq}" do
+            = image_tag "http://wpa.qq.com/pa?p=1:#{task.producer.qq}:41"
+
         td = number_to_currency(task.price)
         td = number_to_currency(task.commission_for_consumer)
         td
@@ -29,4 +31,10 @@ table.ui.table
             <br />
             span.ui.label.tiny = task.spec
         td
-          = link_to '接单', edit_task_path(task), class: 'ui button green'
+           span.ui.label.green
+            =task.aasm.human_state
+        td
+
+          - case task.state
+            - when 'confirmed'
+              = link_to '详情', task_path(task), class: 'ui button tiny positive'

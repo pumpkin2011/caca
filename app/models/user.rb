@@ -51,8 +51,8 @@ class User < ActiveRecord::Base
   has_one :deliver, foreign_key: 'owner_id'
   has_many :wangwangs
   has_many :shops
-  has_many :tasks
-  has_many :orders
+  has_many :tasks, foreign_key: 'producer_id'
+  has_many :orders, class_name: 'Task', foreign_key: 'consumer_id'
   has_many :templates, class_name: 'TaskTemplate'
   # 基本身份验证
   has_one :identity, dependent: :destroy
