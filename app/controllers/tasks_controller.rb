@@ -39,6 +39,7 @@ class TasksController < ApplicationController
 
 
   def create
+    @templates = current_user.templates
     @task = current_user.tasks.build(task_param)
     if @task.save
       flash[:success] = "任务发布成功"
