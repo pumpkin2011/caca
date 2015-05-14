@@ -17,13 +17,6 @@
       -else
         = @task.shop.account
 
-    - if @task.new_record?
-      .field.four.wide
-        = label_tag :template_id, '模版名称'
-        = select_tag :template_id,
-            options_from_collection_for_select(@templates, :id, :name, @template_id),
-            include_blank: true, class: 'ui dropdown'
-
   - if @task.new_record? || @task.user_id == current_user.id
     .field
       = f.label :link
@@ -122,11 +115,11 @@
   - if @task.new_record?
     .fileds
 
-        = f.submit '确定', class: 'ui button green'
-        .ui.input.action.left.labeled
-          .ui.label 模版名称
-          = text_field_tag(:name)
-          button class="ui button positive" id="template" 保存为模版
+      = f.submit '确定', class: 'ui button green'
+      .ui.input.action.left.labeled
+        .ui.label 模版名称
+        = text_field_tag(:name)
+        button class="ui button positive" id="template" 保存为模版
 
 - if @task.new_record?
   - content_for(:js) do
@@ -135,16 +128,12 @@
         new QiniuUploader({button: 'cover'})
         $('.card .image').dimmer({on: 'hover'});
 
-        // 天假模版
+        // 添加模版
         $('#template').click(function(){
           $('#new_task').ajaxSubmit({
             url: '/templates',
             type: 'post',
           });
           return false;
-        })
-        // 模版切换
-        $('#template_id').change(function(){
-            location.href='/tasks/new?template_id='+$(this).val();
         })
       })

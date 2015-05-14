@@ -39,6 +39,8 @@
 class Task < ActiveRecord::Base
   extend Enumerize
 
+  default_scope { order 'updated_at DESC'}
+
   include AASM
   belongs_to :user
   belongs_to :shop
