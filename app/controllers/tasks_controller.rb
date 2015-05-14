@@ -104,7 +104,7 @@ class TasksController < ApplicationController
     if @task.save
       @task.reject!
       flash[:success] = '审核操作成功: 拒绝'
-      redirect_to '/tasks/my_task'
+      redirect_to my_task_tasks_path
     end
   end
 
@@ -112,14 +112,14 @@ class TasksController < ApplicationController
     @task = current_user.tasks.find(params[:id])
     if @task.confirm!
       flash[:success] = '审核操作成功: 通过'
-      redirect_to '/tasks/my_task'
+      redirect_to my_task_tasks_path
     end
   end
 
   def destroy
     current_user.tasks.find(params[:id]).destroy
     flash[:success] = '任务取消成功'
-    redirect_to my_task_path
+    redirect_to my_task_tasks_path
   end
 
 
