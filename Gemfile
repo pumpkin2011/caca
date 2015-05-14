@@ -39,6 +39,9 @@ gem "jquery-fileupload-rails"
 gem 'summernote-rails'
 gem 'font-awesome-rails'
 gem 'bootstrap-sass'
+gem 'whenever'
+gem 'sidekiq'
+gem 'sinatra', :require => nil
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

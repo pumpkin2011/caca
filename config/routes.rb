@@ -1,8 +1,6 @@
+
 Rails.application.routes.draw do
-
-
-  get 'pages/index'
-
+  require 'sidekiq/web'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -59,6 +57,10 @@ Rails.application.routes.draw do
     end
 
     resources :pages
+    
+    authenticate :admin do
+      mount Sidekiq::Web => '/sidekiq'
+    end
   end
 
   devise_for :users, path: ''

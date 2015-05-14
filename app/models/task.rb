@@ -87,10 +87,22 @@ class Task < ActiveRecord::Base
     event :confirm do
       transitions from: :talking, to: :confirmed
     end
+
     event :apply  do
+      after do
+          self.order.apply!
+      end
      transitions from: :confirmed, to: :applying
     end
+
     event :finish  do
+      after do
+        self.order.user.with_lock do
+          self.order.finish!
+          self.order.user.increment(:amount, self.commission_for_user)
+          self.order.user.save
+        end
+      end
      transitions from: :applying, to: :finished
     end
 
@@ -106,15 +118,24 @@ class Task < ActiveRecord::Base
   validate :commission_within_limit, on: :create
 
   after_create do |task|
-    task.user.decrement(:amount, task.commission)
-    task.user.save
+    task.user.with_lock do
+      task.user.decrement(:amount, task.commission)
+      task.user.save
+    end
   end
 
   before_destroy do |task|
-    task.user.increment(:amount, task.commission)
-    task.user.save
+    task.user.with_lock do
+      task.user.increment(:amount, task.commission)
+      task.user.save
+    end
   end
 
+  def self.finish_task
+    applying.each do |task|
+      TaskWorker.perform_async(task.id)
+    end
+  end
   private
     def commission_within_limit
       # 基础价格

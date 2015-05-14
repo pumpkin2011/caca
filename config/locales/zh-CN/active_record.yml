@@ -94,13 +94,14 @@ zh-CN:
           talking: '等待审核'
           confirmed: 已通过
           rejected: 未通过
-          applying: 已完成
+          applying: 宝贝已验证
       order:
         <<: *common
         wangwang_id: 旺旺
         state:
           talking: '等待审核'
           confirmed: 已通过
+          applying: 宝贝已验证
       bank:
         <<: *common
         front: 银行卡正面

@@ -32,11 +32,22 @@ class Order < ActiveRecord::Base
   aasm column: :state do
     state :talking, initial: true
     state :confirmed
+    state :applying
+    state :finished
+
     event :confirm do
       after do
         self.task.confirm!
       end
       transitions from: :talking, to: :confirmed
+    end
+
+    event :apply  do
+     transitions from: :confirmed, to: :applying
+    end
+
+    event :finish do
+      transitions from: :applying, to: :finished
     end
   end
 
