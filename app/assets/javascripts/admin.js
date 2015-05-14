@@ -14,9 +14,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require semantic-ui
-//= require summernote
-//= require summernote/locales/zh-CN
-//= require bootstrap
+
+
 
 $(function(){
   $('.ui.dropdown').dropdown();

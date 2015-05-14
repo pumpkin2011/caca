@@ -20,6 +20,8 @@
   = f.submit '确定', class: 'ui button positive'
 
 - content_for :js do
+
+  = javascript_include_tag 'edit', 'data-turbolinks-track' => true
   javascript:
     $(function(){
       $('.summernote').summernote({
