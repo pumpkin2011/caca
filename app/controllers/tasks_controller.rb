@@ -61,7 +61,7 @@ class TasksController < ApplicationController
     @task.ip = request.remote_ip
     if @task.update(task_consumer_param)
       @task.talk!
-      redirecht_to my_order_task_path
+      redirecht_to my_order_tasks_path
     else
       render :edit
     end
