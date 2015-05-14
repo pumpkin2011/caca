@@ -44,6 +44,9 @@ set :rbenv_roles, :all # default value
 # Foreman
 set :foreman_env, '.env'
 
+# whenever
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+
 namespace :deploy do
 
   after :restart, :clear_cache do
