@@ -1,6 +1,16 @@
 class Admin::UsersController < ApplicationController
   def index
-    @users = User.all
+    @count = User.all.count
+    @uploading_count = User.uploading.count
+    @pending_count = User.pending.count
+    @checked_count = User.checked.count
+    @officialed_count = User.officialed.count
+
+    if %w(uploading pending checked officialed_).include?( params[:type] )
+      @users = User.send(params[:type].to_sym)
+    else
+      @users = User.all
+    end
   end
 
   def show

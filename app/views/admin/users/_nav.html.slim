@@ -1,0 +1,15 @@
+.ui.menu.item.five
+  = link_to "全部( #{@count} )",
+	        admin_users_path, class: 'item'
+
+  = link_to "等待更新资料( #{@uploading_count} )",
+            admin_users_path(type: 'uploading'), class: 'item'
+
+  = link_to "等待审核( #{@pending_count} )",
+            admin_users_path(type: 'pending'), class: 'item'
+
+  = link_to "认证用户( #{@checked_count} )",
+            admin_users_path(type: 'checked'), class: 'item'
+
+  = link_to "歪淘认证( #{@officialed_count} )",
+            admin_users_path(type: 'officialed'), class: 'item'
