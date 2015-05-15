@@ -33,8 +33,14 @@ class Deposit < ActiveRecord::Base
   validates :sn, uniqueness: true, length: { is: 32 }, allow_blank: true
   validates :amount, inclusion: { in: [10, 50, 100, 500]}, allow_blank: true
 
-  before_update do |deposit|
+  after_update do |deposit|
     deposit.user.increment!(:amount, deposit.amount)
+    Bill.create(
+      user: deposit.user,
+      log: "淘宝充值: #{deposit.sn}",
+      amount: deposit.amount,
+      state: 'deposit',
+    )
   end
 
   aasm column: :state do
