@@ -24,6 +24,7 @@ class Wangwang < ActiveRecord::Base
   validates :account, length: { in: 3..20 },
             uniqueness: {scope: :user_id, case_sensitive: false}, allow_blank: true
 
+  default_scope { order 'updated_at DESC'}
   aasm column: :state do
     state :pending, initial: true
     state :confirmed
