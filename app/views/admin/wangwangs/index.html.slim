@@ -34,8 +34,3 @@ table.ui.table
 
 
 = paginate @wangwangs
-
-- content_for :js do
-  coffee:
-    $("a[data-remote]").on "ajax:success", (e, data, status, xhr) ->
-      alert('xx');
