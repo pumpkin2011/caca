@@ -22,7 +22,7 @@ class Bill < ActiveRecord::Base
 
   enumerize :state, in:[
     :deposit,
-    :pulish_task,
+    :publish_task,
     :cancel_task,
     :finish_task,
     :extract

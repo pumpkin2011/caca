@@ -111,6 +111,13 @@ class Task < ActiveRecord::Base
           self.consumer.increment(:amount, self.commission_for_consumer)
           self.consumer.save
         end
+
+        Bill.create(
+          user: self.consumer,
+          log: "完成任务: #{self.id}",
+          amount: self.commission_for_consumer,
+          state: 'finish_task',
+        )
       end
      transitions from: :applying, to: :finished
     end
@@ -128,6 +135,12 @@ class Task < ActiveRecord::Base
 
   # 发布任务扣除佣金
   after_create do |task|
+    Bill.create(
+      user: task.producer,
+      log: "发布任务: #{task.id}",
+      amount: -task.commission,
+      state: 'publish_task',
+    )
     task.producer.with_lock do
       task.producer.decrement(:amount, task.commission)
       task.producer.save
@@ -136,6 +149,12 @@ class Task < ActiveRecord::Base
 
   # 取消任务返还资金
   before_destroy do |task|
+    Bill.create(
+      user: task.producer,
+      log: "取消任务: #{task.id}",
+      amount: task.commission,
+      state: 'cancel_task',
+    )
     task.producer.with_lock do
       task.producer.increment(:amount, task.commission)
       task.producer.save
