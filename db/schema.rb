@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514064625) do
+ActiveRecord::Schema.define(version: 20150515170018) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -62,10 +62,12 @@ ActiveRecord::Schema.define(version: 20150514064625) do
     t.decimal  "amount",                precision: 10, scale: 2
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
+    t.string   "state",      limit: 10
   end
 
   add_index "deposits", ["admin_id"], name: "index_deposits_on_admin_id", using: :btree
   add_index "deposits", ["sn"], name: "index_deposits_on_sn", unique: true, using: :btree
+  add_index "deposits", ["state"], name: "index_deposits_on_state", using: :btree
   add_index "deposits", ["user_id"], name: "index_deposits_on_user_id", using: :btree
 
   create_table "identities", force: :cascade do |t|

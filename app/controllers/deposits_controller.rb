@@ -22,6 +22,7 @@ class DepositsController < ApplicationController
 
     @depost = Deposit.pending.find_by!(deposit_param)
     if @depost.update(user: current_user)
+      @depost.apply!
       flash[:success] = "充值成功"
     else
       flash[:error] = "充值失败"

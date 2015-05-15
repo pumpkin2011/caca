@@ -4,13 +4,15 @@ h2 帐号充值
 
 
 h2 充值记录
+= render 'admin/deposits/nav'
 table.ui.table
     thead
       tr
         th #
         th 流水号
         th 金额
-        th 用户
+        - unless params[:type] == 'pending'
+          th 用户
         th 办理人员
         th 添加时间
     tbody
@@ -19,6 +21,12 @@ table.ui.table
           td = deposit.id
           td = deposit.sn
           td = number_to_currency deposit.amount
-          td = deposit.user ? deposit.user.name : '' 
+          - unless params[:type] == 'pending'
+            td
+              - if deposit.user
+               = link_to deposit.user.name, admin_user_path(deposit.user), target: '_blank'
+
           td = deposit.admin.email
           td = deposit.created_at
+
+= paginate @deposits    

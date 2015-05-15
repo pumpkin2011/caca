@@ -9,17 +9,22 @@
 #  amount     :decimal(10, 2)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  state      :string(10)
 #
 # Indexes
 #
 #  index_deposits_on_admin_id  (admin_id)
 #  index_deposits_on_sn        (sn) UNIQUE
+#  index_deposits_on_state     (state)
 #  index_deposits_on_user_id   (user_id)
 #
 
 class Deposit < ActiveRecord::Base
+
+  include AASM
   belongs_to :user
   belongs_to :admin
+
 
   default_scope { order 'created_at DESC'}
   scope :pending, ->{ where(user: nil)}
@@ -30,5 +35,14 @@ class Deposit < ActiveRecord::Base
 
   before_update do |deposit|
     deposit.user.increment!(:amount, deposit.amount)
+  end
+
+  aasm column: :state do
+    state :pending, initial: true
+    state :applying
+
+    event :apply do
+      transitions from: :pending, to: :applying
+    end
   end
 end
