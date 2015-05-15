@@ -1,5 +1,5 @@
 = render 'admin/wangwangs/nav'
-h2 = params[:type]
+
 table.ui.table
   thead
     tr
@@ -7,7 +7,12 @@ table.ui.table
       th 旺旺名
       th 所属用户
       th 创建时间
-      th
+      - if params[:type].blank?
+        th 状态
+      - elsif params[:type] == 'pending'
+        th 操作
+      - else
+        th 审核时间
 
   tbody
     - @wangwangs.each do |wangwang|
@@ -17,9 +22,20 @@ table.ui.table
         td = wangwang.user.name
         td = wangwang.created_at
         td
-          - case params[:type]
-            - when 'pending'
-              .ui.buttons
-                = link_to '同意', confirm_admin_wangwang_path(wangwang), class: 'ui button positive'
-                .or
-                = link_to '拒绝', reject_admin_wangwang_path(wangwang), class: 'ui button negative'
+          - if params[:type].blank?
+            = wangwang.aasm.human_state
+          - elsif params[:type] == 'pending'
+            .ui.buttons
+              = link_to '同意', confirm_admin_wangwang_path(wangwang), class: 'ui button positive'
+              .or
+              = link_to '拒绝', reject_admin_wangwang_path(wangwang), class: 'ui button negative'
+          - else
+            = wangwang.updated_at
+
+
+= paginate @wangwangs
+
+- content_for :js do
+  coffee:
+    $("a[data-remote]").on "ajax:success", (e, data, status, xhr) ->
+      alert('xx');
