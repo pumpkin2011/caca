@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :consumer, only: [:edit, :update]
 
   def index
-    @tasks = Task.pending
+    @tasks = Task.pending.includes(:shop)
   end
 
   def new
@@ -62,7 +62,6 @@ class TasksController < ApplicationController
     if @task.update(task_consumer_param)
       @task.talk!
       redirect_to my_order_tasks_path
-
     else
       render :edit
     end

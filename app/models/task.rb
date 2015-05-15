@@ -148,8 +148,23 @@ class Task < ActiveRecord::Base
       TaskWorker.perform_async(task.id)
     end
   end
+  validate :ip_count_within_limit, :shop_wangwang_within_limit,
+            on: :update, if: Proc.new{|task| task.state == 'pending'}
 
   private
+
+    def ip_count_within_limit
+      count = Task.where(consumer: self.consumer).where(ip: self.ip).where('created_at > ?', 1.days.ago).size
+      errors.add(:base, "同一个IP地址24小时内最多接3个任务，请重启路由或更换IP地址") if count >=3
+    end
+
+    def shop_wangwang_within_limit
+      count = Task.where(wangwang: self.wangwang)
+                   .where(shop: self.shop)
+                   .where('created_at >= ?', 30.days.ago).size
+
+      errors.add(:base, "您所选择的旺旺在30天已经接手过该店铺的任务，请使用其他旺旺!") if count >=1
+    end
     # 计算佣金总额
     def commission_within_limit
       # 基础价格
