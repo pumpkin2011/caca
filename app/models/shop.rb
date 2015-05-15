@@ -24,7 +24,7 @@ class Shop < ActiveRecord::Base
   validates :account, length: { minimum: 3, maximum: 25},
           uniqueness: true, allow_blank: true
 
-  default_scope { order 'created DESC'}
+  default_scope { order 'created_at DESC'}
 
   aasm column: :state do
     state :pending, initial: true
