@@ -26,3 +26,4 @@ table.ui.table
         td = user.orders.count
         td = user.aasm.human_state
         td = link_to '详情', admin_user_path(user)
+= paginate @users
