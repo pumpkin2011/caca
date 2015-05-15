@@ -1,5 +1,5 @@
 = render 'admin/delivers/nav'
-h2 = params[:type]
+
 table.ui.table
   thead
     tr
@@ -17,9 +17,10 @@ table.ui.table
     - @delivers.each do |deliver|
       tr
         td = deliver.id
-        td = deliver.user.name
+        td
+          = link_to deliver.user.name, admin_user_path(deliver.user), target: '_blank'
         - if params[:type] == 'applying'
-          td = deliver.owner.name
+          td = link_to deliver.owner.name, admin_user_path(deliver.owner), target: '_blank'
         td = deliver.name
         td = deliver.phone
         td = full_address(deliver)
@@ -29,3 +30,5 @@ table.ui.table
               = link_to '同意', confirm_admin_deliver_path(deliver), class: 'ui button positive'
               .or
               = link_to '拒绝', reject_admin_deliver_path(deliver), class: 'ui button negative'
+
+= paginate @delivers
