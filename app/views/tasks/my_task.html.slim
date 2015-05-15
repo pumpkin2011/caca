@@ -73,7 +73,7 @@ table.ui.table
                 = link_to '同意', confirm_task_path(task), class: 'ui button positive'
                 .or
                 = link_to '拒绝', reject_task_path(task), class: 'ui button negative'
-.ui.modal
+.ui.modal.profile
   i.close.icon
   .header 接单人信息
   .content 加载中...
@@ -93,6 +93,6 @@ table.ui.table
           content += "<p>地址: "+data.deliver_address+"</p>"
           $('.ui.modal .content').html(content);
         });
-        $('.ui.modal').modal('show');
+        $('.ui.modal.profile').modal('show');
       })
     })
