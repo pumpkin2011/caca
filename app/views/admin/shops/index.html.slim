@@ -1,5 +1,5 @@
 = render 'admin/shops/nav'
-h2 = params[:type]
+
 table.ui.table
   thead
     tr
@@ -7,7 +7,12 @@ table.ui.table
       th 掌柜名
       th 所属用户
       th 添加时间
-      th
+      - if params[:type].blank?
+        th 状态
+      - elsif params[:type] == 'pending'
+        th 操作
+      - else
+        th 审核时间
 
   tbody
     - @shops.each do |shop|
@@ -18,9 +23,14 @@ table.ui.table
         td = shop.created_at
 
         td
-          - case params[:type]
-            - when 'pending'
-              .ui.buttons
-                = link_to '同意', confirm_admin_shop_path(shop), class: 'ui button positive'
-                .or
-                = link_to '拒绝', reject_admin_shop_path(shop), class: 'ui button negative'
+
+          - if params[:type].blank?
+            = shop.aasm.human_state
+          - elsif params[:type] == 'pending'
+            .ui.buttons
+              = link_to '同意', confirm_admin_shop_path(shop), class: 'ui button positive'
+              .or
+              = link_to '拒绝', reject_admin_shop_path(shop), class: 'ui button negative'
+          - else
+            = shop.updated_at
+= paginate @shops
