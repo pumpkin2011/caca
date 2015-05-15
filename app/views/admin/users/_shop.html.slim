@@ -5,6 +5,9 @@
       tr
         th #
         th 名称
+        th 1天内发单数量
+        th 7天内发单数量
+        th 30天内发单数量
         th 添加时间
         th 状态
 
@@ -13,5 +16,8 @@
         tr
           td = shop.id
           td = shop.account
+          td = shop.day_count
+          td = shop.week_count
+          td = shop.month_count
           td = shop.created_at
           td = shop.aasm.human_state

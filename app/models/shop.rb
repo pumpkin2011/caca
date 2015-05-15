@@ -18,6 +18,7 @@
 class Shop < ActiveRecord::Base
   include AASM
   belongs_to :user
+  has_many :tasks
 
   validates_presence_of :account
   validates :account, length: { minimum: 3, maximum: 25},
@@ -35,6 +36,18 @@ class Shop < ActiveRecord::Base
     event :confirm do
       transitions from: :pending, to: :confirmed
     end
+  end
+
+  def day_count
+    self.tasks.where('created_at > ?', 1.days.ago).count
+  end
+
+  def week_count
+    self.tasks.where('created_at > ?', 7.days.ago).count
+  end
+
+  def month_count
+    self.tasks.where('created_at > ?', 30.days.ago).count
   end
 
   validate :shops_count_within_limit, on: :create
