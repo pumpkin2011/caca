@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :identity
   accepts_nested_attributes_for :bank
 
-  default_scope { order 'updated_at DESC'}
+  default_scope { order 'created DESC'}
 
   # 用户状态
   aasm column: :state do
