@@ -9,7 +9,7 @@ class Admin::DeliversController < ApplicationController
     if %w(pending confirmed rejected applying).include?( params[:type] )
       @delivers = Deliver.page(params[:page]).send(params[:type].to_sym)
     else
-      @delivers = Deliver.page(params[:page]).per(2)
+      @delivers = Deliver.page(params[:page])
     end
 
   end

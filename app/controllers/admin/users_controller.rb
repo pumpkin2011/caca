@@ -6,7 +6,7 @@ class Admin::UsersController < ApplicationController
     @checked_count = User.checked.count
     @officialed_count = User.officialed.count
 
-    if %w(uploading pending checked officialed_).include?( params[:type] )
+    if %w(uploading pending checked officialed).include?( params[:type] )
       @users = User.page(params[:page]).send(params[:type].to_sym)
     else
       @users = User.page(params[:page])
