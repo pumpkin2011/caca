@@ -20,6 +20,9 @@ class Bill < ActiveRecord::Base
   extend Enumerize
   belongs_to :user
 
+
+
+  default_scope { order 'created_at DESC'}
   enumerize :state, in:[
     :deposit,
     :publish_task,

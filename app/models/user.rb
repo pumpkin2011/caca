@@ -54,6 +54,7 @@ class User < ActiveRecord::Base
   has_many :tasks, foreign_key: 'producer_id'
   has_many :orders, class_name: 'Task', foreign_key: 'consumer_id'
   has_many :templates, class_name: 'TaskTemplate'
+  has_many :bills
   # 基本身份验证
   has_one :identity, dependent: :destroy
   has_one :bank, dependent: :destroy

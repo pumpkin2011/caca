@@ -1,0 +1,18 @@
+h2 交易明细
+table.ui.table
+  thead
+    tr
+      th #
+      th 描述
+      th 金额
+      th 时间
+
+
+  tbody
+    - @bills.each do |bill|
+      tr
+        td = bill.id
+        td = bill.log
+        td = number_to_currency bill.amount
+        td = bill.created_at
+= paginate @bills   

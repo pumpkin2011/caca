@@ -1,5 +1,6 @@
 
 Rails.application.routes.draw do
+
   require 'sidekiq/web'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -40,6 +41,7 @@ Rails.application.routes.draw do
 
   resource :authenticates, only:[:edit, :update]
   resources :pages, only: [:index, :show]
+  resource :bill, only: [:show]
 
   namespace :admin do
     root 'welcome#index'
