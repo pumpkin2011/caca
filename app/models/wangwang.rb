@@ -18,7 +18,7 @@
 class Wangwang < ActiveRecord::Base
   include AASM
   belongs_to :user
-  has_many :orders
+  has_many :tasks
 
   validates_presence_of :account
   validates :account, length: { in: 3..20 },
@@ -47,15 +47,15 @@ class Wangwang < ActiveRecord::Base
   end
 
   def day_count
-    self.orders.where('created_at > ?', 1.days.ago).count
+    self.tasks.where('created_at > ?', 1.days.ago).count
   end
 
   def week_count
-    self.orders.where('created_at > ?', 7.days.ago).count
+    self.tasks.where('created_at > ?', 7.days.ago).count
   end
 
   def month_count
-    self.orders.where('created_at > ?', 30.days.ago).count
+    self.tasks.where('created_at > ?', 30.days.ago).count
   end
 
   validate :wangwangs_count_within_limit, on: :create
