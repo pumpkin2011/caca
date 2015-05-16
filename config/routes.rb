@@ -48,6 +48,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'welcome#index'
+    get '/profile/:id' => 'users#profile'
     resources :deposits, only: [:index, :create]
     resources :delivers, only: [:index] do
       get 'reject', on: :member
@@ -71,6 +72,7 @@ Rails.application.routes.draw do
     end
 
     resources :pages
+    resources :extracts
 
     authenticate :admin do
       mount Sidekiq::Web => '/sidekiq'

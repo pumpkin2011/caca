@@ -32,7 +32,9 @@
       p = "冻结金额: #{number_to_currency @user.frozen_amount}"
       p = "注册时间: #{@user.created_at}"
       - if @user.confirmed_at
-      p = "激活时间: #{@user.confirmed_at}"
+        p = "激活时间: #{@user.confirmed_at}"
+
+
 
 
     .column
@@ -43,6 +45,8 @@
         p = "收款人: #{@user.bank.name }"
         p = "开户行: #{@user.bank.deposit }"
         p = "收款账号: #{@user.bank.account }"
+      - unless @user.alipay.blank?
+        p = "支付宝: #{@user.alipay.account}"
 
 
 

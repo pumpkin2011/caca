@@ -1,0 +1,61 @@
+
+.ui.modal.standard.user
+  i.close.icon
+  .header 付款信息
+  .content 加载中...
+  .actions
+    .ui.button.positive 关闭
+
+= render 'admin/extracts/nav'
+table.ui.table
+  thead
+    tr
+      th #
+      th 用户
+      th 金额
+      - if params[:type] == 'finished'
+        th 付款渠道
+        th 付款时间
+      th 申请时间
+      th 操作
+
+
+  tbody
+    - @extracts.each do |extract|
+      tr
+        td = extract.id
+        td = link_to extract.user.name, '###', 'data-id': extract.user.id, class: 'profile'
+        td = number_to_currency extract.amount
+        - if params[:type] == 'finished'
+          td = extract.channel_text
+          td = extract.updated_at
+        td = extract.created_at
+
+        td
+          = link_to '银行付款', admin_extract_path(extract, type: 'bank'),
+                    method: 'patch', class: 'ui button positive', data:{confirm: '确定已完银行付款'}
+          = link_to '支付宝付款', admin_extract_path(extract, type: 'alipay'),
+                    method: 'patch',class: 'ui button positive',data:{confirm: '确定已完支付宝付款'}
+
+= paginate @extracts
+
+
+
+- content_for(:js) do
+  javascript:
+    $(function(){
+      $('a.profile').click(function(){
+        $.get('/admin/users/'+$(this).data('id')+'.json', function(data){
+          content = "<h3>银行卡信息</h3>"
+          content += "<p>收款人: " + data.bank.name +'</p>'
+          content += "<p>开户行: " + data.bank.deposit +'</p>'
+          content += "<p>收款账号: " + data.bank.account +'</p>'
+          content += "<h3>支付宝信息</h3>"
+          content += "<p>姓名: " + data.alipay.name + '</p>'
+          content += "<p>账号: " + data.alipay.account + '</p>'
+          $('.ui.modal.standard.user .content').html(content);
+        });
+        $('.ui.modal.standard.user').modal('show');
+      })
+      return false;
+    })

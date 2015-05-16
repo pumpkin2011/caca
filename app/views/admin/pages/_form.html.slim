@@ -19,6 +19,8 @@
 
   = f.submit '确定', class: 'ui button positive'
 
+- content_for :css do
+      = stylesheet_link_tag 'edit', media: 'all', 'data-turbolinks-track' => true
 - content_for :js do
 
   = javascript_include_tag 'edit', 'data-turbolinks-track' => true

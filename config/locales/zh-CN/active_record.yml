@@ -25,6 +25,9 @@ zh-CN:
       task_type:
         pc: "电脑单"
         phone: "手机单"
+      channel:
+        bank: '银行'
+        alipay: '支付宝'
   activerecord:
     models:
       user: 用户

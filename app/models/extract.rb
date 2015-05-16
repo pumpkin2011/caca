@@ -34,10 +34,10 @@ class Extract < ActiveRecord::Base
 
   default_scope { order 'created_at DESC'}
 
-  # enumerize :state, in:[
-  #   :bank,
-  #   :alipay
-  # ]
+  enumerize :channel, in:[
+    :bank,
+    :alipay
+  ]
   after_create{|extract|
     extract.user.decrement!(:amount, extract.amount)
     Bill.create(
