@@ -12,3 +12,6 @@ $('#extract_amount').val('');
   $('#current_amount').text("<%= number_to_currency @extract.user.amount %>");
 
 <% end %>
+setTimeout(function(){
+  $('#new_extract button').removeClass('disabled')
+}, 3000);

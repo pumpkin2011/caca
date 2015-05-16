@@ -48,3 +48,9 @@ table.ui.table
           td = deposit.sn
           td = number_to_currency deposit.amount
           td = deposit.updated_at
+
+- content_for :js
+  javascript:
+    $('#new_extract button').click(function(){
+      $(this).addClass('disabled');
+    })
