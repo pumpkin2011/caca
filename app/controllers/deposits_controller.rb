@@ -2,6 +2,7 @@ class DepositsController < ApplicationController
   before_action :authenticate_user!
   def index
     @deposit = Deposit.new
+    @extract = Extract.new
     @deposits = current_user.deposits
   end
 

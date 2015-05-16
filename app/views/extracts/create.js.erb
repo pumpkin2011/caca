@@ -1,0 +1,14 @@
+$('.ui.message').remove();
+$('#extract_amount').val('');
+<% if @extract.errors.any? %>
+
+  $("<%= escape_javascript(
+    render partial: 'shared/error', locals: {title: '提现失败', error: @extract}
+  )%>").prependTo('.ui.grid.page.pusher .column:first');
+
+<% else %>
+
+  $("<div class='ui message success'>提现: <%= number_to_currency(@extract.amount) %> 成功。 7个工作日内到账。</div>").prependTo('.ui.grid.page.pusher .column:first');
+  $('#current_amount').text("<%= number_to_currency @extract.user.amount %>");
+
+<% end %>

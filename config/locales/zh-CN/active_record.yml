@@ -115,3 +115,5 @@ zh-CN:
         code: 编码
         content: 内容
         category_id: 分类
+      extract:
+        amount: 提现金额

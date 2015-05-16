@@ -8,14 +8,15 @@
   .ui.grid
     .column.row
       .column.four.wide
-        | 当前账户余额: #{number_to_currency current_user.amount}
+        | 当前账户余额:
+        span#current_amount #{number_to_currency current_user.amount}
       .column.two.wide
 
       .column.four.wide
-        = form_tag '#', class: 'ui form' do
+        = form_for @extract , remote: true, class: 'ui form' do |f|
           .field
             .ui.left.icon.input.action
-              = text_field_tag :frozen_amount
+              = f.text_field :amount
               i.icon.yen
               button class="ui button positive" 提现
     .column.row
