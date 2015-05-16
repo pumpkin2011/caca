@@ -28,6 +28,7 @@ class Bill < ActiveRecord::Base
     :publish_task,
     :cancel_task,
     :finish_task,
-    :extract
+    :extract,
+    :frozen
   ]
 end

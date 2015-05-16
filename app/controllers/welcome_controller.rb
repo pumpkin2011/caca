@@ -20,6 +20,12 @@ class WelcomeController < ApplicationController
       current_user.frozen_amount += amount
       if current_user.save
         flash[:success] = '冻结资金成功'
+        Bill.create(
+          user: current_user,
+          log: "冻结资金",
+          amount: -amount,
+          state: 'frozen',
+        )
       end
     end
     redirect_to deposits_path
