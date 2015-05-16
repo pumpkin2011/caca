@@ -84,14 +84,14 @@ table.ui.table
 - content_for(:js) do
   javascript:
     $(function(){
-      $('.order_user').click(function(){
+      $('a.order_user').click(function(){
         $.get('/profile/'+$(this).data('id'), function(data){
           content = "<p>姓名: "+data.name+"</p>";
           content += "<p>旺旺: "+data.wangwang+"</p>";
           content += "<h4>收获地址</h4>"
           content += "<p>收件人: "+data.deliver_name+"</p>"
           content += "<p>地址: "+data.deliver_address+"</p>"
-          $('.ui.modal .content').html(content);
+          $('.ui.modal.profile .content').html(content);
         });
         $('.ui.modal.profile').modal('show');
       })
