@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515191327) do
+ActiveRecord::Schema.define(version: 20150516093210) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 20150515191327) do
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
+
+  create_table "alipays", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "name",       limit: 255
+    t.string   "account",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "alipays", ["user_id"], name: "index_alipays_on_user_id", using: :btree
 
   create_table "banks", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -245,6 +255,7 @@ ActiveRecord::Schema.define(version: 20150515191327) do
   add_index "wangwangs", ["state"], name: "index_wangwangs_on_state", using: :btree
   add_index "wangwangs", ["user_id"], name: "index_wangwangs_on_user_id", using: :btree
 
+  add_foreign_key "alipays", "users"
   add_foreign_key "banks", "users"
   add_foreign_key "bills", "users"
   add_foreign_key "delivers", "users"

@@ -110,6 +110,9 @@ zh-CN:
         handheld: 手持身份证
         name: 姓名
         number: 身份证号码
+      alipay:
+        name:  姓名
+        account: 账号
       page:
         name: 名称
         code: 编码

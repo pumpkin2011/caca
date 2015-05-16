@@ -59,8 +59,10 @@ class User < ActiveRecord::Base
   # 基本身份验证
   has_one :identity, dependent: :destroy
   has_one :bank, dependent: :destroy
+  has_one :alipay, dependent: :destroy
   accepts_nested_attributes_for :identity
   accepts_nested_attributes_for :bank
+  accepts_nested_attributes_for :alipay
 
   default_scope { order 'created_at DESC'}
 

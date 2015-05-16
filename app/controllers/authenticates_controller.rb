@@ -8,6 +8,7 @@ class AuthenticatesController < ApplicationController
   def edit
     current_user.identity || current_user.build_identity
     current_user.bank || current_user.build_bank
+    current_user.alipay || current_user.build_alipay
   end
 
   def update
@@ -30,7 +31,8 @@ class AuthenticatesController < ApplicationController
 
       params.require(:user).permit(
           bank_attributes: [:name, :account, :deposit, :front],
-          identity_attributes: [:name, :number, :front, :back, :handheld]
+          identity_attributes: [:name, :number, :front, :back, :handheld],
+          alipay_attributes: [:name, :account]
       )
     end
 end
