@@ -15,22 +15,16 @@
           {include_blank: true},{class: 'ui dropdown'}
   .field
     = f.label :content
-    = f.text_area :content, class: 'summernote'
+    = f.text_area :content, id: 'content_edit'
 
   = f.submit '确定', class: 'ui button positive'
 
-- content_for :css do
-      = stylesheet_link_tag 'edit', media: 'all', 'data-turbolinks-track' => true
 - content_for :js do
-
-  = javascript_include_tag 'edit', 'data-turbolinks-track' => true
   javascript:
     $(function(){
-      $('.summernote').summernote({
-        lang: 'zh-CN',
-        height: 400,
-        onblur: function(e){
-          $(e.target).parent().prev().val( $(e.target).html() );
-        }
+      var editor = new Simditor({
+        textarea: $('#content_edit'),
+        toolbarFloat: true,
+        defaultImage: "#{image_path 'jenny.jpg'}"
       });
     })
