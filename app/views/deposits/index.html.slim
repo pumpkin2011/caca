@@ -12,25 +12,25 @@
         span#current_amount #{number_to_currency current_user.amount}
       .column.two.wide
 
-      .column.four.wide
-        = form_for @extract , remote: true, class: 'ui form' do |f|
+      .column.eight.wide
+        = form_for @extract , remote: true do |f|
           .field
-            .ui.left.icon.input.action
+            .ui.left.icon.input
               = f.text_field :amount
               i.icon.yen
-              button class="ui button positive" 提现
+            = f.submit '提现', class: "ui button positive"
     .column.row
       .column.four.wide
         | 已冻结资金: #{number_to_currency current_user.frozen_amount}
       .column.two.wide
         = link_to '解冻', deposits_path , class: 'ui button positive'
-      .column.four.wide
-        = form_tag '/frozen', class: 'ui form' do
+      .column.eight.wide
+        = form_tag '/frozen' do
           .field
-            .ui.left.icon.input.action
+            .ui.left.icon.input
               = text_field_tag :frozen_amount
               i.icon.yen
-              button class="ui button positive" 冻结
+            = submit_tag '冻结', class: "ui button positive"
 
 h2 帐号充值
 = render 'deposits/form'
