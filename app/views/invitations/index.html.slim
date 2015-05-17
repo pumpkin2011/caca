@@ -1,0 +1,37 @@
+h2 邀请好友
+
+
+.field
+  .ui.input.fluid.left.labeled.big
+    .ui.label.green 邀请链接
+    = text_field_tag :url, referrals_url(code: current_user.referral_token)
+
+h2 已推广的用户
+table.ui.table
+  thead
+    tr
+      th #
+      th 用户名
+      th 注册时间
+      th 是否激活
+      th 是否认证
+
+
+  tbody
+    - @invitation.each do |invitation|
+      tr
+        td = invitation.user.id
+        td = invitation.user.name
+        td = invitation.user.created_at
+        td
+          - if invitation.confirmed_at.blank?
+            .ui.label.red 未激活
+          - else
+            .ui.label.green 已激活
+        td
+          -if %w(checked officialed).include?(invitation.user.state)
+            .ui.label.green 已认证
+          -else
+            .ui.label.green 未认证
+
+= paginate @invitation

@@ -24,6 +24,7 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  state                  :string(10)
+#  referral_token         :string(255)
 #
 # Indexes
 #
@@ -56,6 +57,9 @@ class User < ActiveRecord::Base
   has_many :templates, class_name: 'TaskTemplate'
   has_many :bills
   has_many :extracts
+  has_many :invitations, foreign_key: 'target_id'
+  has_one :invitation
+
   # 基本身份验证
   has_one :identity, dependent: :destroy
   has_one :bank, dependent: :destroy
@@ -63,6 +67,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :identity
   accepts_nested_attributes_for :bank
   accepts_nested_attributes_for :alipay
+  after_create :generate_referral_token
 
   default_scope { order 'created_at DESC'}
 
@@ -88,6 +93,17 @@ class User < ActiveRecord::Base
     event :cancel_official do
       transitions from: :officialed, to: :checked
     end
+  end
+
+  # 邀请链接地址
+  def generate_referral_token
+    update_column :referral_token, Devise.friendly_token
+  end
+
+  # 激活用户
+  def confirm!
+    super
+    invitation.confirm! if invitation
   end
 
 end

@@ -24,6 +24,7 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  state                  :string(10)
+#  referral_token         :string(255)
 #
 # Indexes
 #

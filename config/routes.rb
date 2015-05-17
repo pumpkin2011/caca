@@ -44,8 +44,10 @@ Rails.application.routes.draw do
 
   resource :authenticates, only:[:edit, :update]
   resources :pages, only: [:index, :show]
-  resource :bill, only: [:show]
+  resource :bills, only: [:show]
   resource :extracts
+  resource :referrals, only: [:show]
+  resources :invitations, only: [:index]
 
   namespace :admin do
     root 'welcome#index'
@@ -80,7 +82,9 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, path: ''
+  devise_for :users, path: '',controllers: {
+    registrations: 'users/registrations'
+  }
   devise_for :admins, path: 'admin'
 
   mount ChinaCity::Engine => '/china_city'

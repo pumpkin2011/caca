@@ -41,8 +41,6 @@ html
         .column
           = image_tag('logo_big.png')
         .column
-
-
             - if user_signed_in?
               .ui.menu.fluid.five.item
                 = link_to '首页', root_path, class: 'item red'
@@ -55,7 +53,7 @@ html
                 = link_to '首页', root_path, class: 'item red'
                 = link_to '赚佣金', tasks_path, class: 'item'
                 = link_to '有销量', new_task_path, class: 'item'
-                = link_to '关于', '#', class: 'item'
+                = link_to '关于', '/pages/about', class: 'item'
 
     - if request.path == '/'
       .fullwidthbanner-container.revolution-slider
