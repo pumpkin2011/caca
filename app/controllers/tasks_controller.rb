@@ -59,8 +59,8 @@ class TasksController < ApplicationController
     @task = Task.pending.find(params[:id])
     @task.consumer = current_user
     @task.ip = request.remote_ip
+    @task.talk
     if @task.update(task_consumer_param)
-      @task.talk!
       redirect_to my_order_tasks_path
     else
       render :edit
@@ -101,8 +101,9 @@ class TasksController < ApplicationController
     @task.ip = nil
     @task.wangwang_id = nil
     @task.consumer= nil
+    @task.reject
     if @task.save
-      @task.reject!
+
       flash[:success] = '审核操作成功: 拒绝'
       redirect_to my_task_tasks_path
     end
