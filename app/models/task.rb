@@ -46,6 +46,11 @@ class Task < ActiveRecord::Base
   extend Enumerize
   include AASM
 
+
+  def to_id
+    "#{created_at.strftime('%Y%m%d%H%M%S')}#{rand(100..999)}#{self.id}#{rand(100..999)}"
+  end
+
   default_scope { order 'updated_at DESC'}
 
   # 商家
@@ -62,7 +67,7 @@ class Task < ActiveRecord::Base
   end
 
   def commission_for_consumer
-    self.commission * 0.8
+    self.commission * 0.9
   end
 
   enumerize :duration, in: [
@@ -168,7 +173,8 @@ class Task < ActiveRecord::Base
     end
   end
   validate :ip_count_within_limit, :shop_wangwang_within_limit,
-            on: :update, if: Proc.new{|task| task.state == 'pending'}
+            on: :update, if: Proc.new{|task|
+              task.state == 'pending' && task.ip && task.consumer_id && task.wangwang_id }
 
   private
 

@@ -38,7 +38,7 @@ table.ui.table
   tbody
   - @tasks.each do |task|
       tr
-        td = task.id
+        td = task.to_id
         td
           - if task.state != 'pending'
             = link_to task.consumer.name, '#', class: 'order_user', 'data-id': task.id
@@ -63,7 +63,7 @@ table.ui.table
           = link_to '详情', task_path(task), class: 'ui button tiny positive'
 
           - if task.state == 'confirmed' && Time.now - task.updated_at > 30.minutes
-            = link_to '更换刷手', reject_order_path(task.order), class: 'ui button tiny negative'
+            = link_to '更换刷手', reject_task_path(task), class: 'ui button tiny negative'
 
           - case task.state
             - when 'pending'

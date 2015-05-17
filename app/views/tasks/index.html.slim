@@ -14,7 +14,7 @@ table.ui.table
   tbody
   - @tasks.each do |task|
       tr
-        td = task.id
+        td = task.to_id
         td = task.created_at.to_minute
         td = task.shop.user.name
         td = number_to_currency(task.price)

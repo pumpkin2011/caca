@@ -13,7 +13,7 @@ table.ui.table
   tbody
   - @tasks.each do |task|
       tr
-        td = task.id
+        td = task.to_id
         td
           = task.producer.name
           = link_to "tencent://Message/?Uin=#{task.producer.qq}" do
