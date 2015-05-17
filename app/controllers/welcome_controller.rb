@@ -32,6 +32,24 @@ class WelcomeController < ApplicationController
 
   end
 
+  def unfrozen
+    if current_user.tasks.where('updated_at > ?', 7.days.ago).any?
+      flash[:error] = "您在7天之内有发布过任务暂时不能提现!"
+    elsif current_user.orders.where('updated_at > ?', 30.days.ago).any?
+      flash[:error] = "您在30天之内接手过任务暂时不能提现!"
+    else
+      current_user.amount += current_user.frozen_amount
+      current_user.frozen_amount = 0
+      if current_user.save
+        flash[:success] = "解冻资金成功。"
+      else
+        flash[:error] = "解冻资金失败，请重试!"
+      end
+    end
+    redirect_to :back
+
+  end
+
   def qiniu_token
 
     uptoken = Qiniu.generate_upload_token(scope:ENV['QINIU_BUCKET'])

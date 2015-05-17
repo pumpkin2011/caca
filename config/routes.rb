@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/profile'=> 'welcome#profile', as: :profile
   get '/profile/:id' => 'users#profile'
   post '/frozen' => 'welcome#frozen'
+  get '/unfrozen' => 'welcome#unfrozen'
   get '/qiniu_token' => 'welcome#qiniu_token'
 
 

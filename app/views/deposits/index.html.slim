@@ -18,12 +18,12 @@
             .ui.left.icon.input
               = f.text_field :amount
               i.icon.yen
-            = f.submit '提现', class: "ui button positive"
+            = f.submit '提现', disable_with:'提交中...', class: "ui button positive"
     .column.row
       .column.four.wide
         | 已冻结资金: #{number_to_currency current_user.frozen_amount}
       .column.two.wide
-        = link_to '解冻', deposits_path , class: 'ui button positive'
+        = link_to '解冻', '/unfrozen' , class: 'ui button positive'
       .column.eight.wide
         = form_tag '/frozen' do
           .field
@@ -48,9 +48,3 @@ table.ui.table
           td = deposit.sn
           td = number_to_currency deposit.amount
           td = deposit.updated_at
-
-- content_for :js
-  javascript:
-    $('#new_extract button').click(function(){
-      $(this).addClass('disabled');
-    })
