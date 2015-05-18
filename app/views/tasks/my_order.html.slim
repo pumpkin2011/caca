@@ -17,7 +17,7 @@ table.ui.table
         td
           = task.producer.name
           = link_to "tencent://Message/?Uin=#{task.producer.qq}" do
-            = image_tag "http://wpa.qq.com/pa?p=1:#{task.producer.qq}:41"
+            i.icon.qq.circular.green
 
         td = number_to_currency(task.price)
         td = number_to_currency(task.commission_for_consumer)

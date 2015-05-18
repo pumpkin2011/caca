@@ -28,6 +28,7 @@ table.ui.table
     tr
       th 任务ID
       th 接手人
+      th 旺旺
       th 价格
       th 佣金
       th 特殊需求
@@ -43,8 +44,10 @@ table.ui.table
           - if task.state != 'pending'
             = link_to task.consumer.name, '#', class: 'order_user', 'data-id': task.id
             = link_to "tencent://Message/?Uin=#{task.consumer.qq}" do
-              = image_tag "http://wpa.qq.com/pa?p=1:#{task.consumer.qq}:41"
-
+              i.icon.qq.circular.green
+        td
+          - if task.state != 'pending'
+            = task.wangwang.account
         td = number_to_currency(task.price)
         td = number_to_currency(task.commission)
         td
