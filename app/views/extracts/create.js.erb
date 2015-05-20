@@ -8,8 +8,8 @@ $('#extract_amount').val('');
 
 <% else %>
 
-  $("<div class='ui message success'>提现: <%= number_to_currency(@extract.amount) %> 成功。 7个工作日内到账。</div>").prependTo('.ui.grid.page.pusher .column:first');
-  $('#current_amount').text("<%= number_to_currency @extract.user.amount %>");
+  $("<div class='ui message success'>提现: <%= sprintf('%0.02f元',@extract.amount) %> 成功。 7个工作日内到账。</div>").prependTo('.ui.grid.page.pusher .column:first');
+  $('#current_amount').text("<%= sprintf('%0.02f元',@extract.user.amount) %>");
 
 <% end %>
 setTimeout(function(){

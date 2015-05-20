@@ -8,7 +8,7 @@ class ExtractsController < ApplicationController
         format.js {}
         format.html{
           @extracts = current_user.extracts.page(params[:page])
-          flash[:success] = "提现: #{number_to_currency(@extract.amount)} 成功。7个工作日内到账。"
+          flash[:success] = "提现: #{sprintf("%0.02f元",@extract.amount)} 成功。7个工作日内到账。"
           redirect_to :back
         }
       else

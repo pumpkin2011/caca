@@ -13,6 +13,6 @@ table.ui.table
       tr
         td = bill.id
         td = bill.log
-        td = number_to_currency bill.amount
+        td = sprintf("%0.02f元",bill.amount)
         td = bill.created_at
-= paginate @bills   
+= paginate @bills

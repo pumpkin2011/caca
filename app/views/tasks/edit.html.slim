@@ -15,8 +15,8 @@ table.ui.table
       tr
         td = @task.id
         td = @task.producer.name
-        td = number_to_currency(@task.price)
-        td = number_to_currency(@task.commission_for_consumer)
+        td = sprintf("%0.02f元",@task.price)
+        td = sprintf("%0.02f元",@task.commission_for_consumer)
         td
           span.ui.label.tiny = @task.level_text
           - if @task.task_type == 'phone'

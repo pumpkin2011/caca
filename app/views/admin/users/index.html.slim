@@ -18,7 +18,7 @@ table.ui.table
       tr
         td = user.id
         td = user.name
-        td = "#{number_to_currency user.amount}/#{number_to_currency user.frozen_amount}"
+        td = "#{sprintf("%0.02f元",user.amount)}/#{sprintf("%0.02f元",user.frozen_amount)}"
         td = user.shops.confirmed.count
         td = user.wangwangs.confirmed.count
         td = user.delivers.confirmed.count

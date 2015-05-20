@@ -17,8 +17,9 @@ table.ui.table
         td = task.to_id
         td = task.created_at.to_minute
         td = task.shop.user.name
-        td = number_to_currency(task.price)
-        td = number_to_currency(task.commission_for_consumer)
+        td = sprintf("%0.02f元",task.price)
+        td = sprintf("%0.02f元",task.commission_for_consumer)
+
         td
           span.ui.label.tiny = task.level_text
           - if task.task_type == 'phone'

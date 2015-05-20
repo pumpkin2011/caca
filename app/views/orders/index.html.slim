@@ -21,8 +21,8 @@ table.ui.table
           = link_to "tencent://Message/?Uin=#{order.task.user.qq}" do
             = image_tag "http://wpa.qq.com/pa?p=1:#{order.task.user.qq}:41"
 
-        td = number_to_currency(order.task.price)
-        td = number_to_currency(order.task.commission_for_user)
+        td = sprintf("%0.02f元",order.task.price)
+        td = sprintf("%0.02f元",order.task.commission_for_user)
         td
           span.ui.label.tiny = order.task.level_text
           - if order.task.task_type == 'phone'

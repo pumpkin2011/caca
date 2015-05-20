@@ -9,7 +9,8 @@
     .column.row
       .column.four.wide
         | 当前账户余额:
-        span#current_amount #{number_to_currency current_user.amount}
+        span#current_amount #{sprintf("%0.02f元",current_user.amount)}
+
       .column.two.wide
 
       .column.eight.wide
@@ -21,7 +22,7 @@
             = f.submit '提现', disable_with:'提交中...', class: "ui button positive"
     .column.row
       .column.four.wide
-        | 已冻结资金: #{number_to_currency current_user.frozen_amount}
+        | 已冻结资金: #{sprintf("%0.02f元", current_user.frozen_amount)}
       .column.two.wide
         = link_to '解冻', '/unfrozen' , class: 'ui button positive'
       .column.eight.wide
@@ -46,5 +47,5 @@ table.ui.table
       - @deposits.each do |deposit|
         tr
           td = deposit.sn
-          td = number_to_currency deposit.amount
+          td = sprintf("%0.02f元",deposit.amount)
           td = deposit.updated_at

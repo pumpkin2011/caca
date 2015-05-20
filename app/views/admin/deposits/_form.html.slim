@@ -13,7 +13,7 @@
         .column
           .ui.checkbox.toggle
             = f.radio_button :amount, amount
-            = f.label :amount, number_to_currency(amount)
+            = f.label :amount, sprintf("%0.02f元",amount)
   .field
     .ui.input.action.left.labeled.big
       .ui.label 流水号

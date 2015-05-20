@@ -1,9 +1,9 @@
 .ui.menu.item.three
-  = link_to "今天需要付款( #{@current_count} ) #{number_to_currency @current_total}",
+  = link_to "今天需要付款( #{@current_count} ) #{sprintf("%0.02f元", @current_total)}",
             admin_extracts_path, class: 'item'
 
-  = link_to "已付款( #{@finished_count} ) #{number_to_currency @finished_total}",
+  = link_to "已付款( #{@finished_count} ) #{sprintf("%0.02f元", @finished_total)}",
             admin_extracts_path(type: 'finished'), class: 'item'
 
-  = link_to "未来7天需要付款( #{@pending_count} ) #{number_to_currency @pending_total}",
+  = link_to "未来7天需要付款( #{@pending_count} ) #{sprintf("%0.02f元", @pending_total)}",
             admin_extracts_path(type: 'pending'), class: 'item'
