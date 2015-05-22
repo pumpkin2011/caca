@@ -28,4 +28,8 @@ table.ui.table
         td = wangwang.week_count
         td = wangwang.month_count
         td = wangwang.created_at
-        td = wangwang.aasm.human_state
+        td
+          = wangwang.aasm.human_state
+          - if wangwang.state == 'pending'
+            = link_to '删除', wangwang_path(wangwang), class: 'ui label red',
+              method: 'delete', data: {confirm: '确定删除'}

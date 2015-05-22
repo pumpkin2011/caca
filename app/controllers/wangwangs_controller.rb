@@ -16,6 +16,16 @@ class WangwangsController < ApplicationController
     end
   end
 
+  def destroy
+    @wangwang = current_user.wangwangs.pending.find(params[:id])
+    if @wangwang.destroy
+      flash[:success] = '删除成功'
+    else
+      flash[:error] = '删除失败'
+    end
+    redirect_to wangwangs_path
+  end
+
   private
     def wangwang_params
       params.require(:wangwang).permit(:account)

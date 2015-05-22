@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :delivers do
     get 'apply', on: :collection
   end
-  resources :wangwangs, only: [:index, :create]
+  resources :wangwangs, only: [:index, :create, :destroy]
   resources :shops, only: [:index, :create]
   resources :tasks do
     collection do
