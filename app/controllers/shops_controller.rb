@@ -16,6 +16,16 @@ class ShopsController < ApplicationController
     end
   end
 
+  def destroy
+    @shop = current_user.shops.pending.find(params[:id])
+    if @shop.destroy
+      flash[:success] = '删除成功'
+    else
+      flash[:error] = '删除失败'
+    end
+    redirect_to shops_path
+  end
+
   private
     def shop_params
       params.require(:shop).permit(:account)

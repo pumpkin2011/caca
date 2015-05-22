@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     get 'apply', on: :collection
   end
   resources :wangwangs, only: [:index, :create, :destroy]
-  resources :shops, only: [:index, :create]
+  resources :shops, only: [:index, :create, :destroy]
   resources :tasks do
     collection do
       get 'my_task'

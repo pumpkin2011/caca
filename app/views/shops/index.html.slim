@@ -23,4 +23,8 @@ table.ui.table
         td = shop.id
         td = shop.account
         td = shop.created_at
-        td = shop.aasm.human_state
+        td
+          = shop.aasm.human_state
+          - if shop.state == 'pending'
+            = link_to '删除', shop_path(shop), class: 'ui label red',
+              method: 'delete', data: {confirm: '确定删除'}
