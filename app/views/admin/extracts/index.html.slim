@@ -13,11 +13,12 @@ table.ui.table
       th #
       th 用户
       th 金额
+      th 申请时间
       - if params[:type] == 'finished'
         th 付款渠道
         th 付款时间
-      th 申请时间
-      th 操作
+      - unless params[:type] == 'finished'
+        th 操作
 
 
   tbody
@@ -26,16 +27,18 @@ table.ui.table
         td = extract.id
         td = link_to extract.user.name, '###', 'data-id': extract.user.id, class: 'profile'
         td = sprintf("%0.02f元",extract.amount)
+        td = extract.created_at
         - if params[:type] == 'finished'
           td = extract.channel_text
           td = extract.updated_at
-        td = extract.created_at
 
-        td
-          = link_to '银行付款', admin_extract_path(extract, type: 'bank'),
-                    method: 'patch', class: 'ui button positive', data:{confirm: '确定已完银行付款'}
-          = link_to '支付宝付款', admin_extract_path(extract, type: 'alipay'),
-                    method: 'patch',class: 'ui button positive',data:{confirm: '确定已完支付宝付款'}
+
+        - unless params[:type] == 'finished'
+          td
+            = link_to '银行付款', admin_extract_path(extract, type: 'bank'),
+                      method: 'patch', class: 'ui button positive', data:{confirm: '确定已完银行付款'}
+            = link_to '支付宝付款', admin_extract_path(extract, type: 'alipay'),
+                      method: 'patch',class: 'ui button positive',data:{confirm: '确定已完支付宝付款'}
 
 = paginate @extracts
 
