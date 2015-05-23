@@ -1,5 +1,5 @@
 h3 照片资料
-.ui.four.column.grid
+.ui.three.column.grid
   - if @user.identity
     .column
       .ui.card.fuild
@@ -32,16 +32,4 @@ h3 照片资料
                 .ui.inverted.button#front 更换照片
           = image_tag(@user.identity.handheld_url)
         .content
-          .header 手持身份证照片
-
-  -if @user.bank
-    .column
-      .ui.card.fuild
-        .dimmable.image
-          .ui.dimmer
-            .content
-              .center
-                .ui.inverted.button#front 更换照片
-          = image_tag(@user.bank.front_url)
-        .content
-          .header 银行卡正面照片
+          .header 本人照片

@@ -35,7 +35,7 @@
           = image_tag(current_user.identity.handheld_url)
           = identity_from.hidden_field :handheld
         .content
-          .header 手持身份证照片
+          .header 本人照片
 
     .fields
       .field.four.wide
@@ -46,41 +46,33 @@
         = identity_from.label :number
         = identity_from.text_field :number
 
-
-
-  h2 银行卡
+  h2 收款信息
   .ui.divider
-  = f.fields_for :bank do |bank_form|
-    .field.cards.ui
-      .card
-        .dimmable.image
-          .ui.dimmer
-            .content
-              .center
-                .ui.inverted.button#bank 更换照片
-          = image_tag(current_user.bank.front_url)
-          = bank_form.hidden_field :front
-        .content
-          .header 银行卡正面照片
-    .field
-      = bank_form.label :name
-      = bank_form.text_field :name
-    .field
-      = bank_form.label :account
-      = bank_form.text_field :account
-    .field
-      = bank_form.label :deposit
-      = bank_form.text_field :deposit
+  .fields
+    .field.six.wide
+      .ui.segment
+        h3 银行卡
+        = f.fields_for :bank do |bank_form|
+          .field.
+            = bank_form.label :name
+            = bank_form.text_field :name
+          .field
+            = bank_form.label :account
+            = bank_form.text_field :account
+          .field
+            = bank_form.label :deposit
+            = bank_form.text_field :deposit
 
-  h2 支付宝
-  .ui.divider
-  = f.fields_for :alipay do |alipay_form|
-    .field
-      = alipay_form.label :name
-      = alipay_form.text_field :name
-    .field
-      = alipay_form.label :account
-      = alipay_form.text_field :account
+    .field.six.wide
+      .ui.segment
+        h3 支付宝
+        = f.fields_for :alipay do |alipay_form|
+          .field
+            = alipay_form.label :name
+            = alipay_form.text_field :name
+          .field
+            = alipay_form.label :account
+            = alipay_form.text_field :account
 
 
 
@@ -100,8 +92,6 @@
       button: 'back'
     new QiniuUploader
       button: 'handheld'
-    new QiniuUploader
-      button: 'bank'
 
     # 图片效果
     $('.cards .image').dimmer({on: 'hover'});
