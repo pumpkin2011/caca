@@ -26,56 +26,57 @@
 table.ui.table
   thead
     tr
-      th 任务ID
+      th 任务ID和时间
       th 接手人
-      th 旺旺
-      th 价格
-      th 佣金
+      th 价格和佣金
       th 特殊需求
-      th 状态
-      th
+      th 操作
 
 
   tbody
   - @tasks.each do |task|
       tr
-        td = task.to_id
+        td
+          = task.to_id
+          = task_type(task)
+          p.description
+            i.icon.calendar
+            = task.created_at.to_minute
         td
           - if task.state != 'pending'
             = link_to task.consumer.name, '#', class: 'order_user', 'data-id': task.id
             = link_to "tencent://Message/?Uin=#{task.consumer.qq}" do
               i.icon.qq.circular.green
+
         td
-          - if task.state != 'pending'
-            = task.wangwang.account
-        td = number_to_currency(task.price)
-        td = number_to_currency(task.commission)
-        td
-          span.ui.label.tiny = task.level_text
-          - if task.task_type == 'phone'
-            span.ui.label.tiny 手机单
-          - unless task.extra.blank?
-            span.ui.label.tiny = "增拍#{task.extra}个"
+          p = sprintf("价格: %0.02f元",task.price)
+          p = sprintf("佣金: %0.02f元",task.commission)
+
+        td.description
+          p = task_level(task)
+          p
+            span.ui.label.tiny ="时长: #{task.duration_text}"
+            - unless task.extra.blank?
+              span.ui.label.tiny = "增拍: #{task.extra}个"
           - unless task.spec.blank?
-            <br />
-            span.ui.label.tiny = task.spec
+            p
+              span.ui.label.tiny = task.spec
         td
-          span.ui.label.green
-            = task.aasm.human_state
-        td
-          = link_to '详情', task_path(task), class: 'ui button tiny positive'
 
-          - if task.state == 'confirmed' && Time.now - task.updated_at > 30.minutes
-            = link_to '更换刷手', reject_task_path(task), class: 'ui button tiny negative'
+          - if task.state != 'pending'
+            p = task.wangwang.account
+          p
+            = link_to '详情', task_path(task), class: 'ui button mini positive'
+            - if task.state == 'confirmed' && Time.now - task.updated_at > 30.minutes
+              = link_to '更换刷手', reject_task_path(task), class: 'ui button mini negative'
+            - case task.state
+              - when 'pending'
+                = link_to '取消', task_path(task), method: 'delete', class: 'ui button mini positive'
+              - when 'talking'
+                = link_to '同意', confirm_task_path(task), class: 'ui button mini positive'
+                = link_to '拒绝', reject_task_path(task), class: 'ui button mini negative'
 
-          - case task.state
-            - when 'pending'
-              = link_to '取消', task_path(task), method: 'delete', class: 'ui button tiny positive'
-            - when 'talking'
-              .ui.buttons.tiny
-                = link_to '同意', confirm_task_path(task), class: 'ui button positive'
-                .or
-                = link_to '拒绝', reject_task_path(task), class: 'ui button negative'
+
 .ui.modal.profile
   i.close.icon
   .header 接单人信息

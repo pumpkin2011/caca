@@ -24,7 +24,7 @@ class TasksController < ApplicationController
     if @task.save
       flash[:success] = "任务发布成功"
       cookies[:task_param] = JSON.generate(task_param)
-      redirect_to my_task_tasks_path
+      redirect_to new_task_path
     else
       render :new
     end

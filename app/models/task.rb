@@ -27,9 +27,11 @@
 #  commission_extra :decimal(10, 2)
 #  task_type        :string(10)
 #  cover            :string(255)
+#  code             :string(7)
 #
 # Indexes
 #
+#  index_tasks_on_code         (code)
 #  index_tasks_on_consumer_id  (consumer_id)
 #  index_tasks_on_duration     (duration)
 #  index_tasks_on_extra        (extra)
@@ -48,7 +50,7 @@ class Task < ActiveRecord::Base
 
 
   def to_id
-    "#{created_at.strftime('%Y%m%d%H%M%S')}#{rand(100..999)}#{self.id}#{rand(100..999)}"
+    "#{created_at.strftime('%y%m%d')}#{code}"
   end
 
   default_scope { order 'updated_at DESC'}
@@ -135,6 +137,7 @@ class Task < ActiveRecord::Base
   validates :link, format: {with: /id=\d+/}, allow_blank: true
   validates :price, :commission_extra, numericality:true, allow_blank: true
   validates :extra, numericality:{ only_integer: true}, allow_blank: true
+  validates :spec, length:{ maximum: 15 }, allow_blank: true
 
   validate :commission_within_limit, on: :create
 
@@ -164,6 +167,10 @@ class Task < ActiveRecord::Base
       task.producer.increment(:amount, task.commission)
       task.producer.save
     end
+  end
+
+  before_create do |task|
+    task.code = rand(1000000..9999999)
   end
 
   # 任务完成支付佣金给刷手

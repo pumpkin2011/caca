@@ -80,3 +80,12 @@
 .ui.fluid.card.task{
   margin-top: -344px;
 }
+
+.ui.table td.p.description{
+  pointer-events: none;
+  color: rgba(40, 40, 40, 0.3);
+}
+
+.ui.table td.description p{
+  margin-bottom: 4px;
+}

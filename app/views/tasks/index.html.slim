@@ -3,31 +3,36 @@ h2 任务大厅
 table.ui.table
   thead
     tr
-      th 任务ID
-      th 发布时间
+      th 任务ID和时间
       th 发布人
-      th 价格
       th 佣金
+      th 价格
+      th 时长
       th 特殊需求
       th 操作
 
   tbody
-  - @tasks.each do |task|
-      tr
-        td = task.to_id
-        td = task.created_at.to_minute
-        td = task.shop.user.name
-        td = sprintf("%0.02f元",task.price)
-        td = sprintf("%0.02f元",task.commission_for_consumer)
+    - @tasks.each do |task|
+        tr
+          td
 
-        td
-          span.ui.label.tiny = task.level_text
-          - if task.task_type == 'phone'
-            span.ui.label.tiny 手机单
-          - unless task.extra.blank?
-            span.ui.label.tiny = "增拍#{task.extra}个"
-          - unless task.spec.blank?
-            <br />
-            span.ui.label.tiny = task.spec
-        td
-          = link_to '接单', edit_task_path(task), class: 'ui button green'
+            = task.to_id
+            = task_type(task)
+            p.description
+              i.icon.calendar
+              = task.created_at.to_minute
+          td = task.shop.user.name
+          td = sprintf("%0.02f元",task.commission_for_consumer)
+          td = sprintf("%0.02f元",task.price)
+          td = task.duration_text
+
+
+          td
+            = task_level(task)
+            p
+              - unless task.extra.blank?
+                span.ui.label.tiny = "增拍#{task.extra}个"
+              - unless task.spec.blank?
+                span.ui.label.tiny = task.spec
+          td
+            = link_to '接单', edit_task_path(task), class: 'ui button tiny green'
