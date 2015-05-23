@@ -1,0 +1,11 @@
+.ui.menu.item.five
+  = link_to "全部( #{@all_count} )",
+          my_order_tasks_path, class: 'item'
+  = link_to "等待审核( #{@talking_count} )",
+          my_order_tasks_path(type: 'talking'), class: 'item'
+  = link_to "审核通过( #{@confirmed_count} )",
+          my_order_tasks_path(type: 'confirmed'), class: 'item'
+  = link_to "宝贝已验证( #{@applying_count} )",
+          my_order_tasks_path(type: 'applying'), class: 'item'
+  = link_to "已收佣金( #{@finished_count} )",
+          my_order_tasks_path(type: 'finished'), class: 'item'

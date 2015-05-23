@@ -72,9 +72,10 @@ class TasksController < ApplicationController
     @talking_count = current_user.tasks.talking.count
     @confirmed_count = current_user.tasks.confirmed.count
     @applying_count = current_user.tasks.applying.count
+    @finished_count = current_user.tasks.finished.count
     @all_count = current_user.tasks.count
 
-    if %w(pending talking confirmed applying).include?( params[:type] )
+    if %w(pending talking confirmed applying finished).include?( params[:type] )
       @tasks = current_user.tasks.send(params[:type].to_sym)
     else
       @tasks = current_user.tasks
@@ -82,13 +83,13 @@ class TasksController < ApplicationController
   end
 
   def my_order
-    @pending_count = current_user.orders.pending.count
     @talking_count = current_user.orders.talking.count
     @confirmed_count = current_user.orders.confirmed.count
     @applying_count = current_user.orders.applying.count
+    @finished_count = current_user.orders.finished.count
     @all_count = current_user.orders.count
 
-    if %w(pending talking confirmed applying).include?( params[:type] )
+    if %w(pending talking confirmed applying finished).include?( params[:type] )
       @tasks = current_user.orders.send(params[:type].to_sym)
     else
       @tasks = current_user.orders

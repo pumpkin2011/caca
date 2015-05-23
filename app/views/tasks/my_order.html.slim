@@ -1,4 +1,17 @@
-h1 我接到的任务
+= render 'tasks/nav_order'
+
+- case params[:type]
+- when 'talking'
+  h2 等待审核的任务
+- when 'confirmed'
+  h2 审核通过的任务
+- when 'applying'
+  h2 宝贝已验证的任务
+- when 'finished'
+  h2 已收佣金的任务
+- else
+  h2 已接到的任务
+
 table.ui.table
   thead
     tr
