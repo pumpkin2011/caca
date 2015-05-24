@@ -16,8 +16,8 @@
  *= require style-revolution-slider
  */
  @import "semantic-ui";
-.ui.sidebar{ top: 35px}
 
+.ui.sidebar{ top: 35px}
 .fixed.launch.button {
   position: fixed;
   top: 63px;
@@ -88,4 +88,14 @@
 
 .ui.table td.description p{
   margin-bottom: 4px;
+}
+
+.ui.segment.login {
+  margin-top: 100px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.ui.segment.login span{
+  padding-left: 20px;
 }

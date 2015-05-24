@@ -1,32 +1,27 @@
-.ui.grid.two.column style="margin-top: 100px"
-  .column
+.ui.segment
+  .ui.grid.two.column
+    .column
+      .ui.segment.login
+        h2.ui.header.aligned.center 欢迎回来
+        = form_for(resource, as: resource_name, url: session_path(resource_name), html:{class: 'ui form'}) do |f|
+          .field
+            .ui.left.icon.input.huge
+              = f.text_field :email, placeholder: '请输入用户名/邮箱地址'
+              i.icon.user
+          .field
+            .ui.left.icon.input.huge
+              = f.password_field :password, autocomplete: "off", placeholder: '请输入密码'
+              i.icon.lock
+          p
+            = f.submit "登录", class: 'ui button positive fluid huge'
 
-    h2 用户登陆
-
-    = form_for(resource, as: resource_name, url: session_path(resource_name), html:{class: 'ui form'}) do |f|
-
-      .field.ten.wide
-        = f.label :email
-        = f.text_field :email
-
-
-      .field.ten.wide
-        = f.label :password
-        = f.password_field :password, autocomplete: "off"
+          p
+            |还没有账号?
+            span
+              = link_to "马上免费注册", new_registration_path(resource_name)
+            span
+              = link_to "忘记密码?", new_password_path(resource_name)
 
 
-      = f.submit "登陆", class: 'ui button positive'
-
-      = link_to "忘记密码?", new_password_path(resource_name), class: 'ui button'
-
-    p
-
-
-  .column
-
-    h3 注册新用户
-    p
-      = link_to "免费注册新用户", new_registration_path(resource_name), class: 'ui button positive'
-
-    p
-      = link_to "邮箱没有收到激活邮件?", new_confirmation_path(resource_name)
+    .column
+      = image_tag('login_bg.jpg')
