@@ -1,28 +1,38 @@
-.ui.grid.two.column
-  .column
-    h2 用户注册
-    = render partial: 'shared/error', locals: {title: '注册失败', error: resource}
-    = form_for(resource, as: resource_name, url: registration_path(resource_name), html:{class: 'ui form'}) do |f|
-
-      .field.eight.wide
-        = f.label :email
-        = f.text_field :email
-
-      .field.eight.wide
-        = f.label :name
-        = f.text_field :name
-
-      .field.eight.wide
-        = f.label :qq
-        = f.text_field :qq
-
-      .field.eight.wide
-        = f.label :password
-        = f.password_field :password, autocomplete: "off"
-      .field.eight.wide
-        = f.label :password_confirmation
-        = f.password_field :password_confirmation, autocomplete: "off"
-
-      = f.submit "注册", class: 'ui button positive'
-      = link_to "已有账号", new_session_path(resource_name), class: 'ui button'
+= render partial: 'shared/error', locals: {title: '注册失败', error: resource}
+.ui.segment
+  .ui.grid.two.column
     .column
+      = image_tag('reg_bg.jpg')
+    .column
+      .ui.segment.basic
+        h2.ui.header.aligned.center 欢迎加入
+
+        = form_for(resource, as: resource_name, url: registration_path(resource_name), html:{class: 'ui form'}) do |f|
+
+          .field
+            .ui.left.icon.input.huge
+              = f.text_field :email, placeholder: '请输入邮箱地址'
+              i.icon.mail
+
+          .field
+            .ui.left.icon.input.huge
+              = f.text_field :name, placeholder: '请输入用户名'
+              i.icon.user
+
+          .field
+            .ui.left.icon.input.huge
+              = f.text_field :qq, placeholder: '请输入QQ号码'
+              i.icon.qq
+
+          .field
+            .ui.left.icon.input.huge
+              = f.password_field :password, autocomplete: "off", placeholder: '请输入密码'
+              i.icon.lock
+          .field
+            .ui.left.icon.input.huge
+              = f.password_field :password_confirmation, autocomplete: "off", placeholder: '请重复输入密码'
+              i.icon.lock
+
+          = f.submit "注册", class: 'ui button positive fluid huge'
+          p
+          = link_to "已有账号", new_session_path(resource_name)

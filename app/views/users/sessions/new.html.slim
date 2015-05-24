@@ -12,8 +12,7 @@
             .ui.left.icon.input.huge
               = f.password_field :password, autocomplete: "off", placeholder: '请输入密码'
               i.icon.lock
-          p
-            = f.submit "登录", class: 'ui button positive fluid huge'
+          = f.submit "登录", class: 'ui button positive fluid huge'
 
           p
             |还没有账号?
@@ -21,7 +20,6 @@
               = link_to "马上免费注册", new_registration_path(resource_name)
             span
               = link_to "忘记密码?", new_password_path(resource_name)
-
 
     .column
       = image_tag('login_bg.jpg')
