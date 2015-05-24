@@ -9,30 +9,36 @@ table.ui.table
       th 价格
       th 佣金
       th 特殊需求
+      th 旺旺
+
 
 
   tbody
       tr
-        td = @task.id
-        td = @task.producer.name
-        td = sprintf("%0.02f元",@task.price)
-        td = sprintf("%0.02f元",@task.commission_for_consumer)
         td
-          span.ui.label.tiny = @task.level_text
-          - if @task.task_type == 'phone'
-            span.ui.label.tiny 手机单
-          - unless @task.extra.blank?
-            span.ui.label.tiny = "增拍#{@task.extra}个"
+          = @task.to_id
+          = task_type(@task)
+          p.description
+            i.icon.calendar
+            = @task.created_at.to_minute
+        td = @task.producer.name
+        td = sprintf("%0.02f元",@task.commission_for_consumer)
+        td = sprintf("%0.02f元",@task.price)
+        td.description
+          p = task_level(@task)
+          p
+            span.ui.label.tiny ="时长: #{@task.duration_text}"
+            - unless @task.extra.blank?
+              span.ui.label.tiny = "增拍: #{@task.extra}个"
           - unless @task.spec.blank?
-            <br />
-            span.ui.label.tiny = @task.spec
+            p
+              span.ui.label.tiny = @task.spec
+        td.four.wide
+          =  form_for [@task], html:{class: 'ui form'} do |f|
+            .field
+              = f.select :wangwang_id,
+                  options_from_collection_for_select(@wangwangs, :id, :account),
+                  {include_blank: true},{class: 'ui dropdown'}
 
-=  form_for [@task], html:{class: 'ui form'} do |f|
-  .field
-    = f.label :wangwang_id
-    = f.select :wangwang_id,
-        options_from_collection_for_select(@wangwangs, :id, :account),
-        {include_blank: true},{class: 'ui dropdown'}
-
-  = f.submit '确定', class: 'ui button positive'
-  = link_to '取消', tasks_path, class: 'ui button'
+            = f.submit '确定', class: 'ui button tiny positive'
+            = link_to '取消', tasks_path, class: 'ui tiny button'
