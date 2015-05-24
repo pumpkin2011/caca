@@ -74,7 +74,7 @@ html
       = render 'layouts/service'
     - if user_signed_in?
       = render 'layouts/sidebar'
-    .ui.grid.page.pusher
+    .ui.grid.page
       .column
         - flash.each do |name,msg|
           div class="ui message #{name}"
