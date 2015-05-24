@@ -56,7 +56,13 @@ class TasksController < ApplicationController
   end
 
   def update
+
     @task = Task.pending.find(params[:id])
+    if task_consumer_param[:wangwang_id].blank?
+      flash[:error] = '请选择接手任务的旺旺'
+      redirect_to :back 
+      return
+    end
     @task.consumer = current_user
     @task.ip = request.remote_ip
     @task.talk
