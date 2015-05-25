@@ -1,4 +1,4 @@
-source 'https://ruby.taobao.org'
+source 'http://ruby.taobao.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -44,6 +44,7 @@ gem 'sidekiq'
 gem 'sinatra', :require => nil
 gem 'kaminari'
 gem 'simditor'
+gem 'zeroclipboard-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
