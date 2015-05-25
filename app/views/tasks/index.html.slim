@@ -22,7 +22,9 @@ table.ui.table
               i.icon.calendar
               = task.created_at.to_minute
           td = task.shop.user.name
-          td = sprintf("%0.02f元",task.commission_for_consumer)
+          td
+            span.commission = sprintf("%0.02f",task.commission_for_consumer)
+            | 元
           td = sprintf("%0.02f元",task.price)
           td = task.duration_text
 

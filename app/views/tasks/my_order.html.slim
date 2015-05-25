@@ -17,8 +17,8 @@ table.ui.table
     tr
       th 任务ID和时间
       th 发布人
-      th 价格
       th 佣金
+      th 价格
       th 特殊需求
       th 状态
       th
@@ -37,8 +37,11 @@ table.ui.table
           = link_to "tencent://Message/?Uin=#{task.producer.qq}" do
             i.icon.qq.circular.green
 
+        td
+          span.commission = sprintf("%0.02f",task.commission_for_consumer)
+          | 元
         td = sprintf("%0.02f元",task.price)
-        td = sprintf("%0.02f元",task.commission_for_consumer)
+
         td.description
           p = task_level(task)
           p

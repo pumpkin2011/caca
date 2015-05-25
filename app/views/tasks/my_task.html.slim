@@ -49,8 +49,13 @@ table.ui.table
               i.icon.qq.circular.green
 
         td
+          p 
+            | 佣金:
+            span.commission = sprintf("%0.02f",task.commission)
+            | 元
+
           p = sprintf("价格: %0.02f元",task.price)
-          p = sprintf("佣金: %0.02f元",task.commission)
+
 
         td.description
           p = task_level(task)
