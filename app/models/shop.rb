@@ -27,8 +27,8 @@ class Shop < ActiveRecord::Base
   default_scope { order 'created_at DESC'}
 
   aasm column: :state do
-    state :pending, initial: true
-    state :confirmed
+    state :pending
+    state :confirmed, initial: true
     state :rejected
 
     event :reject do
