@@ -22,14 +22,3 @@ h3 照片资料
           = image_tag(@user.identity.back_url)
         .content
           .header 身份证反面照片
-
-    .column
-      .ui.card.fuild
-        .dimmable.image
-          .ui.dimmer
-            .content
-              .center
-                .ui.inverted.button#front 更换照片
-          = image_tag(@user.identity.handheld_url)
-        .content
-          .header 本人照片

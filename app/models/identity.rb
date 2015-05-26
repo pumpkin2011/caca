@@ -28,10 +28,7 @@ class Identity < ActiveRecord::Base
     self.back.blank? ? 'helen.jpg' : ENV['QINIU_BUCKET_DOMAIN']+self.back+'-authenticates'
   end
 
-  def handheld_url
-    self.handheld.blank? ? 'helen.jpg' : ENV['QINIU_BUCKET_DOMAIN']+self.handheld+'-authenticates'
-  end
-  validates_presence_of :name, :number, :front, :back, :handheld
+  validates_presence_of :name, :number, :front, :back
   validates :name, length: {in: 2..6}, allow_blank: true
   validates :number, uniqueness:true, length: {is: 18}, allow_blank: true
 end

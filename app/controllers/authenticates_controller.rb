@@ -31,7 +31,7 @@ class AuthenticatesController < ApplicationController
 
       params.require(:user).permit(
           bank_attributes: [:name, :account, :deposit],
-          identity_attributes: [:name, :number, :front, :back, :handheld],
+          identity_attributes: [:name, :number, :front, :back],
           alipay_attributes: [:name, :account]
       )
     end

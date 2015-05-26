@@ -26,34 +26,26 @@
         .content
           .header 身份证反面照片
 
-      .card
-        .dimmable.image
-          .ui.dimmer
-            .content
-              .center
-                .ui.inverted.button#handheld 更换照片
-          = image_tag(current_user.identity.handheld_url)
-          = identity_from.hidden_field :handheld
-        .content
-          .header 本人照片
 
-    .fields
-      .field.four.wide
-        = identity_from.label :name
-        = identity_from.text_field :name
-
-      .field.eight.wide
-        = identity_from.label :number
-        = identity_from.text_field :number
-
-  h2 收款信息
+  h2 详细信息
   .ui.divider
   .fields
-    .field.six.wide
-      .ui.segment
+    .field.five.wide
+      .ui.segment.auth
+        h3 身份证
+        = f.fields_for :identity do |identity_from|
+          .field
+            = identity_from.label :name
+            = identity_from.text_field :name
+          .field
+          = identity_from.label :number
+          = identity_from.text_field :number
+
+    .field.five.wide
+      .ui.segment.auth
         h3 银行卡
         = f.fields_for :bank do |bank_form|
-          .field.
+          .field
             = bank_form.label :name
             = bank_form.text_field :name
           .field
@@ -63,8 +55,8 @@
             = bank_form.label :deposit
             = bank_form.text_field :deposit
 
-    .field.six.wide
-      .ui.segment
+    .field.five.wide
+      .ui.segment.auth
         h3 支付宝
         = f.fields_for :alipay do |alipay_form|
           .field
