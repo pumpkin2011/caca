@@ -65,4 +65,14 @@ class Admin::UsersController < ApplicationController
     end
     redirect_to admin_user_path(@user)
   end
+
+  def lock
+    User.find(params[:id]).update(locked_at: 100.days.from_now)
+    redirect_to admin_user_path(params[:id])
+  end
+
+  def unlock
+    User.find(params[:id]).update(locked_at: nil)
+    redirect_to admin_user_path(params[:id])
+  end
 end

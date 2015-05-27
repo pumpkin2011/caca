@@ -25,6 +25,9 @@
 #  updated_at             :datetime
 #  state                  :string(10)
 #  referral_token         :string(255)
+#  failed_attempts        :integer          default(0)
+#  unlock_token           :string(255)
+#  locked_at              :datetime
 #
 # Indexes
 #
@@ -38,10 +41,10 @@
 class User < ActiveRecord::Base
   include AASM
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :confirmable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable
+         :confirmable, :lockable
 
   validates_presence_of :name, :qq
   validates :name, length: {in: 2..10}, uniqueness: true, allow_blank: true, on: :create

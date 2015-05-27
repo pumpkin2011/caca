@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150523145320) do
+ActiveRecord::Schema.define(version: 20150527025706) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -250,6 +250,9 @@ ActiveRecord::Schema.define(version: 20150523145320) do
     t.datetime "updated_at"
     t.string   "state",                  limit: 10
     t.string   "referral_token",         limit: 255
+    t.integer  "failed_attempts",        limit: 4,                            default: 0
+    t.string   "unlock_token",           limit: 255
+    t.datetime "locked_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

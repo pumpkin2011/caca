@@ -1,6 +1,7 @@
 
 .ui.two.column.grid
   .column
+
     h3 用户资料
   .column.right.aligned
     .ui.buttons
@@ -15,7 +16,10 @@
     - if @user.state == 'officialed'
       = link_to '取消歪淘认证', cancel_official_admin_user_path(@user), class: 'ui button negative'
 
-    = link_to '冻结', '#', class: 'ui button positive'
+    - if @user.locked_at.present?
+      = link_to '解冻', unlock_admin_user_path(@user), class: 'ui button positive'
+    - else
+      = link_to '冻结', lock_admin_user_path(@user), class: 'ui button negative'
 
 .ui.segment
   .ui.three.column.grid

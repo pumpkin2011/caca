@@ -72,6 +72,8 @@ Rails.application.routes.draw do
       get 'confirm', on: :member
       get 'official', on: :member
       get 'cancel_official', on: :member
+      get 'lock', on: :member
+      get 'unlock', on: :member
     end
 
     resources :pages
