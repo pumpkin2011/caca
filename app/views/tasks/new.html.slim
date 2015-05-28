@@ -17,6 +17,13 @@
       - else
         = text_field_tag(:shop_id, @task.shop.account)
 
+    - if @task.new_record?
+        .field.four.wide
+          = label_tag :template, '模版名称'
+          = select_tag :template,
+              options_from_collection_for_select(@templates, :id, :name,  params[:template]),
+              include_blank: true, class: 'ui dropdown'
+
 
   - if @task.new_record? || @task.producer == current_user
     .field
@@ -114,14 +121,36 @@
      = f.label :comment
      = f.text_field :comment
   - if @task.new_record?
-    .fileds
+    .fields
+      .field
+        = f.submit '确定', class: 'ui button green'
+      .field
+        .ui.input.action.left.labeled.six.wide
+          .ui.label 模版名称
+          = text_field_tag(:name)
+          button class="ui button positive" id="template" 保存为模版
+- if @task.new_record?
+  h2 定时任务
+  .ui.divider
 
-      = f.submit '确定', class: 'ui button green'
-      .ui.input.action.left.labeled
-        .ui.label 模版名称
-        = text_field_tag(:name)
-        button class="ui button positive" id="template" 保存为模版
-
+  = form_for @auto, html:{class: 'ui form'} do |f|
+    .fields
+      .field.four.wide
+        = label_tag :template, '模版名称'
+        = f.select :template_id,
+            options_from_collection_for_select(@templates, :id, :name,  params[:template]),
+            {include_blank: true}, {class: 'ui dropdown upward'}
+      .field.three.wide
+        = f.label :interval
+        .ui.input.action.right.labeled
+          = f.text_field :interval
+          .ui.label 分钟
+      .field
+        = f.label :total_count
+        = f.text_field :total_count
+      .field
+        label 操作
+        button class="ui button positive" id="template" 发布定时任务
 - if @task.new_record?
   - content_for(:js) do
     javascript:
@@ -136,5 +165,10 @@
             type: 'post',
           });
           return false;
+        })
+
+        // 模版切换
+        $('#template, #task_auto_template_id').change(function(){
+            location.href='/tasks/new?template='+$(this).val();
         })
       })

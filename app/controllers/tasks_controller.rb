@@ -60,7 +60,7 @@ class TasksController < ApplicationController
     @task = Task.pending.find(params[:id])
     if task_consumer_param[:wangwang_id].blank?
       flash[:error] = '请选择接手任务的旺旺'
-      redirect_to :back 
+      redirect_to :back
       return
     end
     @task.consumer = current_user
@@ -142,6 +142,11 @@ class TasksController < ApplicationController
 
     # 商家验证
     def producer
+      # 页面数据
+      @auto = TaskAuto.new
+      @templates = current_user.templates
+
+      # 数据验证
       @shops = current_user.shops.confirmed
       if @shops.blank?
         flash[:error] = '发布任务前需要绑定店铺掌柜'

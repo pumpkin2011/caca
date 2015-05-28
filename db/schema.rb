@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527025706) do
+ActiveRecord::Schema.define(version: 20150528122623) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -176,6 +176,23 @@ ActiveRecord::Schema.define(version: 20150527025706) do
 
   add_index "shops", ["state"], name: "index_shops_on_state", using: :btree
   add_index "shops", ["user_id"], name: "index_shops_on_user_id", using: :btree
+
+  create_table "task_autos", force: :cascade do |t|
+    t.integer  "user_id",       limit: 4
+    t.integer  "template_id",   limit: 4
+    t.string   "state",         limit: 10
+    t.integer  "interval",      limit: 4
+    t.integer  "total_count",   limit: 4
+    t.integer  "process_count", limit: 4,  default: 0
+    t.integer  "faild_count",   limit: 4,  default: 0
+    t.datetime "next_at"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "task_autos", ["state"], name: "index_task_autos_on_state", using: :btree
+  add_index "task_autos", ["template_id"], name: "index_task_autos_on_template_id", using: :btree
+  add_index "task_autos", ["user_id"], name: "index_task_autos_on_user_id", using: :btree
 
   create_table "task_templates", force: :cascade do |t|
     t.integer  "user_id",    limit: 4

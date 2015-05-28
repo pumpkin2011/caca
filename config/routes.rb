@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   resource :extracts
   resource :referrals, only: [:show]
   resources :invitations, only: [:index]
-
+  resources :task_autos
   namespace :admin do
     root 'welcome#index'
     get '/profile/:id' => 'users#profile'

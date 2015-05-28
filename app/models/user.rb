@@ -62,6 +62,7 @@ class User < ActiveRecord::Base
   has_many :extracts
   has_many :invitations, foreign_key: 'target_id'
   has_one :invitation
+  has_many :autos, class_name: 'TaskAuto'
 
   # 基本身份验证
   has_one :identity, dependent: :destroy

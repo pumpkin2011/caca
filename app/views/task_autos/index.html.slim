@@ -1,0 +1,22 @@
+h2 我的自动任务
+
+table.ui.table
+  thead
+    tr
+      th 模版名称
+      th 间隔时间
+      th 总单数
+      th 已完成单数
+      th 下次发单时间
+      th 当前状态
+
+
+  tbody
+    - @autos.each do |auto|
+      tr
+        td = auto.template.name
+        td = auto.interval
+        td = auto.total_count
+        td = auto.process_count
+        td = auto.next_at
+        td = auto.state

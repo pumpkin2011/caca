@@ -123,3 +123,7 @@ zh-CN:
         category_id: 分类
       extract:
         amount: 提现金额
+      task_auto:
+        template_id: 模版
+        interval: 间隔时间
+        total_count: 单数
