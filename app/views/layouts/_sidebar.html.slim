@@ -1,12 +1,34 @@
-.ui.vertical.sidebar.menu.left.thin
-  = link_to '资金管理', deposits_path, class: 'item'
-  = link_to '账户认证', edit_authenticates_path, class: 'item'
-  = link_to '地址管理', delivers_path, class: 'item'
-  = link_to '旺旺绑定', wangwangs_path, class: 'item'
-  = link_to '掌柜绑定', shops_path, class: 'item'
-  = link_to '任务模版', templates_path, class: 'item'
-  = link_to '交易明细', bills_path, class: 'item'
-  = link_to '邀请好友', invitations_path, class: 'item'
+.ui.vertical.sidebar.menu.left.labeled.icon
+  = link_to deposits_path, class: 'item' do
+    i.yen.icon
+    | 资金管理
+
+  = link_to edit_authenticates_path, class: 'item' do
+    i.user.icon
+    | 账户认证
+
+
+  = link_to delivers_path, class: 'item' do
+    i.location.arrow.icon
+    | 地址管理
+
+  = link_to wangwangs_path, class: 'item' do
+    i.comment.icon
+    | 旺旺绑定
+
+  = link_to shops_path, class: 'item' do
+    i.spy.icon
+    | 掌柜绑定
+
+  = link_to templates_path, class: 'item' do
+    i.tasks.icon
+    | 任务模版
+  = link_to  bills_path, class: 'item' do
+    i.payment.icon
+    | 交易明细
+  = link_to invitations_path, class: 'item' do
+    i.users.icon
+    | 邀请好友
 
 <div class="ui red big launch right attached fixed button">
   <i class="content icon"></i>
