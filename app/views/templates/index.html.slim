@@ -4,6 +4,7 @@ table.ui.table
     tr
       th #
       th 模版名称
+      th 自动发布
       th 创建时间
       th 操作
 
@@ -13,6 +14,7 @@ table.ui.table
       tr
         td = template.id
         td = template.name
+        td = template.available ? '可以' : '不可以'
         td = template.created_at
         td
           = link_to '删除', template_path(template), method: :delete,

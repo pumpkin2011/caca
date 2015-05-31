@@ -138,7 +138,7 @@
       .field.four.wide
         = label_tag :template, '模版名称'
         = f.select :template_id,
-            options_from_collection_for_select(@templates, :id, :name,  params[:template]),
+            options_from_collection_for_select(@auto_templates, :id, :name,  params[:template]),
             {include_blank: true}, {class: 'ui dropdown upward'}
       .field.three.wide
         = f.label :interval

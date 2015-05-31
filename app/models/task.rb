@@ -234,6 +234,8 @@ class Task < ActiveRecord::Base
 
       # 追加佣金
       self.commission += self.commission_extra.to_i.abs
-      errors.add(:base, '余额不足') if self.commission > self.producer.amount
+      if self.producer
+        errors.add(:base, '余额不足') if self.commission > self.producer.amount
+      end
     end
 end

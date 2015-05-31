@@ -145,6 +145,7 @@ class TasksController < ApplicationController
       # 页面数据
       @auto = TaskAuto.new
       @templates = current_user.templates
+      @auto_templates = current_user.templates.auto_template
 
       # 数据验证
       @shops = current_user.shops.confirmed

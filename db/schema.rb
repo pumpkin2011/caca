@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528122623) do
+ActiveRecord::Schema.define(version: 20150531205554) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 20150528122623) do
     t.text     "content",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.boolean  "available",  limit: 1
   end
 
   add_index "task_templates", ["user_id"], name: "index_task_templates_on_user_id", using: :btree
