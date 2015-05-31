@@ -16,5 +16,6 @@
 
 class TaskTemplate < ActiveRecord::Base
   belongs_to :user
+  has_many :auto, class_name: 'TaskAuto', foreign_key: :template_id, dependent: :destroy
   validates :name, presence: true, uniqueness: {scope: :user_id}, length: {in: 2..10 }
 end
