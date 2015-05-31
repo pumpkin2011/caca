@@ -48,7 +48,11 @@ Rails.application.routes.draw do
   resource :extracts
   resource :referrals, only: [:show]
   resources :invitations, only: [:index]
-  resources :task_autos
+  resources :task_autos do
+    get 'start', on: :member
+    get 'stop', on: :member
+  end
+
   namespace :admin do
     root 'welcome#index'
     get '/profile/:id' => 'users#profile'

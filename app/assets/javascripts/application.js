@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require semantic-ui
 //= require 'china_city/jquery.china_city'
 //= require qiniu
@@ -24,9 +23,3 @@
 //= require revo-slider-init
 //= require jquery.form.js
 //= require zeroclipboard
-
-
-$(function(){
-  $('.ui.dropdown').dropdown();
-  $('.ui.checkbox').checkbox();
-})

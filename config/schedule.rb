@@ -21,3 +21,7 @@
 every 1.minutes do
   runner "Task.finish_task"
 end
+
+every 1.minutes do
+  runner "TaskAuto.process"
+end

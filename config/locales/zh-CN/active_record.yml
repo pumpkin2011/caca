@@ -95,7 +95,7 @@ zh-CN:
         wangwang_id: 旺旺
         state:
           pending: 等待接手
-          talking: '等待审核'
+          talking: 等待审核
           confirmed: 已通过
           rejected: 未通过
           applying: 宝贝已验证
@@ -127,3 +127,7 @@ zh-CN:
         template_id: 模版
         interval: 间隔时间
         total_count: 单数
+        state:
+          running: 发布中
+          stoped: 暂停发布
+          finished: 已完成
