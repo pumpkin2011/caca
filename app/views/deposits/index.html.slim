@@ -19,7 +19,7 @@
             .ui.left.icon.input
               = f.text_field :amount
               i.icon.yen
-            = f.submit '提现', disable_with:'提交中...', class: "ui button positive"
+            = f.submit '提现', data:{ disable_with:'提交中...'}, class: "ui button positive"
     .column.row
       .column.four.wide
         | 已冻结资金: #{sprintf("%0.02f元", current_user.frozen_amount)}

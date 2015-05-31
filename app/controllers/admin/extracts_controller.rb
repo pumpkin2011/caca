@@ -17,9 +17,10 @@ class Admin::ExtractsController < ApplicationController
       @extracts = Extract.pending.where('created_at <= ?', 7.days.ago).page(params[:page])
 
     end
-    
+
   end
 
+  # TODO: 弹出框处理
   def update
     @extract = Extract.pending.find(params[:id])
     @extract.channel = params[:type].to_sym
