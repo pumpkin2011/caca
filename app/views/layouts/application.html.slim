@@ -12,6 +12,7 @@ html
     = csrf_meta_tags
 
   body class="#{params[:action]}" id="#{params[:controller].gsub('/','_')}"
+
     .ui.segment
       .ui.grid.two.column.page
         .column
@@ -56,6 +57,7 @@ html
                 = link_to '关于', '/pages/about', class: 'item'
 
     - if request.path == '/'
+      = render 'layouts/side_float'
       .fullwidthbanner-container.revolution-slider
         .fullwidthabnner
           ul#revolutionul
