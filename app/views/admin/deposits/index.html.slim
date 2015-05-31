@@ -27,6 +27,6 @@ table.ui.table
                = link_to deposit.user.name, admin_user_path(deposit.user), target: '_blank'
 
           td = deposit.admin.email
-          td = deposit.created_at
+          td = deposit.created_at.to_minute
 
-= paginate @deposits    
+= paginate @deposits

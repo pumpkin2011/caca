@@ -40,7 +40,7 @@
           td = deliver.name
           td = deliver.phone
           td = full_address(deliver)
-          td = deliver.created_at
+          td = deliver.created_at.to_minute
           td
             - if deliver.state == 'applying'
               = link_to deliver.owner.name, admin_user_path(deliver.owner), target: '_blank'

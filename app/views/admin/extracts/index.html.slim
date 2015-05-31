@@ -27,7 +27,7 @@ table.ui.table
         td = extract.id
         td = link_to extract.user.name, '###', 'data-id': extract.user.id, class: 'profile'
         td = sprintf("%0.02f元",extract.amount)
-        td = extract.created_at
+        td = extract.created_at.to_minute
         - if params[:type] == 'finished'
           td = extract.channel_text
           td = extract.updated_at

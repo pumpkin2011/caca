@@ -54,7 +54,7 @@
         tr
           td = invitation.user.id
           td = invitation.user.name
-          td = invitation.user.created_at
+          td = invitation.user.created_at.to_minute
           td
             - if invitation.confirmed_at.blank?
               .ui.label.red 未激活

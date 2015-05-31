@@ -20,7 +20,7 @@ table.ui.table
         td = wangwang.id
         td = wangwang.account
         td = wangwang.user.name
-        td = wangwang.created_at
+        td = wangwang.created_at.to_minute
         td
           - if params[:type].blank?
             = wangwang.aasm.human_state

@@ -22,7 +22,7 @@ table.ui.table
       tr
         td = shop.id
         td = shop.account
-        td = shop.created_at
+        td = shop.created_at.to_minute
         td
           = shop.aasm.human_state
           - if shop.state == 'pending'

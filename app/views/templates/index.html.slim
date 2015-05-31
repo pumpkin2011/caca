@@ -15,7 +15,7 @@ table.ui.table
         td = template.id
         td = template.name
         td = template.available ? '可以' : '不可以'
-        td = template.created_at
+        td = template.created_at.to_minute
         td
           = link_to '删除', template_path(template), method: :delete,
                   data: { confirm: "删除该模版会一并删除与之相关的自动任务, 确认是否删除?"},

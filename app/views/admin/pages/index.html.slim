@@ -16,7 +16,7 @@ table.ui.table
         td = page.name
         td = page.code
         td = page.category.nil? ? '' : page.category.name
-        td = page.created_at
+        td = page.created_at.to_minute
         td
           = link_to '编辑', edit_admin_page_path(page), class: 'ui button positive'
           = link_to '删除', admin_page_path(page), method: 'delete',

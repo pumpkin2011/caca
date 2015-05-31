@@ -14,5 +14,5 @@ table.ui.table
         td = bill.id
         td = bill.log
         td = sprintf("%0.02f元",bill.amount)
-        td = bill.created_at
+        td = bill.created_at.to_minute
 = paginate @bills

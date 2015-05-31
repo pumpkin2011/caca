@@ -27,7 +27,7 @@ table.ui.table
         td = wangwang.day_count
         td = wangwang.week_count
         td = wangwang.month_count
-        td = wangwang.created_at
+        td = wangwang.created_at.to_minute
         td
           = wangwang.aasm.human_state
           - if wangwang.state == 'pending'
