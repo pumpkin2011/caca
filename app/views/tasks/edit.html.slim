@@ -35,7 +35,7 @@ table.ui.table
           - unless @task.spec.blank?
             p
               span.ui.label.tiny = @task.spec
-        td.four.wide
+        td.six.wide
           =  form_for [@task], html:{class: 'ui form'} do |f|
             .field
               = f.select :wangwang_id,

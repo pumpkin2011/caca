@@ -21,7 +21,7 @@ class Wangwang < ActiveRecord::Base
   has_many :tasks
 
   validates_presence_of :account
-  validates :account, length: { in: 3..10 },
+  validates :account, length: { in: 3..20 },
             uniqueness: {scope: :user_id, case_sensitive: false}, allow_blank: true
 
   default_scope { order 'created_at DESC'}

@@ -8,7 +8,7 @@
 = render partial: 'shared/error', locals: {title: '任务发布失败', error: @task}
 = form_for @task, html:{class: 'ui form'} do |f|
   .fields
-    .field.four.wide
+    .field.six.wide
       = f.label :shop_id
       - if @task.new_record?
         = f.select :shop_id,
