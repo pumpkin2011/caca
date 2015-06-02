@@ -24,12 +24,12 @@ class Extract < ActiveRecord::Base
   include AASM
   belongs_to :user
 
-  validates_presence_of :amount
+  validates_presence_of :amount, on: :create
   validates :amount, numericality:{
               greater_than_or_equal_to: 1,
               less_than_or_equal_to: Proc.new {|extract| extract.user.amount}
             },
-            allow_blank: true
+            allow_blank: true, on: :create
 
 
   default_scope { order 'created_at DESC'}
