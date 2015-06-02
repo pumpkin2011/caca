@@ -140,14 +140,15 @@
         = f.select :template_id,
             options_from_collection_for_select(@auto_templates, :id, :name,  params[:template]),
             {include_blank: true}, {class: 'ui dropdown upward'}
-      .field.three.wide
-        = f.label :interval
-        .ui.input.action.right.labeled
-          = f.text_field :interval
-          .ui.label 分钟
-      .field
+
+      .field.two.wide
         = f.label :total_count
         = f.text_field :total_count
+      .field.two.wide
+        = f.label :interval
+        .ui.input.right.labeled style="width: 70px;"
+          = f.text_field :interval
+          .ui.label 分钟
       .field
         label 操作
         button class="ui button positive"  发布定时任务
