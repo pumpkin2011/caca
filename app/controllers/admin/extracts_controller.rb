@@ -10,11 +10,11 @@ class Admin::ExtractsController < ApplicationController
     @current_total = Extract.pending.where('created_at <= ?', 7.days.ago).sum(:amount)
 
     if params[:type] == 'pending'
-      @extracts = Extract.pending.where('created_at > ?', 7.days.ago).page(params[:page])
+      @extracts = Extract.pending.where('created_at > ?', 7.days.ago).includes(:user).page(params[:page])
     elsif params[:type] == 'finished'
-      @extracts = Extract.finished.page(params[:page])
+      @extracts = Extract.finished.includes(:user).page(params[:page])
     else
-      @extracts = Extract.pending.where('created_at <= ?', 7.days.ago).page(params[:page])
+      @extracts = Extract.pending.where('created_at <= ?', 7.days.ago).includes(:user).page(params[:page])
 
     end
 
@@ -27,7 +27,6 @@ class Admin::ExtractsController < ApplicationController
     @extract.finish
     if @extract.save
       flash[:success] = '操作成功'
-
     else
       flash[:success] = '操作失败'
     end
