@@ -36,9 +36,9 @@ table.ui.table
         - unless params[:type] == 'finished'
           td
             = link_to '银行付款', admin_extract_path(extract, type: 'bank'),
-                      method: 'patch', class: 'ui button positive', data:{confirm: '确定已完银行付款'}
+                      method: 'patch', class: 'ui button positive tiny', data:{confirm: '确定已完银行付款'}
             = link_to '支付宝付款', admin_extract_path(extract, type: 'alipay'),
-                      method: 'patch',class: 'ui button positive',data:{confirm: '确定已完支付宝付款'}
+                      method: 'patch',class: 'ui button negative tiny',data:{confirm: '确定已完支付宝付款'}
 
 = paginate @extracts
 

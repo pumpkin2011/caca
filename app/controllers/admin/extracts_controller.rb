@@ -8,11 +8,11 @@ class Admin::ExtractsController < ApplicationController
     @finished_total = Extract.finished.sum(:amount)
     @current_count = Extract.pending.where('created_at <= ?', 7.days.ago).count()
     @current_total = Extract.pending.where('created_at <= ?', 7.days.ago).sum(:amount)
+
     if params[:type] == 'pending'
       @extracts = Extract.pending.where('created_at > ?', 7.days.ago).page(params[:page])
     elsif params[:type] == 'finished'
       @extracts = Extract.finished.page(params[:page])
-
     else
       @extracts = Extract.pending.where('created_at <= ?', 7.days.ago).page(params[:page])
 
