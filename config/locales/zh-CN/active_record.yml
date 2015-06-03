@@ -131,3 +131,8 @@ zh-CN:
           running: 发布中
           stoped: 暂停发布
           finished: 已完成
+
+      blacklist:
+        target: 用户
+        username: 用户名
+        question: 原因

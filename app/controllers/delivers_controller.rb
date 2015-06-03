@@ -20,7 +20,7 @@ class DeliversController < ApplicationController
   end
 
   def apply
-    unless current_user.delivers.confirmed.any?
+    unless current_user.delivers.where('state in (?)', [:confirmed, :applying]).any?
       flash[:error] = "申请地址前请绑定地址"
       redirect_to delivers_path
       return

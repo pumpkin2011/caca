@@ -179,11 +179,23 @@ class Task < ActiveRecord::Base
       TaskWorker.perform_async(task.id)
     end
   end
-  validate :ip_count_within_limit, :shop_wangwang_within_limit,
+  validate :ip_count_within_limit, :shop_wangwang_within_limit, :blacklist_within_limit, 
             on: :update, if: Proc.new{|task|
               task.state == 'pending' && task.ip && task.consumer_id && task.wangwang_id }
 
   private
+
+  # 黑名单限制
+  def blacklist_within_limit
+    #  我屏蔽了你
+    black_from_producer = Blacklist.where('user_id = ? or target_id = ?', self.producer, self.consumer).any?
+    #  你屏蔽了我
+    black_from_consumer = Blacklist.where('user_id = ? or target_id = ?', self.consumer, self.producer).any?
+
+    if black_from_producer || black_from_consumer
+      errors.add(:base, "你们之间进入了黑名单，不能接手任务")
+    end
+  end
 
     def ip_count_within_limit
       count = Task.where(consumer: self.consumer).where(ip: self.ip).where('created_at > ?', 1.days.ago).size

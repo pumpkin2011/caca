@@ -1,6 +1,7 @@
 
 Rails.application.routes.draw do
 
+
   get 'extract/show'
 
   require 'sidekiq/web'
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
     get 'reject', on: :member
     get 'confirm', on: :member
   end
+  resources :blacklists
 
   resource :authenticates, only:[:edit, :update]
   resources :pages, only: [:index, :show]

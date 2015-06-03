@@ -63,6 +63,7 @@ class User < ActiveRecord::Base
   has_many :invitations, foreign_key: 'target_id'
   has_one :invitation
   has_many :autos, class_name: 'TaskAuto'
+  has_many :blacks, class_name: 'Blacklist'
 
   # 基本身份验证
   has_one :identity, dependent: :destroy

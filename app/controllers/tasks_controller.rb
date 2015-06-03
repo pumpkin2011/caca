@@ -65,8 +65,9 @@ class TasksController < ApplicationController
     end
     @task.consumer = current_user
     @task.ip = request.remote_ip
-    @task.talk
+
     if @task.update(task_consumer_param)
+      @task.talk!
       redirect_to my_order_tasks_path
     else
       render :edit

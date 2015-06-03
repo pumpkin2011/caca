@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531205554) do
+ActiveRecord::Schema.define(version: 20150603142537) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -56,6 +56,17 @@ ActiveRecord::Schema.define(version: 20150531205554) do
 
   add_index "bills", ["state"], name: "index_bills_on_state", using: :btree
   add_index "bills", ["user_id"], name: "index_bills_on_user_id", using: :btree
+
+  create_table "blacklists", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "target_id",  limit: 4
+    t.string   "question",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "blacklists", ["target_id"], name: "index_blacklists_on_target_id", using: :btree
+  add_index "blacklists", ["user_id"], name: "index_blacklists_on_user_id", using: :btree
 
   create_table "delivers", force: :cascade do |t|
     t.integer  "user_id",    limit: 4

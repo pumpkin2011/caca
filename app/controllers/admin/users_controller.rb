@@ -73,6 +73,7 @@ class Admin::UsersController < ApplicationController
 
   def unlock
     User.find(params[:id]).update(locked_at: nil)
+    Blacklist.where(target: params[:id]).delete_all
     redirect_to admin_user_path(params[:id])
   end
 end

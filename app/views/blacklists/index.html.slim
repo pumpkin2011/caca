@@ -1,0 +1,46 @@
+= render partial: 'shared/error', locals: {title: '加入黑名单失败', error: @black}
+.ui.segment
+  p
+    | 1. 黑名单最多可屏蔽10个用户，被屏蔽的用户将不能与你进行进行相关任务操作。
+  p
+    | 2. 加入超过24小时候，可以删除。
+  p
+    | 3. 当被10个用户加入黑名单账户将被锁定。
+
+
+
+= form_for @black, html: {class: 'ui form'} do |f|
+  .fields
+    .field.four.wide
+      .ui.left.icon.input
+        = f.text_field :username
+        i.icon.user
+    .field.six.wide
+      .ui.left.labeled.input
+        .ui.label 原因
+        = f.text_field :question
+
+    = f.submit '加入黑名单', class: "ui button positive"
+
+h2 我的黑名单
+table.ui.table
+  thead
+    tr
+      th 用户名
+      th 原因
+      th 屏蔽时间
+      th 操作
+
+
+
+
+  tbody
+    - @blacks.each do |black|
+      tr
+        td = black.target.name
+        td = black.question
+        td = black.created_at.to_minute
+        td
+          - if 1.days.ago > black.created_at
+            = link_to '取消', blacklist_path(black), method: :delete,
+                  class: 'ui button mini negative', data: { confirm: '确定取消屏蔽'}
