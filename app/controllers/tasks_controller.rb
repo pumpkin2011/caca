@@ -48,11 +48,28 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.pending.find(params[:id])
-    if current_user.frozen_amount < @task.price
+    redirect_to_condition = true
+    case
+      when @task.price < 100
+        redirect_to_condition = false
+      when current_user.frozen_amount >=100 && @task.price <= 300
+        redirect_to_condition = false
+      when current_user.frozen_amount >= 300 && @task.price <= 500
+        redirect_to_condition = false
+      when current_user.frozen_amount >=500 && @task.price <= 800
+        redirect_to_condition = false
+      when current_user.frozen_amount >= @task.price
+        redirect_to_condition = false
+      when current_user.frozen_amount >= 1000
+        redirect_to_condition = false
+    end
+
+    if redirect_to_condition
       flash[:error] = '目前冻结的资金不能接手改任务'
       redirect_to deposits_path
       return
     end
+
   end
 
   def update
