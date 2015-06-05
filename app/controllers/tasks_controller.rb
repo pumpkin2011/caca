@@ -58,9 +58,7 @@ class TasksController < ApplicationController
         redirect_to_condition = false
       when current_user.frozen_amount >=500 && @task.price <= 800
         redirect_to_condition = false
-      when current_user.frozen_amount >= @task.price
-        redirect_to_condition = false
-      when current_user.frozen_amount >= 1000
+      when current_user.frozen_amount >= 1000 && @task.price > 800
         redirect_to_condition = false
     end
 
