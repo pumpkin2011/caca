@@ -156,11 +156,6 @@ class TasksController < ApplicationController
         return
       end
 
-      if current_user.frozen_amount < 100
-        flash[:error] = '发布任务前需要申请冻结资金100元'
-        redirect_to deposits_path
-        return
-      end
 
       unless ['checked', 'officialed'].include?(current_user.state)
         flash[:error] = '发布任务前需要进行账户认证'
