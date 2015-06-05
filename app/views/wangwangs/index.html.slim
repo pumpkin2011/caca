@@ -12,7 +12,7 @@
     |5.任务完成后请向商家收款，备注您参加任务的小号。(切记收款的支付宝不能是刷单用的)。
 = render partial: 'shared/error', locals: {title: '旺旺绑定失败', error: @wangwang}
 = form_for [@wangwang], html:{class: 'ui form'} do |f|
-  .field
+  .field.nine.wide
     .ui.input.action.left.labeled.big
       .ui.label 旺旺名
       = f.text_field :account

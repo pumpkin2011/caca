@@ -1,6 +1,6 @@
 = render partial: 'shared/error', locals: {title: '掌柜绑定失败', error: @shop}
 = form_for [@shop], html:{class: 'ui form'} do |f|
-  .field
+  .field.nine.wide
     .ui.input.action.left.labeled.big
       .ui.label 掌柜名
       = f.text_field :account
