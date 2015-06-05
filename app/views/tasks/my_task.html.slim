@@ -49,7 +49,7 @@ table.ui.table
               i.icon.qq.circular.green
 
         td
-          p 
+          p
             | 佣金:
             span.commission = sprintf("%0.02f",task.commission)
             | 元
@@ -95,11 +95,21 @@ table.ui.table
     $(function(){
       $('a.order_user').click(function(){
         $.get('/profile/'+$(this).data('id'), function(data){
-          content = "<p>姓名: "+data.name+"</p>";
+          content = "<div class='ui grid two column'>"
+          content += "<div class='column'>";
+          content += "<p>姓名: "+data.name+"</p>";
           content += "<p>旺旺: "+data.wangwang+"</p>";
+          content += "<p>已完成任务数: "+data.order_count+"</p>";
           content += "<h4>收获地址</h4>"
           content += "<p>收件人: "+data.deliver_name+"</p>"
           content += "<p>地址: "+data.deliver_address+"</p>"
+          content += "</div>";
+
+          content += "<div class='column'>";
+          content += "<p>支付宝名称: "+data.alipay_name+"</p>";
+          content += "<p>支付宝账号: "+data.alipay_account+"</p>";
+          content += "</div>";
+          content += '</div>'
           $('.ui.modal.profile .content').html(content);
         });
         $('.ui.modal.profile').modal('show');
