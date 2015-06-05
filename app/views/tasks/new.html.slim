@@ -172,4 +172,44 @@
         $('#template, #task_auto_template_id').change(function(){
             location.href='/tasks/new?template='+$(this).val();
         })
+        // 内容切换
+        $('#task_duration').change(function(){
+          var content = ""
+          switch($(this).val()){
+            case 'three':
+              content = "手动输入关键词搜索进店浏览3分钟拍下宝贝，上中下评价销量全屏截图";
+              break;
+            case 'six':
+              content = "手动输入关键词搜索进店浏览6分钟拍下宝贝，上中下评价销量全屏截图.";
+              break;
+            case 'ten':
+              content = "手动输入关键词搜索，货比三家每家1分钟（全屏截图），进店浏览7分";
+              content += "钟（上中下评价销量全屏截图）收藏并拍下宝贝.";
+              break;
+            case 'fifteen':
+              content = "手动输入关键词搜索，货比三家每家2分钟（全屏上中下截图），进店浏";
+              content += "览9分钟（上中下评价销量全屏截图）收藏并拍下宝贝.";
+              break;
+            case 'twenty':
+              content ="手动输入关键词搜索，货比三家每家3分钟（全屏上中下截图），进店浏览";
+              content += "主拍宝贝7分钟（上中下评价销量全屏截图），附宝贝2个每个2分钟，收藏并，假聊，拍下宝贝，";
+              break;
+            case 'twentyfive':
+              content ="手动输入关键词搜索，货比三家每家3分钟（全屏上中下截图），进店";
+              content += "浏览主拍宝贝7分钟（上中下评价销量全屏截图），附宝贝2个每个3";
+              content += 分钟，收藏并，假聊3分钟，拍下宝贝."
+              break;
+            case 'thirty':
+              content = "手动输入关键词搜索，货比三家每家3分钟（全屏上中下截图），进店浏";
+              content += "览主拍宝贝12分钟（上中下评价销量全屏截图），附宝贝2个每个3分";
+              content += "钟，收藏并，假聊3分钟，拍下宝贝.";
+              break;
+            case 'forty':
+              content = "手动输入关键词搜索，货比三家每家3分钟（全屏上中下截图），进店浏";
+              content += "览主拍宝贝17分钟（上中下评价销量全屏截图），附宝贝3个每个3分";
+              content += "钟，收藏并，假聊5分钟，拍下宝贝.";
+              break;
+          }
+          $('#task_desc').val(content);
+        })
       })

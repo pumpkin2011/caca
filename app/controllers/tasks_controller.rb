@@ -14,7 +14,11 @@ class TasksController < ApplicationController
     elsif cookies[:task_param]
       @task = Task.new(JSON.parse(cookies[:task_param]))
     else
-      @task = Task.new(receive_time: true, comment_time: true)
+      @task = Task.new(
+        receive_time: true,
+        comment_time: true,
+        desc: "手动输入关键词搜索进店浏览3分钟拍下宝贝，上中下评价销量全屏截图"
+        )
     end
   end
 
