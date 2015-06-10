@@ -14,3 +14,17 @@
  *= require semantic-ui
  *= require simditor
  */
+.admin_login{
+  background-color: #f0f0f0;
+}
+.ui.segment.login{
+  background: #f0f0f0 image-url('logo_01.jpg') no-repeat  0px 141px;
+  height: 700px;
+
+}
+
+.ui.segment.login > .ui.form{
+  width: 400px;
+  padding-top: 223px;
+  margin-left: 610px;
+}

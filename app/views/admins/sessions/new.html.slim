@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    meta charset='utf-8'
+    meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+    meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    meta name="description" content=""
+    meta name="keywords" content=""
+    title 后台管理 | 歪淘网
+    = stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'admin', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+  body class="admin_login"
+    .ui.segment.login
+      = form_for(resource, as: resource_name,
+          url: session_path(resource_name), html:{class: 'ui form'}) do |f|
+        .field.ui.left.icon.input.large
+          = f.email_field :email, autofocus: true, placeholder: '请输入用户名'
+          i.icon.user
+        .field.ui.left.icon.input.large
+          = f.password_field :password, autocomplete: "off", placeholder: '请输入密码'
+          i.icon.lock
+        .field
+          = f.submit "登录", class: 'ui button green fluid large'
