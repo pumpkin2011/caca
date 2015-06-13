@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603142537) do
+ActiveRecord::Schema.define(version: 20150610151257) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -52,8 +52,11 @@ ActiveRecord::Schema.define(version: 20150603142537) do
     t.string   "state",      limit: 20
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
+    t.decimal  "total",                  precision: 10, scale: 2
+    t.string   "process",    limit: 10
   end
 
+  add_index "bills", ["process"], name: "index_bills_on_process", using: :btree
   add_index "bills", ["state"], name: "index_bills_on_state", using: :btree
   add_index "bills", ["user_id"], name: "index_bills_on_user_id", using: :btree
 

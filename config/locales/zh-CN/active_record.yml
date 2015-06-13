@@ -28,6 +28,17 @@ zh-CN:
       channel:
         bank: '银行'
         alipay: '支付宝'
+      process:
+        finished: '已完成'
+        pending: '处理中'
+    bill:
+      state:
+        deposit: '账户充值'
+        publish_task: '发布任务'
+        cancel_task: '取消任务'
+        finish_task: '完成任务'
+        extract: '申请提现'
+        frozen: '冻结资金'
   activerecord:
     models:
       user: 用户

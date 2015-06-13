@@ -3,8 +3,10 @@ table.ui.table
   thead
     tr
       th #
-      th 描述
-      th 金额
+      th 类型
+      th 变化金额
+      th 账户余额
+      th 状态
       th 时间
 
 
@@ -12,7 +14,9 @@ table.ui.table
     - @bills.each do |bill|
       tr
         td = bill.id
-        td = bill.log
+        td = bill.state_text
         td = sprintf("%0.02f元",bill.amount)
+        td = sprintf("%0.02f元",bill.total)
+        td = bill.process_text
         td = bill.created_at.to_minute
 = paginate @bills
