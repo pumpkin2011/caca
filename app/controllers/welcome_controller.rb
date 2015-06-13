@@ -24,7 +24,7 @@ class WelcomeController < ApplicationController
         flash[:success] = '冻结资金成功'
         Bill.create(
           user: current_user,
-          log: "冻结资金",
+          log: "-",
           amount: -amount,
           state: 'frozen',
         )
