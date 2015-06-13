@@ -114,3 +114,18 @@
   z-index: 10;
   right: 5px;
 }
+
+.ui.grid.pricing{
+  padding-top: 50px;
+}
+.ui.grid.pricing .ui.header{
+  margin-top: 20px;
+}
+.ui.grid.pricing .highlighted{
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  background-image: image_url('best_badge.png')
+}

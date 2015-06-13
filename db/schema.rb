@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610151257) do
+ActiveRecord::Schema.define(version: 20150613050729) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -285,6 +285,7 @@ ActiveRecord::Schema.define(version: 20150610151257) do
     t.integer  "failed_attempts",        limit: 4,                            default: 0
     t.string   "unlock_token",           limit: 255
     t.datetime "locked_at"
+    t.datetime "vip_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -292,6 +293,16 @@ ActiveRecord::Schema.define(version: 20150610151257) do
   add_index "users", ["qq"], name: "index_users_on_qq", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["state"], name: "index_users_on_state", using: :btree
+
+  create_table "vips", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "pricing",    limit: 4
+    t.boolean  "largess",    limit: 1, default: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "vips", ["user_id"], name: "index_vips_on_user_id", using: :btree
 
   create_table "wangwangs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -320,5 +331,6 @@ ActiveRecord::Schema.define(version: 20150610151257) do
   add_foreign_key "shops", "users"
   add_foreign_key "task_templates", "users"
   add_foreign_key "tasks", "shops"
+  add_foreign_key "vips", "users"
   add_foreign_key "wangwangs", "users"
 end

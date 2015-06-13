@@ -32,7 +32,8 @@ class Bill < ActiveRecord::Base
     :cancel_task,
     :finish_task,
     :extract,
-    :frozen
+    :frozen,
+    :vip
   ]
 
   enumerize :process, in:[

@@ -39,6 +39,14 @@ zh-CN:
         finish_task: '完成任务'
         extract: '申请提现'
         frozen: '冻结资金'
+        vip: '购买vip套餐'
+    vip:
+      pricing:
+        one_month: '体验版'
+        three_month: '基础版'
+        six_month: '专业版'
+        tlewve_month: '至尊版'
+
   activerecord:
     models:
       user: 用户
