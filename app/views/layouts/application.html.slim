@@ -44,8 +44,9 @@ html
           = image_tag('logo_big.png')
         .column
             - if user_signed_in?
-              .ui.menu.fluid.five.item
+              .ui.menu.fluid.six.item
                 = link_to '首页', root_path, class: 'item red'
+                = link_to '个人中心', '#', class: 'item red nav_launch_button'
                 = link_to '任务大厅', tasks_path, class: 'item'
                 = link_to '刷手中心', '/tasks/my_order', class: 'item'
                 = link_to '商家中心', '/tasks/my_task', class: 'item'

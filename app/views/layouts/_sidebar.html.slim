@@ -46,8 +46,8 @@
 
 - content_for(:js) do
   javascript:
-    $(function(){
-      $('.fixed.launch.button').click(function(){
+    $('document').ready(function(){
+      $('.fixed.launch.button, .nav_launch_button').click(function(){
         $('.sidebar').sidebar('toggle');
       })
     })
