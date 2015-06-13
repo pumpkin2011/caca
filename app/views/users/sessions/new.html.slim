@@ -6,7 +6,7 @@
         = form_for(resource, as: resource_name, url: session_path(resource_name), html:{class: 'ui form'}) do |f|
           .field
             .ui.left.icon.input.huge
-              = f.text_field :email, placeholder: '请输入用户名/邮箱地址'
+              = f.text_field :login, placeholder: '请输入用户名/邮箱地址'
               i.icon.user
           .field
             .ui.left.icon.input.huge

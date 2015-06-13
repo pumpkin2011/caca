@@ -57,7 +57,7 @@ html
                 = link_to '有销量', new_task_path, class: 'item'
                 = link_to '关于', '/pages/about', class: 'item'
 
-    - if request.path == '/'
+    - if @banner
       = render 'layouts/side_float'
       .fullwidthbanner-container.revolution-slider
         .fullwidthabnner

@@ -1,6 +1,8 @@
 class WelcomeController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   def index
+    # TODO: deivse 注册失败地址跳转
+    @banner = true
   end
 
   def profile
