@@ -42,7 +42,7 @@ class Extract < ActiveRecord::Base
     extract.user.decrement!(:amount, extract.amount)
     Bill.create(
       user: extract.user,
-      log: "提现: #{extract.id}",
+      log: extract.id,
       amount: -extract.amount,
       state: 'extract',
     )
@@ -53,6 +53,10 @@ class Extract < ActiveRecord::Base
 
 
     event :finish do
+      after do
+        b = Bill.where(log: self.id, process: 'pending').first
+        b.update(process: 'finished')
+      end
       transitions from: :pending, to: :finished
     end
   end

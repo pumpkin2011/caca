@@ -37,7 +37,7 @@ class Deposit < ActiveRecord::Base
     deposit.user.increment!(:amount, deposit.amount)
     Bill.create(
       user: deposit.user,
-      log: "淘宝充值: #{deposit.sn}",
+      log: deposit.id,
       amount: deposit.amount,
       state: 'deposit',
     )

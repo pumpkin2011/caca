@@ -121,7 +121,7 @@ class Task < ActiveRecord::Base
 
         Bill.create(
           user: self.consumer,
-          log: "完成任务: #{self.id}",
+          log: self.to_id,
           amount: self.commission_for_consumer,
           state: 'finish_task',
         )
@@ -143,30 +143,32 @@ class Task < ActiveRecord::Base
 
   # 发布任务扣除佣金
   after_create do |task|
-    Bill.create(
-      user: task.producer,
-      log: "发布任务: #{task.id}",
-      amount: -task.commission,
-      state: 'publish_task',
-    )
+
     task.producer.with_lock do
       task.producer.decrement(:amount, task.commission)
       task.producer.save
     end
+    Bill.create(
+      user: task.producer,
+      log: task.to_id,
+      amount: -task.commission,
+      state: 'publish_task',
+    )
   end
 
   # 取消任务返还资金
   before_destroy do |task|
-    Bill.create(
-      user: task.producer,
-      log: "取消任务: #{task.id}",
-      amount: task.commission,
-      state: 'cancel_task',
-    )
+
     task.producer.with_lock do
       task.producer.increment(:amount, task.commission)
       task.producer.save
     end
+    Bill.create(
+      user: task.producer,
+      log: task.to_id,
+      amount: task.commission,
+      state: 'cancel_task',
+    )
   end
 
   before_create do |task|
@@ -179,7 +181,7 @@ class Task < ActiveRecord::Base
       TaskWorker.perform_async(task.id)
     end
   end
-  validate :ip_count_within_limit, :shop_wangwang_within_limit, :blacklist_within_limit, 
+  validate :ip_count_within_limit, :shop_wangwang_within_limit, :blacklist_within_limit,
             on: :update, if: Proc.new{|task|
               task.state == 'pending' && task.ip && task.consumer_id && task.wangwang_id }
 
