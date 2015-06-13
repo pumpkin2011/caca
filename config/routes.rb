@@ -47,13 +47,14 @@ Rails.application.routes.draw do
   resource :authenticates, only:[:edit, :update]
   resources :pages, only: [:index, :show]
   resource :bills, only: [:show]
-  resource :extracts
+  resource :extracts, :vips
   resource :referrals, only: [:show]
   resources :invitations, only: [:index]
   resources :task_autos do
     get 'start', on: :member
     get 'stop', on: :member
   end
+
 
   namespace :admin do
     root 'welcome#index'

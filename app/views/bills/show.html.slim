@@ -2,8 +2,9 @@ h2 交易明细
 table.ui.table
   thead
     tr
-      th #
+
       th 类型
+      th 任务ID
       th 变化金额
       th 账户余额
       th 状态
@@ -13,8 +14,9 @@ table.ui.table
   tbody
     - @bills.each do |bill|
       tr
-        td = bill.id
+
         td = bill.state_text
+        td = bill.log
         td = sprintf("%0.02f元",bill.amount)
         td = sprintf("%0.02f元",bill.total)
         td = bill.process_text
