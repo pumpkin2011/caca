@@ -71,6 +71,7 @@ table.ui.table
           - if task.state != 'pending'
             p = task.wangwang.account
           p
+
             = link_to '详情', task_path(task), class: 'ui button mini positive'
             - if task.state == 'confirmed' && Time.now - task.updated_at > 30.minutes
               = link_to '更换刷手', reject_task_path(task), class: 'ui button mini negative'
@@ -80,6 +81,8 @@ table.ui.table
               - when 'talking'
                 = link_to '同意', confirm_task_path(task), class: 'ui button mini positive'
                 = link_to '拒绝', reject_task_path(task), class: 'ui button mini negative'
+            - if task.consumer
+              = link_to '申诉', new_complaint_path(task: task.code), class: 'ui button mini negative'
 
 
 .ui.modal.profile

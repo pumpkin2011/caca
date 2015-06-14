@@ -21,7 +21,7 @@ table.ui.table
       th 价格
       th 特殊需求
       th 状态
-      th
+      th 操作
 
   tbody
   - @tasks.each do |task|
@@ -58,4 +58,6 @@ table.ui.table
 
           - case task.state
             - when 'confirmed'
-              = link_to '详情', task_path(task), class: 'ui button tiny positive'
+              = link_to '详情', task_path(task), class: 'ui button mini positive'
+          - if task.consumer
+            = link_to '申诉', new_complaint_path(task: task.code), class: 'ui button mini negative'

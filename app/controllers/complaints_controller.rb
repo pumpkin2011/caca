@@ -4,7 +4,17 @@ class ComplaintsController < ApplicationController
   end
 
   def new
+
     @complaint = Complaint.new
+    task = Task.where(code: params[:task]).first
+    if task
+      @complaint.task_no = task.code
+      if current_user.id == task.producer_id
+        @complaint.username = task.consumer.name
+      else
+        @complaint.username = task.producer.name
+      end
+    end
   end
 
   def create
