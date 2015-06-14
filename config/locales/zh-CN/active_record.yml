@@ -158,9 +158,11 @@ zh-CN:
         question: 原因
       complaint:
         <<: *common
-        target_user: 用户
-        username: 用户名
-        question: 原因
+        target_user: 对方用户名
+        task_no: 任务ID
+        username: 对方信息
+        question: 申诉说明
+        reason: 申诉原因
         state:
           pending: 等待处理
           finished: 处理完成

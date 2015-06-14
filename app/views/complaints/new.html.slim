@@ -4,11 +4,22 @@ h2 用户投诉系统
 = form_for @complaint, html:{class: 'ui form'} do |f|
   .fields
     .field.four.wide
+      = f.label :task_no
+      .ui.left.icon.input
+        = f.text_field :task_no
+        i.icon.tasks
+
+    .field.four.wide
+      = f.label :task_no
       .ui.left.icon.input
         = f.text_field :username
         i.icon.user
-
+  .fields
+    .field.six.wide
+      = f.label :reason
+      = f.text_field :reason
     .field
+      label 请选择1-5张图片
       = link_to 'javascript:void(0):', class: 'ui button basic icon', id: 'plu_button' do
         i.file.image.outline.icon
         | 添加图片
@@ -19,7 +30,7 @@ h2 用户投诉系统
     - @complaint.pictrues.each do |pic|
       img.ui.image src="#{pic.url}"
   .field
-    = f.label :问题描述
+    = f.label :question
     = f.text_area :question
 
   .field

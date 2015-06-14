@@ -3,7 +3,8 @@ h2 我的投诉
 table.ui.table
   thead
     tr
-      th 被投诉用户
+      th 任务ID
+      th 对方信息
       th 投诉原因
       th 投诉时间
       th 处理时间
@@ -12,8 +13,9 @@ table.ui.table
   tbody
     - @complaints.each do |complaint|
       tr
+        td = complaint.task.code
         td = complaint.target_user.name
-        td = truncate complaint.question
+        td = truncate complaint.reason
         td = complaint.created_at.to_minute
         td = complaint.updated_at.to_minute
         td

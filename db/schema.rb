@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614061757) do
+ActiveRecord::Schema.define(version: 20150614151815) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -79,10 +79,13 @@ ActiveRecord::Schema.define(version: 20150614061757) do
     t.string   "state",          limit: 10
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.integer  "task_id",        limit: 4
+    t.string   "reason",         limit: 20
   end
 
   add_index "complaints", ["state"], name: "index_complaints_on_state", using: :btree
   add_index "complaints", ["target_user_id"], name: "index_complaints_on_target_user_id", using: :btree
+  add_index "complaints", ["task_id"], name: "index_complaints_on_task_id", using: :btree
   add_index "complaints", ["user_id"], name: "index_complaints_on_user_id", using: :btree
 
   create_table "delivers", force: :cascade do |t|
@@ -266,7 +269,7 @@ ActiveRecord::Schema.define(version: 20150614061757) do
     t.decimal  "commission_extra",             precision: 10, scale: 2
     t.string   "task_type",        limit: 10
     t.string   "cover",            limit: 255
-    t.string   "code",             limit: 7
+    t.string   "code",             limit: 20
   end
 
   add_index "tasks", ["code"], name: "index_tasks_on_code", using: :btree
@@ -340,6 +343,7 @@ ActiveRecord::Schema.define(version: 20150614061757) do
   add_foreign_key "alipays", "users"
   add_foreign_key "banks", "users"
   add_foreign_key "bills", "users"
+  add_foreign_key "complaints", "tasks"
   add_foreign_key "complaints", "users"
   add_foreign_key "delivers", "users"
   add_foreign_key "delivers", "users", column: "owner_id"

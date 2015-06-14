@@ -1,6 +1,14 @@
 
 .ui.segment
-  = @complaint.question
+  h3 =  "对方信息: #{@complaint.target_user.name}"
+  p
+    | 任务ID: #{@complaint.task.code}
+  p
+    | 申诉原因: #{@complaint.reason}
+
+  p
+    | 申诉说明: <br />
+    = @complaint.question
 
 .ui.images.large
   - @complaint.pictrues.each do | pic|

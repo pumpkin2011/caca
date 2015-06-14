@@ -25,6 +25,10 @@
 #  updated_at             :datetime
 #  state                  :string(10)
 #  referral_token         :string(255)
+#  failed_attempts        :integer          default(0)
+#  unlock_token           :string(255)
+#  locked_at              :datetime
+#  vip_at                 :datetime
 #
 # Indexes
 #

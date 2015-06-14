@@ -27,7 +27,7 @@
 #  commission_extra :decimal(10, 2)
 #  task_type        :string(10)
 #  cover            :string(255)
-#  code             :string(7)
+#  code             :string(20)
 #
 # Indexes
 #
@@ -50,7 +50,7 @@ class Task < ActiveRecord::Base
 
 
   def to_id
-    "#{created_at.strftime('%y%m%d')}#{code}"
+    "#{code}"
   end
 
   default_scope { order 'updated_at DESC'}

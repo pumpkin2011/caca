@@ -26,7 +26,7 @@ class ComplaintsController < ApplicationController
   private
     def complaint_params
       params.require(:complaint).permit(
-        :username, :question,
+        :task_no, :username, :question, :reason,
         pictrues_attributes: [:url]
       )
     end
