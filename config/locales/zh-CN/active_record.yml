@@ -133,6 +133,7 @@ zh-CN:
         name: 姓名
         number: 身份证号码
       alipay:
+
         name:  姓名
         account: 账号
       page:
@@ -155,3 +156,11 @@ zh-CN:
         target: 用户
         username: 用户名
         question: 原因
+      complaint:
+        <<: *common
+        target_user: 用户
+        username: 用户名
+        question: 原因
+        state:
+          pending: 等待处理
+          finished: 处理完成

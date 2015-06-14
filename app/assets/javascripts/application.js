@@ -18,6 +18,7 @@
 //= require plupload.full.min
 //= require plupload.zh_CN
 //= require qiniu_uploader
+//= require complaint_uploader
 //= require jquery.themepunch.revolution
 //= require jquery.themepunch.tools.min
 //= require revo-slider-init

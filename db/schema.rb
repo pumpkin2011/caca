@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613050729) do
+ActiveRecord::Schema.define(version: 20150614061757) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               limit: 255, default: "", null: false
@@ -70,6 +70,20 @@ ActiveRecord::Schema.define(version: 20150613050729) do
 
   add_index "blacklists", ["target_id"], name: "index_blacklists_on_target_id", using: :btree
   add_index "blacklists", ["user_id"], name: "index_blacklists_on_user_id", using: :btree
+
+  create_table "complaints", force: :cascade do |t|
+    t.integer  "user_id",        limit: 4
+    t.integer  "target_user_id", limit: 4
+    t.text     "question",       limit: 65535
+    t.text     "answer",         limit: 65535
+    t.string   "state",          limit: 10
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "complaints", ["state"], name: "index_complaints_on_state", using: :btree
+  add_index "complaints", ["target_user_id"], name: "index_complaints_on_target_user_id", using: :btree
+  add_index "complaints", ["user_id"], name: "index_complaints_on_user_id", using: :btree
 
   create_table "delivers", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -179,6 +193,14 @@ ActiveRecord::Schema.define(version: 20150613050729) do
   end
 
   add_index "pages", ["category_id"], name: "index_pages_on_category_id", using: :btree
+
+  create_table "pictrues", force: :cascade do |t|
+    t.string   "url",            limit: 255
+    t.integer  "imageable_id",   limit: 4
+    t.string   "imageable_type", limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "shops", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -318,6 +340,7 @@ ActiveRecord::Schema.define(version: 20150613050729) do
   add_foreign_key "alipays", "users"
   add_foreign_key "banks", "users"
   add_foreign_key "bills", "users"
+  add_foreign_key "complaints", "users"
   add_foreign_key "delivers", "users"
   add_foreign_key "delivers", "users", column: "owner_id"
   add_foreign_key "deposits", "admins"

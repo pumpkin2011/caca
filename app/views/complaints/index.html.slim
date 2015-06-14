@@ -1,0 +1,30 @@
+h2 我的投诉
+= link_to '我要投诉', new_complaint_path, class: 'ui button positive'
+table.ui.table
+  thead
+    tr
+      th 被投诉用户
+      th 投诉原因
+      th 投诉时间
+      th 处理时间
+      th 状态
+      th 操作
+  tbody
+    - @complaints.each do |complaint|
+      tr
+        td = complaint.target_user.name
+        td = truncate complaint.question
+        td = complaint.created_at.to_minute
+        td = complaint.updated_at.to_minute
+        td
+          .ui.label.tiny = complaint.aasm.human_state
+        td
+          = link_to '详情',  complaint_path(complaint), remote: true, class: 'ui button tiny positive'
+
+
+.ui.modal.large.complaint_desc
+  i.close.icon
+  .header 投诉详情
+  .content
+  .actions
+    .ui.button.positive 关闭

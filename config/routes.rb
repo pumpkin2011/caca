@@ -2,6 +2,10 @@
 Rails.application.routes.draw do
 
 
+  get 'complaints/index'
+
+  get 'complaints/new'
+
   get 'extract/show'
 
   require 'sidekiq/web'
@@ -54,6 +58,7 @@ Rails.application.routes.draw do
     get 'start', on: :member
     get 'stop', on: :member
   end
+  resources :complaints
 
 
   namespace :admin do
