@@ -1,0 +1,4 @@
+$('.ui.modal.complaint_desc .content').html('<%= j render 'item' %>')
+$('.ui.modal.complaint_desc .header').html("被投诉用户: <%= @complaint.target_user.name%>")
+
+$('.ui.modal.complaint_desc').modal('show');

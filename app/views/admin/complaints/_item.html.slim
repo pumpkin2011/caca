@@ -1,0 +1,7 @@
+
+.ui.segment
+  = @complaint.question
+
+.ui.images.large
+  - @complaint.pictrues.each do | pic|
+    img.ui.image src="#{pic.url}"
