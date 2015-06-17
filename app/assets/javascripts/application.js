@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require semantic-ui
-//= require 'china_city/jquery.china_city'
 //= require qiniu
 //= require plupload.full.min
 //= require plupload.zh_CN

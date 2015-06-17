@@ -12,4 +12,5 @@ Rails.application.config.assets.precompile += %w(
 admin.js  admin.css
 edit.js edit.css
 zeroclipboard.js
+china_city/jquery.china_city.js
 )

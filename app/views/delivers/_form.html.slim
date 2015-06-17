@@ -36,3 +36,6 @@
 
   = f.submit '添加', class: 'ui button submit positive'
   = link_to '取消', delivers_path, class: 'ui button'
+
+- content_for :js do
+  = javascript_include_tag 'china_city/jquery.china_city'
