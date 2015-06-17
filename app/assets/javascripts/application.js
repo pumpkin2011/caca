@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require semantic-ui
 //= require jquery.themepunch.revolution
 //= require jquery.themepunch.tools.min
 //= require revo-slider-init

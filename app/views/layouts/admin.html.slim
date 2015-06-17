@@ -7,7 +7,9 @@ html
     meta name="description" content=""
     meta name="keywords" content=""
     title 后台管理 | 歪淘网
-    = stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'admin', media: 'all'
+    = stylesheet_link_tag 'semantic-ui', media: 'all'
+    = javascript_include_tag 'admin'
     = yield :css
     = csrf_meta_tags
 
@@ -36,5 +38,11 @@ html
           div class="ui message #{name}"
             p = msg
         = yield
-    = javascript_include_tag 'admin', 'data-turbolinks-track' => true
+
+    = javascript_include_tag 'semantic-ui'
+    javascript:
+      $(document).ready(function(){
+        $('.ui.dropdown').dropdown();
+        $('.ui.checkbox').checkbox();
+      });
     = yield :js

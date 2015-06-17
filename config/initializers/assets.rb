@@ -15,4 +15,5 @@ zeroclipboard.js
 china_city/jquery.china_city.js
 image_uploader.js
 simditor.css simditor.js
+semantic-ui.js semantic-ui.css
 )

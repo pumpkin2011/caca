@@ -13,11 +13,3 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require semantic-ui
-
-
-
-$(function(){
-  $('.ui.dropdown').dropdown();
-  $('.ui.checkbox').checkbox();
-})
