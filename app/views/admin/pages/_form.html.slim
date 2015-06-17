@@ -18,8 +18,10 @@
     = f.text_area :content, id: 'content_edit'
 
   = f.submit '确定', class: 'ui button positive'
-
+- content_for :css do
+  = stylesheet_link_tag 'simditor'
 - content_for :js do
+  = javascript_include_tag 'simditor'
   javascript:
     $(function(){
       var editor = new Simditor({
