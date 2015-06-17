@@ -75,7 +75,7 @@
     .ui.message.info.compact 资料已认证不能修改, 如有需要请联系客服。
 
 - content_for(:js) do
-
+  = javascript_include_tag 'image_uploader'
   coffee:
     # 图片上传
     new QiniuUploader

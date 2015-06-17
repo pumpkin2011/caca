@@ -154,6 +154,7 @@
         button class="ui button positive"  发布定时任务
 - if @task.new_record?
   - content_for(:js) do
+    = javascript_include_tag 'image_uploader'
     javascript:
       $(function(){
         new QiniuUploader({button: 'cover'})
