@@ -69,6 +69,7 @@
   = paginate @invitation
 
 - content_for :js do
+  = javascript_include_tag 'zeroclipboard'
   javascript:
     $(function(){
       var clip = new ZeroClipboard($("#d_clip_button"));

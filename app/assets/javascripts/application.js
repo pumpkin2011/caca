@@ -23,4 +23,3 @@
 //= require jquery.themepunch.tools.min
 //= require revo-slider-init
 //= require jquery.form.js
-//= require zeroclipboard
