@@ -186,7 +186,7 @@ class TasksController < ApplicationController
     # 刷手验证
     def consumer
       @wangwangs = current_user.wangwangs.available
-      if current_user.delivers.confirmed.size<0
+      if current_user.delivers.confirmed.size<=0
         flash[:error] = '接手任务需要有可以使用的收获地址'
         redirect_to delivers_path
         return
