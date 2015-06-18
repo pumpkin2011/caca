@@ -13,13 +13,13 @@
   .fields.city-group
     .field.four.wide
       = f.label :province
-      = f.select :province, options_for_select(ChinaCity.list),  {include_blank: true}, {class: 'select city-select ui dropdown'}
+      = f.select :province, options_for_select(ChinaCity.list),  {include_blank: true}, {class: 'select city-select'}
     .field.four.wide
       = f.label :city
-      = f.select :city, [],  {include_blank: true}, {class: 'select city-select ui dropdown'}
+      = f.select :city, [],  {include_blank: true}, {class: 'select city-select'}
     .field.four.wide
       = f.label :district
-      = f.select :district, [],  {include_blank: true}, {class: 'select city-select ui dropdown'}
+      = f.select :district, [],  {include_blank: true}, {class: 'select city-select'}
 
 
   .fields
