@@ -244,7 +244,7 @@ class Task < ActiveRecord::Base
       self.commission += 1 if self.task_type == 'phone'
 
       # 增拍
-      self.commission += self.extra.to_i.abs * 2
+      self.commission += self.extra.to_i.abs
 
       # 追加佣金
       self.commission += self.commission_extra.to_i.abs
