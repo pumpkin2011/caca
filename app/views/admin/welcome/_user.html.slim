@@ -1,0 +1,21 @@
+.ui.segment
+  .ui.label
+    | 注册用户:
+    = @all_user_count
+  .ui.label
+    | 等待更新资料:
+    = @uploading_user_count
+
+  .ui.label
+    | 等待审核:
+    = @pending_user_count
+
+  .ui.label
+    | 认证用户:
+    = @checked_user_count
+  .ui.label
+    | 外淘认证:
+    = @officialed_user_count
+  .ui.label
+    | 冻结用户:
+    = @locked_user_count

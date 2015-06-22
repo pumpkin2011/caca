@@ -1,0 +1,21 @@
+.ui.segment
+  .ui.label
+    | 收到充值总额:
+    = @deposit_total
+
+  .ui.label
+    | 实际充值金额:
+    = @deposit_applying_total
+
+.ui.segment
+  .ui.label
+    | 已提现总额:
+    = @extract_finished_total
+
+  .ui.label
+    | 7天内待提现总额:
+    = @extract_pending_total
+
+  .ui.label
+    | 今日待提现总额:
+    = @extract_current_total

@@ -1,0 +1,20 @@
+.ui.segment
+  .ui.label
+    | 地址总数:
+    = @deliver_count
+
+  .ui.label
+    | 待审核地址:
+    = @deliver_pending_count
+
+  .ui.label
+    | 已通过地址:
+    = @deliver_confirmed_count
+
+  .ui.label
+    | 未通过地址:
+    = @deliver_rejected_count
+
+  .ui.label
+    | 已分配地址:
+    = @deliver_applying_count
