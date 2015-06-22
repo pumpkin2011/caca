@@ -1,0 +1,21 @@
+.ui.two.column.grid
+  .column
+
+    h3 用户资料
+  .column.right.aligned
+    .ui.buttons
+      - if @user.state == 'pending'
+        = link_to '通过', confirm_admin_user_path(@user), class: 'ui button positive'
+        .or
+        = link_to '拒绝', reject_admin_user_path(@user), class: 'ui button negative'
+    - if @user.state == 'checked'
+      = link_to '歪淘认证', official_admin_user_path(@user), class: 'ui button positive'
+      = link_to '取消认证', reject_admin_user_path(@user), class: 'ui button negative'
+
+    - if @user.state == 'officialed'
+      = link_to '取消歪淘认证', cancel_official_admin_user_path(@user), class: 'ui button negative'
+
+    - if @user.locked_at.present?
+      = link_to '解冻', unlock_admin_user_path(@user), class: 'ui button positive'
+    - else
+      = link_to '冻结', lock_admin_user_path(@user), class: 'ui button negative'

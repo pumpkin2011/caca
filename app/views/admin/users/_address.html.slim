@@ -22,7 +22,7 @@
 
 
 -if @user.delivers.any?
-  h3 我提供的收货地址
+  h3 我提供的收货地址(#{@user.delivers.count})
   table.ui.table
     thead
       tr

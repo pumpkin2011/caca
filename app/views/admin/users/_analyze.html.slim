@@ -1,0 +1,18 @@
+
+  table.ui.table
+    thead
+      tr
+        th 余额
+        th 冻结
+        th 充值
+        th 提现
+        th 消费
+        th 赚取
+    tbody
+      tr
+        td = sprintf("%0.02f元",@user.amount)
+        td = sprintf("%0.02f元", @user.frozen_amount )
+        td = sprintf("%0.02f元", @user.deposits.sum(:amount) )
+        td = sprintf("%0.02f元", @user.extracts.finished.sum(:amount) )
+        td = sprintf("%0.02f元", @user.tasks.finished.sum(:commission) )
+        td = sprintf("%0.02f元", @user.orders.finished.sum(:commission)*0.9 )

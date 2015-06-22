@@ -5,9 +5,6 @@ table.ui.table
       th #
       th 用户
       th 余额/冻结
-      th 店铺
-      th 旺旺
-      th 地址
       th 任务
       th 接单
       th 状态
@@ -19,9 +16,6 @@ table.ui.table
         td = user.id
         td = user.name
         td = "#{sprintf("%0.02f元",user.amount)}/#{sprintf("%0.02f元",user.frozen_amount)}"
-        td = user.shops.confirmed.count
-        td = user.wangwangs.confirmed.count
-        td = user.delivers.confirmed.count
         td = user.tasks.count
         td = user.orders.count
         td = user.aasm.human_state
