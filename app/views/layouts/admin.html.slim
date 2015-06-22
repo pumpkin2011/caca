@@ -17,6 +17,7 @@ html
     .ui.segment.inverted.red
       .ui.grid.page
         .ui.menu.inverted.red
+          = link_to '首页', admin_root_path, class: 'item'
           = link_to '充值管理', admin_deposits_path, class: 'item'
           = link_to '地址管理', admin_delivers_path, class: 'item'
           = link_to '旺旺管理', admin_wangwangs_path, class: 'item'
