@@ -1,4 +1,5 @@
 
+= render 'admin/complaints/nav'
 table.ui.table
   thead
     tr
@@ -23,6 +24,8 @@ table.ui.table
           .ui.label.tiny = complaint.aasm.human_state
         td
           = link_to '详情',  admin_complaint_path(complaint), remote: true, class: 'ui button tiny positive'
+          -if complaint.state == 'pending'
+            = link_to '处理完毕',  finished_admin_complaint_path(complaint), class: 'ui button tiny positive'
 
 = paginate @complaints
 

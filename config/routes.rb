@@ -84,7 +84,9 @@ Rails.application.routes.draw do
 
     resources :pages
     resources :extracts
-    resources :complaints
+    resources :complaints do
+        get 'finished', on: :member
+    end
 
     authenticate :admin do
       mount Sidekiq::Web => '/sidekiq'

@@ -1,0 +1,9 @@
+.ui.menu.item.three
+  = link_to "全部( #{@pending_count} )",
+            admin_complaints_path, class: 'item'
+
+  = link_to "待处理( #{@pending_count} )",
+            admin_complaints_path(type: 'pending'), class: 'item'
+
+  = link_to "已处理( #{@finished_count} )",
+            admin_complaints_path(type: 'finished'), class: 'item'

@@ -32,5 +32,10 @@ class Admin::WelcomeController < ApplicationController
     @shop_pending_count = Shop.pending.count
     @shop_confirmed_count = Shop.confirmed.count
     @shop_rejected_count = Shop.rejected.count
+
+    # 投诉
+    @complaint_count = Complaint.count
+    @complaint_pending_count = Complaint.pending.count
+    @complaint_finished_count = Complaint.finished.count
   end
 end
