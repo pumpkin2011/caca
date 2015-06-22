@@ -1,2 +1,24 @@
-h1 Admin::Welcome#index
-p Find me in app/views/admin/welcome/index.html.slim
+.ui.segment
+  .ui.label
+    | 注册用户:
+    = @all_user_count
+
+  .ui.label
+    | 冻结用户:
+    = @locked_user_count
+
+.ui.segment
+  .ui.label
+    | 佣金总额:
+    = @commission_total
+  .ui.label
+    | 已发佣金:
+    = @commission_finished
+
+.ui.segment
+  .ui.label
+    | 收到充值总额:
+    = @deposit_total
+  .ui.label
+    | 已充值总额:
+    = @deposit_applying
