@@ -73,9 +73,9 @@ class Task < ActiveRecord::Base
   end
 
   enumerize :duration, in: [
-    :three, :six, :ten, :fifteen, :twenty, :twentyfive,
+    :six, :ten, :fifteen, :twenty, :twentyfive,
     :thirty, :forty
-  ], default: :three
+  ], default: :six
 
   enumerize :level, in: [
     :normal, :one, :two,:three, :four, :five, :max
@@ -217,20 +217,18 @@ class Task < ActiveRecord::Base
       self.commission = 3
       # 时长增加
       case self.duration
-      when 'six'
-        self.commission += 1
       when 'ten'
-        self.commission += 2
+        self.commission += 1
       when 'fifteen'
-        self.commission += 3
+        self.commission += 2
       when 'twenty'
-        self.commission += 4
+        self.commission += 3
       when 'twentyfive'
-        self.commission += 5
+        self.commission += 4
       when 'thirty'
-        self.commission += 6
+        self.commission += 5
       when 'forty'
-        self.commission += 7
+        self.commission += 6
       end
       # 假聊
       case self.chat
