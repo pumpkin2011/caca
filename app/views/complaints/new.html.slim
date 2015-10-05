@@ -1,0 +1,44 @@
+h2 用户投诉系统
+
+= render partial: 'shared/error', locals: {title: '投诉失败', error: @complaint}
+= form_for @complaint, html:{class: 'ui form'} do |f|
+  .fields
+    .field.four.wide
+      = f.label :task_no
+      .ui.left.icon.input
+        = f.text_field :task_no
+        i.icon.tasks
+
+    .field.four.wide
+      = f.label :username
+      .ui.left.icon.input
+        = f.text_field :username
+        i.icon.user
+  .fields
+    .field.six.wide
+      = f.label :reason
+      = f.text_field :reason
+    .field
+      label 请选择1-5张图片
+      = link_to 'javascript:void(0):', class: 'ui button basic icon', id: 'plu_button' do
+        i.file.image.outline.icon
+        | 添加图片
+
+
+  #pictrues
+  .ui.images.small
+    - @complaint.pictrues.each do |pic|
+      img.ui.image src="#{pic.url}"
+  .field
+    = f.label :question
+    = f.text_area :question
+
+  .field
+    = f.submit '确定', class: 'ui button positive'
+
+- content_for(:js) do
+  = javascript_include_tag 'image_uploader'
+  coffee:
+    # 图片上传
+    new ComplaintUploader
+      button: 'plu_button'

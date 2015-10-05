@@ -1,4 +1,5 @@
 class ShopsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @shop = Shop.new
     @shops = current_user.shops
@@ -13,6 +14,16 @@ class ShopsController < ApplicationController
       @shops = current_user.shops.reload
       render :index
     end
+  end
+
+  def destroy
+    @shop = current_user.shops.pending.find(params[:id])
+    if @shop.destroy
+      flash[:success] = '删除成功'
+    else
+      flash[:error] = '删除失败'
+    end
+    redirect_to shops_path
   end
 
   private

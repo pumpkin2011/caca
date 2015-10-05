@@ -1,0 +1,17 @@
+$('.ui.message').remove();
+$('#extract_amount').val('');
+<% if @extract.errors.any? %>
+
+  $("<%= escape_javascript(
+    render partial: 'shared/error', locals: {title: '提现失败', error: @extract}
+  )%>").prependTo('.ui.grid.page.main .column:first');
+
+<% else %>
+
+  $("<div class='ui message success'>提现: <%= sprintf('%0.02f元',@extract.amount) %> 成功。 7个工作日内到账。</div>").prependTo('.ui.grid.page.main .column:first');
+  $('#current_amount').text("<%= sprintf('%0.02f元',@extract.user.amount) %>");
+
+<% end %>
+setTimeout(function(){
+  $('#new_extract button').removeClass('disabled')
+}, 3000);

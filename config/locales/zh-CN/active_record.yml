@@ -7,7 +7,7 @@ zh-CN:
         ten: "10分钟"
         fifteen: "15分钟"
         twenty: "20分钟"
-        twenty_five: "25分钟"
+        twentyfive: "25分钟"
         thirty: "30分钟"
         forty: "40分钟"
       level:
@@ -22,9 +22,36 @@ zh-CN:
         normal: "不需要"
         simple: "简单聊"
         complex: "认真聊"
+      task_type:
+        pc: "电脑单"
+        phone: "手机单"
+      channel:
+        bank: '银行'
+        alipay: '支付宝'
+      process:
+        finished: '已完成'
+        pending: '处理中'
+    bill:
+      state:
+        deposit: '账户充值'
+        publish_task: '发布任务'
+        cancel_task: '取消任务'
+        finish_task: '完成任务'
+        extract: '申请提现'
+        frozen: '冻结资金'
+        vip: '购买vip套餐'
+    vip:
+      pricing:
+        one_month: '体验版'
+        three_month: '基础版'
+        six_month: '专业版'
+        tlewve_month: '至尊版'
+
   activerecord:
     models:
       user: 用户
+      bank: 银行卡
+      identity: 身份证
     attributes:
       common: &common
         email: 邮箱
@@ -45,6 +72,13 @@ zh-CN:
           applying: 已使用
       user:
         <<: *common
+        name: 用户名
+        qq: QQ号码
+        state:
+          uploading: 等待更新资料
+          pending: 等待审核
+          checked: 认证用户
+          officialed: 歪淘认证
       deposit:
         <<: *common
       deliver:
@@ -57,10 +91,11 @@ zh-CN:
       shop:
         <<: *common
         account: 掌柜名
+
       task:
         <<: *common
         shop_id: 掌柜名
-        type: 类型
+        task_type: 类型
         link: 宝贝地址
         keywords: 关键词
         price: 价格
@@ -68,14 +103,66 @@ zh-CN:
         level: 小号最低等级
         chat: 假聊
         comment: 评论内容
+        desc: '任务要求'
+        spec: '特殊要求'
+        extra: '增拍'
+        cover: 宝贝照片
+        commission: '佣金'
+        commission_extra: '追加佣金'
+        receive_time: '收获时间'
+        comment_time: '评价时间'
+        wangwang_id: 旺旺
         state:
           pending: 等待接手
-          talking: '等待审核'
+          talking: 等待审核
           confirmed: 已通过
           rejected: 未通过
-          applying: 已使用
-      order:
+          applying: 宝贝已验证
+          finished: 已付款
+      bank:
         <<: *common
+        front: 银行卡正面
+        name: 收款人
+        account: 帐号
+        deposit: 开户行
+      identity:
+        <<: *common
+        front: 身份证正面
+        back: 身份证反面
+        handheld: 手持身份证
+        name: 姓名
+        number: 身份证号码
+      alipay:
+
+        name:  姓名
+        account: 账号
+      page:
+        name: 名称
+        code: 编码
+        content: 内容
+        category_id: 分类
+      extract:
+        amount: 提现金额
+      task_auto:
+        template_id: 模版
+        interval: 间隔时间
+        total_count: 单数
         state:
-          talking: '等待审核'
-          confirmed: 已通过
+          running: 发布中
+          stoped: 暂停发布
+          finished: 已完成
+
+      blacklist:
+        target: 用户
+        username: 用户名
+        question: 原因
+      complaint:
+        <<: *common
+        target_user: 对方用户名
+        task_no: 任务ID
+        username: 对方信息
+        question: 申诉说明
+        reason: 申诉原因
+        state:
+          pending: 等待处理
+          finished: 处理完成

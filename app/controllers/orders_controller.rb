@@ -1,17 +1,15 @@
 class OrdersController < ApplicationController
-  def index
-    @orders = current_user.orders
-  end
+  before_action :authenticate_user!
+  before_action :wangwang, only: [:new, :create ]
 
-  def new
-    @task = Task.find(params[:task_id])
-    @wangwangs = current_user.wangwangs.confirmed
-  end
+
+
 
   def create
-    @task = Task.find(params[:task_id])
+    @task = Task.pending.find(params[:task_id])
     @order = @task.build_order(order_param)
     @order.user = current_user
+    @order.ip = request.remote_ip
     if @order.save
       flash[:success] = "接单成功"
       redirect_to orders_path
@@ -35,5 +33,9 @@ class OrdersController < ApplicationController
   private
     def order_param
       params.require(:order).permit(:wangwang_id)
+    end
+
+    def wangwang
+      @wangwangs = current_user.wangwangs.available
     end
 end

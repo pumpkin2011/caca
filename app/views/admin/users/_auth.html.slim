@@ -1,0 +1,24 @@
+h3 照片资料
+.ui.three.column.grid
+  - if @user.identity
+    .column
+      .ui.card.fuild
+        .dimmable.image
+          .ui.dimmer
+            .content
+              .center
+                .ui.inverted.button#front 更换照片
+          = image_tag(@user.identity.front_url)
+        .content
+          .header 身份证正面照片
+
+    .column
+      .ui.card.fuild
+        .dimmable.image
+          .ui.dimmer
+            .content
+              .center
+                .ui.inverted.button#front 更换照片
+          = image_tag(@user.identity.back_url)
+        .content
+          .header 身份证反面照片

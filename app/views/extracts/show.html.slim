@@ -1,0 +1,25 @@
+= render partial: 'shared/error', locals: {title: '提现失败', error: @extract}
+
+= form_for @extract, html:{class: 'ui form'} do |f|
+  .field
+    .ui.input.action.left.labeled.big
+      .ui.label 提现金额
+      = f.text_field :amount
+      button class="ui button positive" 提现
+
+
+h2 我的提现记录
+table.ui.table
+  thead
+    tr
+      th #
+      th 金额
+      th 时间
+
+  tbody
+    - @extracts.each do |extract|
+      tr
+        td = extract.id
+        td = sprintf("%0.02f元",extract.amount)
+        td = extract.created_at.to_minute
+= paginate @extracts

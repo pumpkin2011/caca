@@ -1,6 +1,18 @@
+.ui.segment
+  p
+    | 1.保证注册的信息真实有效
+  P
+    | 2.保证自己的小号安全可靠,不得使用批量注册的黑号。小号注册时间必须满月并且实名。
+  P
+    |3.日交易低于3笔，周交易点数不超过6笔，月交易点数不得超过（网站限制不超过12笔）15点，请大家自觉，如果被商家举报小号超点，网站将会冻结账号并作处罚（扣除10元），还要赔偿商家损失。
+  p
+    |4.每次更换小号必须清除浏览器痕迹，更换IP地址（不操作，则无法继续接手任务）。
+
+  p
+    |5.任务完成后请向商家收款，备注您参加任务的小号。(切记收款的支付宝不能是刷单用的)。
 = render partial: 'shared/error', locals: {title: '旺旺绑定失败', error: @wangwang}
 = form_for [@wangwang], html:{class: 'ui form'} do |f|
-  .field
+  .field.nine.wide
     .ui.input.action.left.labeled.big
       .ui.label 旺旺名
       = f.text_field :account
@@ -12,6 +24,9 @@ table.ui.table
     tr
       th #
       th 旺旺名
+      th 1天内使用次数
+      th 7天内使用次数
+      th 30天内使用次数
       th 添加时间
       th 状态
 
@@ -21,5 +36,12 @@ table.ui.table
       tr
         td = wangwang.id
         td = wangwang.account
-        td = wangwang.created_at
-        td = wangwang.aasm.human_state
+        td = wangwang.day_count
+        td = wangwang.week_count
+        td = wangwang.month_count
+        td = wangwang.created_at.to_minute
+        td
+          = wangwang.aasm.human_state
+          - if wangwang.state == 'pending'
+            = link_to '删除', wangwang_path(wangwang), class: 'ui label red',
+              method: 'delete', data: {confirm: '确定删除'}

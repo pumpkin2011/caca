@@ -1,0 +1,37 @@
+
+= render 'admin/complaints/nav'
+table.ui.table
+  thead
+    tr
+      th 任务ID
+      th 投诉人
+      th 被投诉人
+      th 投诉原因
+      th 投诉时间
+      th 处理时间
+      th 状态
+      th 操作
+  tbody
+    - @complaints.each do |complaint|
+      tr
+        td = complaint.task.code
+        td = link_to complaint.user.name, admin_user_path(complaint.user), target: '_blank'
+        td = link_to complaint.target_user.name, admin_user_path(complaint.target_user), target: '_blank'
+        td = truncate complaint.question
+        td = complaint.created_at.to_minute
+        td = complaint.updated_at.to_minute
+        td
+          .ui.label.tiny = complaint.aasm.human_state
+        td
+          = link_to '详情',  admin_complaint_path(complaint), remote: true, class: 'ui button tiny positive'
+          -if complaint.state == 'pending'
+            = link_to '处理完毕',  finished_admin_complaint_path(complaint), class: 'ui button tiny positive'
+
+= paginate @complaints
+
+.ui.modal.large.complaint_desc
+  i.close.icon
+  .header 投诉详情
+  .content
+  .actions
+    .ui.button.positive 关闭

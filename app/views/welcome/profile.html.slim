@@ -1,10 +1,6 @@
 .ui.segment
-  p
-    | 当前账户余额: #{number_to_currency current_user.amount}
-
 
   p
-   = link_to '账户充值', deposits_path , class: 'ui label red'
    = link_to '地址管理', delivers_path , class: 'ui label red'
    = link_to '旺旺绑定', wangwangs_path , class: 'ui label red'
    = link_to '掌柜绑定', shops_path , class: 'ui label red'

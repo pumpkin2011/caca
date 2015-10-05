@@ -10,7 +10,121 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
+ *= require jquery.fileupload
+ *= require revolution
+ *= require style-revolution-slider
  */
- @import "semantic-ui";
+
+.fixed.launch.button {
+  position: fixed;
+  top: 63px;
+  left: -1px;
+  z-index: 10;
+
+  width: 55px;
+  height: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-transition:
+    0.3s width ease,
+    0.5s transform ease
+  ;
+  -moz-transition:
+    0.3s width ease,
+    0.5s transform ease
+  ;
+  -o-transition:
+    0.3s width ease,
+    0.5s transform ease
+  ;
+  -ms-transition:
+    0.3s width ease,
+    0.5s transform ease
+  ;
+  transition:
+    0.3s width ease,
+    0.5s transform ease
+  ;
+}
+.fixed.launch.button .text {
+  position: absolute;
+  white-space: nowrap;
+  top: auto;
+  left: 54px;
+  opacity: 0;
+  -webkit-transition:
+    0.3s opacity 0.3s
+  ;
+  -moz-transition:
+    0.3s opacity 0.3s
+  ;
+  -o-transition:
+    0.3s opacity 0.3s
+  ;
+  -ms-transition:
+    0.3s opacity 0.3s
+  ;
+  transition:
+    0.3s opacity 0.3s
+  ;
+}
+.fixed.launch.button:hover {
+  width: 150px;
+}
+.fixed.launch.button:hover .text {
+  opacity: 1;
+}
+.ui.fluid.card.task{
+  margin-top: -344px;
+}
+
+.ui.table td.p.description{
+  pointer-events: none;
+  color: rgba(40, 40, 40, 0.3);
+}
+
+.ui.table td.description p{
+  margin-bottom: 4px;
+}
+.ui.table span.commission{
+  color: #dc6868;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.ui.segment.login {
+  margin-top: 100px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.ui.segment.login span{
+  padding-left: 20px;
+}
+.ui.segment.auth{
+  height: 300px;
+}
+
+#float-dialog{
+  width: 180px;
+  position: fixed;
+  top: 200px;
+  z-index: 10;
+  right: 5px;
+}
+
+.ui.grid.pricing{
+  padding-top: 50px;
+}
+.ui.grid.pricing .ui.header{
+  margin-top: 20px;
+}
+.ui.grid.pricing .highlighted{
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  background-image: image_url('best_badge.png')
+}

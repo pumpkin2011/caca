@@ -1,0 +1,120 @@
+
+= render 'tasks/nav'
+
+- case params[:type]
+- when 'pending'
+  h2 等待接手的任务
+- when 'talking'
+  h2 等待审核的任务
+- when 'confirmed'
+  h2 进行中的任务
+- when 'applying'
+  h2 已完成的任务
+- else
+  h2 我发布的任务
+
+
+.ui.red.buttons
+  = link_to '发布任务', new_task_path, class: 'ui button'
+  -if current_user.templates.any?
+    .ui.floating.dropdown.icon.button
+      i.dropdown.icon
+      .menu
+        - current_user.templates.each do |template|
+          = link_to template.name, new_task_path(template: template.id), class: 'item'
+
+table.ui.table
+  thead
+    tr
+      th 任务ID和时间
+      th 接手人
+      th 价格和佣金
+      th 特殊需求
+      th 操作
+
+
+  tbody
+  - @tasks.each do |task|
+      tr
+        td
+          = task.to_id
+          = task_type(task)
+          p.description
+            i.icon.calendar
+            = task.created_at.to_minute
+        td
+          - if task.state != 'pending'
+            = link_to task.consumer.name, '#', class: 'order_user', 'data-id': task.id
+            = link_to "tencent://Message/?Uin=#{task.consumer.qq}" do
+              i.icon.qq.circular.green
+
+        td
+          p
+            | 佣金:
+            span.commission = sprintf("%0.02f",task.commission)
+            | 元
+
+          p = sprintf("价格: %0.02f元",task.price)
+
+
+        td.description
+          p = task_level(task)
+          p
+            span.ui.label.tiny ="时长: #{task.duration_text}"
+            - unless task.extra.blank?
+              span.ui.label.tiny = "增拍: #{task.extra}个"
+          - unless task.spec.blank?
+            p
+              span.ui.label.tiny = task.spec
+        td
+
+          - if task.state != 'pending'
+            p = task.wangwang.account
+          p
+
+            = link_to '详情', task_path(task), class: 'ui button mini positive'
+            - if task.state == 'confirmed' && Time.now - task.updated_at > 30.minutes
+              = link_to '更换刷手', reject_task_path(task), class: 'ui button mini negative'
+            - case task.state
+              - when 'pending'
+                = link_to '取消', task_path(task), method: 'delete', class: 'ui button mini positive'
+              - when 'talking'
+                = link_to '同意', confirm_task_path(task), class: 'ui button mini positive'
+                = link_to '拒绝', reject_task_path(task), class: 'ui button mini negative'
+            - if task.consumer
+              = link_to '申诉', new_complaint_path(task: task.code), class: 'ui button mini negative'
+
+
+.ui.modal.profile
+  i.close.icon
+  .header 接单人信息
+  .content 加载中...
+  .actions
+    .ui.button.positive 关闭
+
+
+- content_for(:js) do
+  javascript:
+    $(function(){
+      $('a.order_user').click(function(){
+        $.get('/profile/'+$(this).data('id'), function(data){
+          content = "<div class='ui grid two column'>"
+          content += "<div class='column'>";
+          content += "<p>姓名: "+data.name+"</p>";
+          content += "<p>旺旺: "+data.wangwang+"</p>";
+          content += "<p>已完成任务数: "+data.order_count+"</p>";
+          content += "<h4>收获地址</h4>"
+          content += "<p>收件人: "+data.deliver_name+"</p>"
+          content += "<p>地址: "+data.deliver_address+"</p>"
+          content += "</div>";
+
+          content += "<div class='column'>";
+          content += "<p>支付宝名称: "+data.alipay_name+"</p>";
+          content += "<p>支付宝账号: "+data.alipay_account+"</p>";
+          content += "</div>";
+          content += '</div>'
+          $('.ui.modal.profile .content').html(content);
+        });
+        $('.ui.modal.profile').modal('show');
+      })
+    })

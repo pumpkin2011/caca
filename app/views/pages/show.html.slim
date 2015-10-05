@@ -1,0 +1,9 @@
+.ui.grid
+  .column.four.wide
+    = render 'pages/nav'
+
+  .column.twelve.wide
+    .ui.segment
+      h3.ui.header.center.aligned = @page.name
+      .content
+        = sanitize @page.content

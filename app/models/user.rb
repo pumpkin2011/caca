@@ -4,7 +4,10 @@
 #
 #  id                     :integer          not null, primary key
 #  email                  :string(255)      default(""), not null
+#  name                   :string(20)
+#  qq                     :string(15)
 #  amount                 :decimal(10, 2)   default(0.0)
+#  frozen_amount          :decimal(10, 2)   default(0.0)
 #  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
 #  reset_password_sent_at :datetime
@@ -20,27 +23,102 @@
 #  unconfirmed_email      :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  state                  :string(10)
+#  referral_token         :string(255)
 #
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_name                  (name)
+#  index_users_on_qq                    (qq)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_state                 (state)
 #
 
 class User < ActiveRecord::Base
+  include AASM
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :confirmable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable
+         :confirmable, :lockable, :authentication_keys => [:login]
+
+  attr_accessor :login
+
+  def self.find_for_database_authentication(warden_conditions)
+      conditions = warden_conditions.dup
+      if login = conditions.delete(:login)
+        where(conditions.to_h).where(["name = :value OR lower(email) = :value", { :value => login.downcase }]).first
+      else
+        where(conditions.to_h).first
+      end
+    end
+
+  validates_presence_of :name, :qq
+  validates :name, length: {in: 2..10}, uniqueness: true, allow_blank: true, on: :create
+  validates :qq, length: {in: 4..15}, uniqueness: true, allow_blank: true, on: :create
 
   has_many :deposits
   has_many :delivers
   has_one :deliver, foreign_key: 'owner_id'
   has_many :wangwangs
   has_many :shops
-  has_many :tasks
-  has_many :orders
+  has_many :tasks, foreign_key: 'producer_id'
+  has_many :orders, class_name: 'Task', foreign_key: 'consumer_id'
+  has_many :templates, class_name: 'TaskTemplate'
+  has_many :bills
+  has_many :extracts
+  has_many :invitations, foreign_key: 'target_id'
+  has_one :invitation
+  has_many :autos, class_name: 'TaskAuto'
+  has_many :blacks, class_name: 'Blacklist'
+  has_many :vips
+  has_many :complaints
 
+  # 基本身份验证
+  has_one :identity, dependent: :destroy
+  has_one :bank, dependent: :destroy
+  has_one :alipay, dependent: :destroy
+  accepts_nested_attributes_for :identity
+  accepts_nested_attributes_for :bank
+  accepts_nested_attributes_for :alipay
+  after_create :generate_referral_token
+
+  default_scope { order 'created_at DESC'}
+
+  # 用户状态
+  aasm column: :state do
+    state :uploading, initial: true
+    state :pending
+    state :checked
+    state :officialed
+
+    event :check_in do
+      transitions from: :pending, to: :checked
+    end
+
+    event :check_out do
+      transitions from: [:pending, :checked] , to: :uploading
+    end
+
+    event :official do
+      transitions from: :checked, to: :officialed
+    end
+
+    event :cancel_official do
+      transitions from: :officialed, to: :checked
+    end
+  end
+
+  # 邀请链接地址
+  def generate_referral_token
+    update_column :referral_token, Devise.friendly_token
+  end
+
+  # 激活用户
+  def confirm!
+    super
+    invitation.confirm! if invitation
+  end
 
 end

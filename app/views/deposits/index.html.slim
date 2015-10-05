@@ -1,5 +1,38 @@
+.ui.segment style="color:red;"
+  p  支付宝帐号：wtchongzhi@126.com
+  p 姓名：李渊
+  p 金额：10元 50元 100元 500元（其它金额无效）
+  p 充值时间: 10:00-12:00 ~ 14:00-17:00
+  p 转账成功后，复制交易号选择正确的金额提交即可充值（转帐成功后系统可能有延迟请等待几分钟后在提交）
 .ui.segment
-  p 充值提示
+  .ui.grid
+    .column.row
+      .column.four.wide
+        | 当前账户余额:
+        span#current_amount #{sprintf("%0.02f元",current_user.amount)}
+
+      .column.two.wide
+
+      .column.eight.wide
+        = form_for @extract , remote: true do |f|
+          .field
+            .ui.left.icon.input
+              = f.text_field :amount
+              i.icon.yen
+            = f.submit '提现', data:{ disable_with:'提交中...'}, class: "ui button positive"
+    .column.row
+      .column.four.wide
+        | 已冻结资金: #{sprintf("%0.02f元", current_user.frozen_amount)}
+      .column.two.wide
+        = link_to '解冻', '/unfrozen' , class: 'ui button positive'
+      .column.eight.wide
+        = form_tag '/frozen' do
+          .field
+            .ui.left.icon.input
+              = text_field_tag :frozen_amount
+              i.icon.yen
+            = submit_tag '冻结', class: "ui button positive"
+
 h2 帐号充值
 = render 'deposits/form'
 
@@ -14,5 +47,5 @@ table.ui.table
       - @deposits.each do |deposit|
         tr
           td = deposit.sn
-          td = number_to_currency deposit.amount
+          td = sprintf("%0.02f元",deposit.amount)
           td = deposit.updated_at

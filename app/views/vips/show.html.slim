@@ -1,0 +1,56 @@
+.ui.segment
+  .ui.grid.centered.three.column
+    .column
+      .ui.list
+        .item
+          .header  商家
+        .item 1. 自己动放单功能
+        .item 2. 任务始终排在任务大厅前面
+        .item 3. 提现48小时处理
+    .column
+      .ui.list
+        .item
+          .header  刷手
+        .item 1.自动接任务功能
+        .item 2.提现48小时处理
+= render partial: 'shared/error', locals: {title: '购买套餐失败', error: @vip}
+.ui.grid.four.column.equal.height.pricing
+  .stretched.row
+    .column
+      .ui.segment.center.aligned
+        h3.ui.header.block 体验版
+        p 时间: 30天
+        p 价格: ￥30
+        p 赠送: 暂无
+        .ui.divider
+        = button_to '立即购买', vips_path(pricing: 'one_month'),
+            class: 'ui button green', data:{confirm: '确定购买体验版'}
+
+    .column
+      .ui.segment.center.aligned
+        .highlighted
+        h3.ui.header.block 基础版
+        p 时间: 60天
+        p 价格: ￥60
+        p 赠送: 10天
+        .ui.divider
+        = button_to '立即购买', vips_path(pricing: 'three_month'),
+            class: 'ui button green', data:{confirm: '确定购买基础版'}
+    .column
+      .ui.segment.center.aligned
+        h3.ui.header.block 专业版
+        p 时间: 180天
+        p 价格: ￥180
+        p 赠送: 30天
+        .ui.divider
+        = button_to '立即购买', vips_path(pricing: 'six_month'),
+            class: 'ui button green', data:{confirm: '确定购买专业版'}
+    .column
+      .ui.segment.center.aligned
+        h3.ui.header.block 至尊版
+        p 时间: 360天
+        p 价格: ￥360
+        p 赠送: 90天
+        .ui.divider
+        = button_to '立即购买', vips_path(pricing: 'tlewve_month'),
+            class: 'ui button green', data:{confirm: '确定购买至尊版'}

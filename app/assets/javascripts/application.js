@@ -12,12 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require semantic-ui
-//= require 'china_city/jquery.china_city'
-//= require_tree .
-
-$(function(){
-  $('.ui.dropdown').dropdown();
-  $('.ui.checkbox').checkbox();
-})
+//= require jquery.themepunch.revolution
+//= require jquery.themepunch.tools.min
+//= require revo-slider-init
+//= require jquery.form.js

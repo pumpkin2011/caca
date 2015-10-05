@@ -1,0 +1,28 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_self
+ */
+.admin_login{
+  background-color: #f0f0f0;
+}
+.ui.segment.login{
+  background: #f0f0f0 image-url('logo_01.jpg') no-repeat  0px 141px;
+  height: 700px;
+
+}
+
+.ui.segment.login > .ui.form{
+  width: 400px;
+  padding-top: 223px;
+  margin-left: 610px;
+}

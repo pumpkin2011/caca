@@ -1,0 +1,63 @@
+= render 'tasks/nav_order'
+
+- case params[:type]
+- when 'talking'
+  h2 等待审核的任务
+- when 'confirmed'
+  h2 审核通过的任务
+- when 'applying'
+  h2 宝贝已验证的任务
+- when 'finished'
+  h2 已收佣金的任务
+- else
+  h2 已接到的任务
+
+table.ui.table
+  thead
+    tr
+      th 任务ID和时间
+      th 发布人
+      th 佣金
+      th 价格
+      th 特殊需求
+      th 状态
+      th 操作
+
+  tbody
+  - @tasks.each do |task|
+      tr
+        td
+          = task.to_id
+          = task_type(task)
+          p.description
+            i.icon.calendar
+            = task.created_at.to_minute
+        td
+          = task.producer.name
+          = link_to "tencent://Message/?Uin=#{task.producer.qq}" do
+            i.icon.qq.circular.green
+
+        td
+          span.commission = sprintf("%0.02f",task.commission_for_consumer)
+          | 元
+        td = sprintf("%0.02f元",task.price)
+
+        td.description
+          p = task_level(task)
+          p
+            span.ui.label.tiny ="时长: #{task.duration_text}"
+            - unless task.extra.blank?
+              span.ui.label.tiny = "增拍: #{task.extra}个"
+          - unless task.spec.blank?
+            p
+              span.ui.label.tiny = task.spec
+        td
+           span.ui.label.green
+            =task.aasm.human_state
+        td
+
+          - case task.state
+            - when 'confirmed'
+              = link_to '详情', task_path(task), class: 'ui button mini positive'
+          - if task.consumer
+            = link_to '申诉', new_complaint_path(task: task.code), class: 'ui button mini negative'

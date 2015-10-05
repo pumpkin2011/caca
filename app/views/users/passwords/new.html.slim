@@ -1,0 +1,15 @@
+h2 忘记密码？
+
+= form_for(resource, as: resource_name, url: password_path(resource_name), html: { class: 'ui form', method: :post }) do |f|
+  .ui.input.action.left.labeled
+    .ui.label 邮箱地址
+    = f.email_field :email, autofocus: true
+    button class="ui button positive" 发送邮件
+
+
+.ui.segment
+  p 如果您的问题已经解决，可以点击下面的链接继续。
+  p
+    = link_to "已有账号去登陆", new_session_path(resource_name), class: 'ui button positive'
+    = link_to "免费注册新账号", new_registration_path(resource_name), class: 'ui button positive'
+    = link_to "邮箱没有收到激活邮件?", new_confirmation_path(resource_name), class: 'ui button positive'

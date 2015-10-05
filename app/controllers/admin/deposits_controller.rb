@@ -1,7 +1,15 @@
 class Admin::DepositsController < ApplicationController
   def index
     @deposit = Deposit.new
-    @deposits = Deposit.all
+    @count = Deposit.count
+    @pending_count = Deposit.pending.count
+    @applying_count = Deposit.applying.count
+
+    if %w(pending applying).include?( params[:type] )
+      @deposits = Deposit.page(params[:page]).send(params[:type].to_sym)
+    else
+      @deposits = Deposit.page(params[:page])
+    end
   end
 
 

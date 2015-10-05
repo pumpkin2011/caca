@@ -1,31 +1,63 @@
+
 Rails.application.routes.draw do
 
 
-
+  require 'sidekiq/web'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
   get '/profile'=> 'welcome#profile', as: :profile
-  get '/task' =>'tasks#my', as: :my_task
+  get '/profile/:id' => 'users#profile'
+  post '/frozen' => 'welcome#frozen'
+  get '/unfrozen' => 'welcome#unfrozen'
+  get '/qiniu_token' => 'welcome#qiniu_token'
+
+
   resources :deposits, only: [:index, :create]
   resources :delivers do
     get 'apply', on: :collection
   end
-  resources :wangwangs, only: [:index, :create]
-  resources :shops, only: [:index, :create]
+  resources :wangwangs, only: [:index, :create, :destroy]
+  resources :shops, only: [:index, :create, :destroy]
   resources :tasks do
-    resources :orders, only: [:new, :create]
-    patch 'validate', on: :member
+    collection do
+      get 'my_task'
+      get 'my_order'
+    end
+
+    member do
+      patch 'validate'
+      get 'reject'
+      get 'confirm'
+    end
+
   end
+
+  resources :templates, only: [:index, :destroy, :create]
   resources :orders, only: [:index] do
     get 'reject', on: :member
     get 'confirm', on: :member
   end
+  resources :blacklists
+
+  resource :authenticates, only:[:edit, :update]
+  resources :pages, only: [:index, :show]
+  resource :bills, only: [:show]
+  resource :extracts, :vips
+  resource :referrals, only: [:show]
+  resources :invitations, only: [:index]
+  resources :task_autos do
+    get 'start', on: :member
+    get 'stop', on: :member
+  end
+  resources :complaints
+
 
   namespace :admin do
     root 'welcome#index'
+    get '/profile/:id' => 'users#profile'
     resources :deposits, only: [:index, :create]
     resources :delivers, only: [:index] do
       get 'reject', on: :member
@@ -41,9 +73,29 @@ Rails.application.routes.draw do
       get 'reject', on: :member
       get 'confirm', on: :member
     end
+    resources :users do
+      get 'reject', on: :member
+      get 'confirm', on: :member
+      get 'official', on: :member
+      get 'cancel_official', on: :member
+      get 'lock', on: :member
+      get 'unlock', on: :member
+    end
+
+    resources :pages
+    resources :extracts
+    resources :complaints do
+        get 'finished', on: :member
+    end
+
+    authenticate :admin do
+      mount Sidekiq::Web => '/sidekiq'
+    end
   end
 
-  devise_for :users, path: ''
+  devise_for :users, path: '',controllers: {
+    registrations: 'users/registrations'
+  }
   devise_for :admins, path: 'admin'
 
   mount ChinaCity::Engine => '/china_city'

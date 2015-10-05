@@ -1,4 +1,4 @@
-source 'https://ruby.taobao.org'
+source 'http://ruby.taobao.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -27,13 +27,24 @@ gem 'dotenv-rails'
 gem 'quiet_assets'
 gem 'puma'
 gem 'foreman'
-gem 'semantic-ui-sass'
+gem 'semantic-ui-sass', '~> 1.12.3.0'
 gem 'slim-rails'
 gem 'rails-i18n'
 gem 'devise'
 gem 'china_city'
 gem 'aasm'
 gem 'enumerize'
+gem 'qiniu'
+gem "jquery-fileupload-rails"
+gem 'summernote-rails'
+gem 'font-awesome-rails'
+gem 'bootstrap-sass'
+gem 'whenever'
+gem 'sidekiq'
+gem 'sinatra', :require => nil
+gem 'kaminari'
+gem 'simditor'
+gem 'zeroclipboard-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -51,6 +62,7 @@ group :development do
   gem 'capistrano-rbenv'
   gem 'capistrano3-foreman'
   gem 'letter_opener'
+
 end
 
 group :development, :test do
@@ -63,16 +75,16 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'guard-rspec'
+  # gem 'rspec-rails'
+  # gem 'factory_girl_rails'
+  # gem 'guard-rspec'
+  gem 'launchy'
 end
 
 group :test do
   gem 'faker'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'launchy'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
 end

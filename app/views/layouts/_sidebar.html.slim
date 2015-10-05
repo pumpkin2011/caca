@@ -1,0 +1,57 @@
+.ui.vertical.sidebar.menu.left.labeled.icon
+  = link_to deposits_path, class: 'item' do
+    i.yen.icon
+    | 资金管理
+
+  = link_to edit_authenticates_path, class: 'item' do
+    i.user.icon
+    | 账户认证
+
+
+  = link_to delivers_path, class: 'item' do
+    i.location.arrow.icon
+    | 地址管理
+
+  = link_to wangwangs_path, class: 'item' do
+    i.comment.icon
+    | 旺旺绑定
+
+  = link_to shops_path, class: 'item' do
+    i.spy.icon
+    | 掌柜绑定
+
+  = link_to templates_path, class: 'item' do
+    i.tasks.icon
+    | 任务模版
+
+  = link_to task_autos_path, class: 'item' do
+    i.rocket.icon
+    | 自动任务
+
+  = link_to  bills_path, class: 'item' do
+    i.payment.icon
+    | 交易明细
+  = link_to invitations_path, class: 'item' do
+    i.users.icon
+    | 邀请好友
+
+  = link_to complaints_path, class: 'item' do
+    i.bug.icon
+    | 问题投诉
+
+  = link_to blacklists_path, class: 'item' do
+    i.trash.icon
+    | 黑名单
+
+<div class="ui red big launch right attached fixed button">
+  <i class="content icon"></i>
+  <span class="text">个人中心</span>
+</div>
+
+- content_for(:js) do
+  javascript:
+    $('document').ready(function(){
+      $('.fixed.launch.button, .nav_launch_button').click(function(){
+        $('.sidebar').sidebar('toggle');
+      })
+    })

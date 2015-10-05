@@ -1,6 +1,6 @@
 = render partial: 'shared/error', locals: {title: '掌柜绑定失败', error: @shop}
 = form_for [@shop], html:{class: 'ui form'} do |f|
-  .field
+  .field.nine.wide
     .ui.input.action.left.labeled.big
       .ui.label 掌柜名
       = f.text_field :account
@@ -22,5 +22,9 @@ table.ui.table
       tr
         td = shop.id
         td = shop.account
-        td = shop.created_at
-        td = shop.aasm.human_state
+        td = shop.created_at.to_minute
+        td
+          = shop.aasm.human_state
+          - if shop.state == 'pending'
+            = link_to '删除', shop_path(shop), class: 'ui label red',
+              method: 'delete', data: {confirm: '确定删除'}

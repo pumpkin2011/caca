@@ -1,22 +1,42 @@
-h2 发布任务
+= render 'tasks/validate'
 
+- if @task.new_record?
+  h2 发布任务
+- else
+  h2 任务详情
+
+= render partial: 'shared/error', locals: {title: '任务发布失败', error: @task}
 = form_for @task, html:{class: 'ui form'} do |f|
   .fields
-    .field.four.wide
+    .field.six.wide
       = f.label :shop_id
-      = f.select :shop_id,
-          options_from_collection_for_select(@shops, :id, :account),
-          {include_blank: true},{class: 'ui dropdown'}
+      - if @task.new_record?
+        = f.select :shop_id,
+            options_from_collection_for_select(@shops, :id, :account, @task.shop_id),
+            {include_blank: true},{class: 'ui dropdown'}
+      - else
+        = text_field_tag(:shop_id, @task.shop.account)
+
+    - if @task.new_record?
+        .field.four.wide
+          = label_tag :template, '模版名称'
+          = select_tag :template,
+              options_from_collection_for_select(@templates, :id, :name,  params[:template]),
+              include_blank: true, class: 'ui dropdown'
 
 
+  - if @task.new_record? || @task.producer == current_user
+    .field
+      = f.label :link
+      = f.text_field :link
 
-  .field
-    = f.label :link
-    = f.text_field :link
-
-  .field
+  .field.eight.wide
     = f.label :keywords
     = f.text_field :keywords
+
+  .field.eight.wide
+    = f.label :spec
+    = f.text_field :spec
 
   .fields
     .field.two.wide
@@ -36,43 +56,161 @@ h2 发布任务
       = f.select :level,
           Task.level.options,
           {include_blank: false},{class: 'ui dropdown'}
-
+  .fields
     .field
       = f.label :chat
       = f.select :chat,
           Task.chat.options,
           {include_blank: true},{class: 'ui dropdown'}
 
-  .fields.two.wide
     .field
-      = f.label :desc, '任务要求'
-      = f.text_area :desc
+      = f.label :task_type
+      = f.select :task_type,
+          Task.task_type.options,
+          {include_blank: false},{class: 'ui dropdown'}
 
+  .fields
     .field
+      = f.label :extra
+      .ui.left.icon.input
+        = f.text_field :extra
+        i.icon.add.square
+    .field
+      = f.label :commission_extra
+      .ui.left.icon.input
+        = f.text_field :commission_extra
+        i.icon.yen
+
+  .fields.two.wide
       .field
-        = f.label :spec, '特殊要求'
-        = f.text_area :spec
+        = f.label :desc, '任务要求'
+        = f.text_area :desc
+      .field
+        .ui.card.fluid.task
+          .dimmable.image
+            .ui.dimmer
+              .content
+                .center
+                  .ui.inverted.button#cover 更换宝贝照片
+            = f.hidden_field :cover
+            = image_tag(@task.cover_url)
 
   .fields.two.wide
     .field
-      = f.label :receive_time, '收获时间'
+      = f.label :receive_time, '收货时间'
       .ui.two.column.center.aligned.stackable.divided.grid.segment
-        - ['系统默认', '根据物流'].each do |amount|
-          .column
-            .ui.checkbox.toggle
-              = f.radio_button :receive_time, amount
-              = f.label :receive_time, amount
+
+        .column
+          .ui.checkbox.toggle
+            = f.radio_button :receive_time, true
+            = f.label :receive_time, '系统默认'
+        .column
+          .ui.checkbox.toggle
+            = f.radio_button :receive_time, false
+            = f.label :receive_time, '根据物流'
     .field
       = f.label :comment_time, '评价时间'
       .ui.two.column.center.aligned.stackable.divided.grid.segment
-        - ['系统默认', '根据物流'].each do |amount|
+        - [[true, '系统默认'], [false, '根据物流']].each do |amount|
           .column
             .ui.checkbox.toggle
-              = f.radio_button :comment_time, amount
-              = f.label :comment_time, amount
+              = f.radio_button :comment_time, amount[0]
+              = f.label :comment_time, amount[1]
 
   .field
      = f.label :comment
      = f.text_field :comment
+  - if @task.new_record?
+    .fields
+      .field
+        = f.submit '确定', class: 'ui button green'
+      .field
+        .ui.input.action.left.labeled.six.wide
+          .ui.label 模版名称
+          = text_field_tag(:name)
+          button class="ui button positive" id="add_template" 保存为模版
+- if @task.new_record?
+  h2 定时任务
+  .ui.divider
 
-  = f.submit '确定', class: 'ui button green'
+  = form_for @auto, html:{class: 'ui form'} do |f|
+    .fields
+      .field.four.wide
+        = label_tag :template, '模版名称'
+        = f.select :template_id,
+            options_from_collection_for_select(@auto_templates, :id, :name,  params[:template]),
+            {include_blank: true}, {class: 'ui dropdown upward'}
+
+      .field.two.wide
+        = f.label :total_count
+        = f.text_field :total_count
+      .field.two.wide
+        = f.label :interval
+        .ui.input.right.labeled style="width: 70px;"
+          = f.text_field :interval
+          .ui.label 分钟
+      .field
+        label 操作
+        button class="ui button positive"  发布定时任务
+- if @task.new_record?
+  - content_for(:js) do
+    = javascript_include_tag 'image_uploader'
+    javascript:
+      $(function(){
+        new QiniuUploader({button: 'cover'})
+        $('.card .image').dimmer({on: 'hover'});
+
+        // 添加模版
+        $('#add_template').click(function(){
+          $('#new_task').ajaxSubmit({
+            url: '/templates',
+            type: 'post',
+          });
+          return false;
+        })
+
+        // 模版切换
+        $('#template, #task_auto_template_id').change(function(){
+            location.href='/tasks/new?template='+$(this).val();
+        })
+        // 内容切换
+        $('#task_duration').change(function(){
+          var content = ""
+          switch($(this).val()){
+            case 'three':
+              content = "手动输入关键词搜索进店浏览3分钟拍下宝贝，上中下评价销量全屏截图";
+              break;
+            case 'six':
+              content = "手动输入关键词搜索进店浏览6分钟拍下宝贝，上中下评价销量全屏截图.";
+              break;
+            case 'ten':
+              content = "手动输入关键词搜索，货比三家每家1分钟（全屏截图），进店浏览7分";
+              content += "钟（上中下评价销量全屏截图）收藏并拍下宝贝.";
+              break;
+            case 'fifteen':
+              content = "手动输入关键词搜索，货比三家每家2分钟（全屏上中下截图），进店浏";
+              content += "览9分钟（上中下评价销量全屏截图）收藏并拍下宝贝.";
+              break;
+            case 'twenty':
+              content ="手动输入关键词搜索，货比三家每家3分钟（全屏上中下截图），进店浏览";
+              content += "主拍宝贝7分钟（上中下评价销量全屏截图），附宝贝2个每个2分钟，收藏并，假聊，拍下宝贝，";
+              break;
+            case 'twentyfive':
+              content ="手动输入关键词搜索，货比三家每家3分钟（全屏上中下截图），进店";
+              content += "浏览主拍宝贝7分钟（上中下评价销量全屏截图），附宝贝2个每个3";
+              content += "分钟，收藏并，假聊3分钟，拍下宝贝.";
+              break;
+            case 'thirty':
+              content = "手动输入关键词搜索，货比三家每家3分钟（全屏上中下截图），进店浏";
+              content += "览主拍宝贝12分钟（上中下评价销量全屏截图），附宝贝2个每个3分";
+              content += "钟，收藏并，假聊3分钟，拍下宝贝.";
+              break;
+            case 'forty':
+              content = "手动输入关键词搜索，货比三家每家3分钟（全屏上中下截图），进店浏";
+              content += "览主拍宝贝17分钟（上中下评价销量全屏截图），附宝贝3个每个3分";
+              content += "钟，收藏并，假聊5分钟，拍下宝贝.";
+              break;
+          }
+          $('#task_desc').val(content);
+        })
+      })

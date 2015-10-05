@@ -18,14 +18,16 @@
 class Wangwang < ActiveRecord::Base
   include AASM
   belongs_to :user
+  has_many :tasks
 
   validates_presence_of :account
   validates :account, length: { in: 3..20 },
             uniqueness: {scope: :user_id, case_sensitive: false}, allow_blank: true
 
+  default_scope { order 'created_at DESC'}
   aasm column: :state do
-    state :pending, initial: true
-    state :confirmed
+    state :pending
+    state :confirmed, initial: true
     state :rejected
 
     event :reject do
@@ -35,6 +37,26 @@ class Wangwang < ActiveRecord::Base
     event :confirm do
       transitions from: :pending, to: :confirmed
     end
+  end
+
+  def self.available
+    confirmed.find_all{|wang|
+      if wang.day_count<3 && wang.week_count < 6 && wang.month_count<12
+        wang
+      end
+    }
+  end
+
+  def day_count
+    self.tasks.where('created_at > ?', 1.days.ago).count
+  end
+
+  def week_count
+    self.tasks.where('created_at > ?', 7.days.ago).count
+  end
+
+  def month_count
+    self.tasks.where('created_at > ?', 30.days.ago).count
   end
 
   validate :wangwangs_count_within_limit, on: :create

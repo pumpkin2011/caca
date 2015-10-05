@@ -1,0 +1,89 @@
+= render partial: 'shared/error', locals: {title: '资料提交失败', error: current_user}
+= form_for current_user, url: authenticates_path, html:{class: 'ui form'} do |f|
+  h2 身份信息
+  .ui.divider
+  = f.fields_for :identity do |identity_from|
+    .field.ui.cards
+      .card
+        .dimmable.image
+          .ui.dimmer
+            .content
+              .center
+                .ui.inverted.button#front 更换照片
+          = image_tag(current_user.identity.front_url)
+          = identity_from.hidden_field :front
+        .content
+          .header 身份证正面照片
+
+      .card
+        .dimmable.image
+          .ui.dimmer
+            .content
+              .center
+                .ui.inverted.button#back 更换照片
+          = identity_from.hidden_field :back
+          = image_tag(current_user.identity.back_url)
+        .content
+          .header 身份证反面照片
+
+
+  h2 详细信息
+  .ui.divider
+  .fields
+    .field.five.wide
+      .ui.segment.auth
+        h3 身份证
+        = f.fields_for :identity do |identity_from|
+          .field
+            = identity_from.label :name
+            = identity_from.text_field :name
+          .field
+          = identity_from.label :number
+          = identity_from.text_field :number
+
+    .field.five.wide
+      .ui.segment.auth
+        h3 银行卡
+        = f.fields_for :bank do |bank_form|
+          .field
+            = bank_form.label :name
+            = bank_form.text_field :name
+          .field
+            = bank_form.label :account
+            = bank_form.text_field :account
+          .field
+            = bank_form.label :deposit
+            = bank_form.text_field :deposit
+
+    .field.five.wide
+      .ui.segment.auth
+        h3 支付宝
+        = f.fields_for :alipay do |alipay_form|
+          .field
+            = alipay_form.label :name
+            = alipay_form.text_field :name
+          .field
+            = alipay_form.label :account
+            = alipay_form.text_field :account
+
+
+
+
+  - if current_user.state == 'uploading'
+    = f.submit '确定', class: 'ui button'
+  - else
+    .ui.message.info.compact 资料已认证不能修改, 如有需要请联系客服。
+
+- content_for(:js) do
+  = javascript_include_tag 'image_uploader'
+  coffee:
+    # 图片上传
+    new QiniuUploader
+      button: 'front'
+    new QiniuUploader
+      button: 'back'
+    new QiniuUploader
+      button: 'handheld'
+
+    # 图片效果
+    $('.cards .image').dimmer({on: 'hover'});

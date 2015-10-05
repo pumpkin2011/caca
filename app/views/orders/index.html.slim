@@ -16,13 +16,19 @@ table.ui.table
   - @orders.each do |order|
       tr
         td = order.task.id
-        td = order.task.user.email
-        td ￥6.00
-        td ￥1.00
         td
-          span.ui.label.tiny 手机单
+          = order.task.user.name
+          = link_to "tencent://Message/?Uin=#{order.task.user.qq}" do
+            = image_tag "http://wpa.qq.com/pa?p=1:#{order.task.user.qq}:41"
+
+        td = sprintf("%0.02f元",order.task.price)
+        td = sprintf("%0.02f元",order.task.commission_for_user)
+        td
           span.ui.label.tiny = order.task.level_text
-          span.ui.label.tiny 增拍3个
+          - if order.task.task_type == 'phone'
+            span.ui.label.tiny 手机单
+          - unless order.task.extra.blank?
+            span.ui.label.tiny = "增拍#{order.task.extra}个"
           - unless order.task.spec.blank?
             <br />
             span.ui.label.tiny = order.task.spec

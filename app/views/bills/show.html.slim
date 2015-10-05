@@ -1,0 +1,24 @@
+h2 交易明细
+table.ui.table
+  thead
+    tr
+
+      th 类型
+      th 任务ID
+      th 金额变化
+      th 账户余额
+      th 状态
+      th 时间
+
+
+  tbody
+    - @bills.each do |bill|
+      tr
+
+        td = bill.state_text
+        td = bill.log
+        td = sprintf("%0.02f元",bill.amount)
+        td = sprintf("%0.02f元",bill.total)
+        td = bill.process_text
+        td = bill.created_at.to_minute
+= paginate @bills

@@ -1,21 +1,7 @@
-h3 我的地址
+.ui.segment
+  p
+    | 每个会员至少提供一真实有效的收货地址（快递可以到达并且可以签收空包），否则无法参加任务，不得出现拒签，拖签，出现拒签会冻结账号并赔偿其他会员的损失，情况严重的会永久冻结账号。
 
-- unless @deliver
-  = link_to '申请地址', apply_delivers_path, class: 'ui label'
-- else
-  table.ui.table
-    thead
-      tr
-        th #
-        th 收件人
-        th 联系电话
-        th 地址
-    tbody
-      tr
-        td = @deliver.id
-        td = @deliver.name
-        td = @deliver.phone
-        td = full_address(@deliver)
 
 h2 我添加的地址
 
@@ -37,6 +23,6 @@ table.ui.table
         td = deliver.phone
         td = full_address(deliver)
         td = deliver.aasm.human_state
-        td
+
 
 = link_to '添加新地址', new_deliver_path, class: 'ui button positive'

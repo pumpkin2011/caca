@@ -37,7 +37,7 @@ class Deliver < ActiveRecord::Base
   validates :town, length: {in: 2..15}, :allow_blank=>true
   validates :address, length: {in: 5..20}, :allow_blank=>true
 
-
+  default_scope { order 'created_at DESC'}
 
   aasm column: :state do
     state :pending, initial: true

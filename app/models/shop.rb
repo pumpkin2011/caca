@@ -18,14 +18,17 @@
 class Shop < ActiveRecord::Base
   include AASM
   belongs_to :user
+  has_many :tasks
 
   validates_presence_of :account
   validates :account, length: { minimum: 3, maximum: 25},
           uniqueness: true, allow_blank: true
 
+  default_scope { order 'created_at DESC'}
+
   aasm column: :state do
-    state :pending, initial: true
-    state :confirmed
+    state :pending
+    state :confirmed, initial: true
     state :rejected
 
     event :reject do
@@ -35,6 +38,18 @@ class Shop < ActiveRecord::Base
     event :confirm do
       transitions from: :pending, to: :confirmed
     end
+  end
+
+  def day_count
+    self.tasks.where('created_at > ?', 1.days.ago).count
+  end
+
+  def week_count
+    self.tasks.where('created_at > ?', 7.days.ago).count
+  end
+
+  def month_count
+    self.tasks.where('created_at > ?', 30.days.ago).count
   end
 
   validate :shops_count_within_limit, on: :create

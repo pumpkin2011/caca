@@ -1,0 +1,23 @@
+= render 'admin/users/nav'
+table.ui.table
+  thead
+    tr
+      th #
+      th 用户
+      th 余额/冻结
+      th 任务
+      th 接单
+      th 状态
+      th 操作
+
+  tbody
+    - @users.each do |user|
+      tr
+        td = user.id
+        td = user.name
+        td = "#{sprintf("%0.02f元",user.amount)}/#{sprintf("%0.02f元",user.frozen_amount)}"
+        td = user.tasks.count
+        td = user.orders.count
+        td = user.aasm.human_state
+        td = link_to '详情', admin_user_path(user)
+= paginate @users

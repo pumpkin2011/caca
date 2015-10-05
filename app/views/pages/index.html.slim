@@ -1,0 +1,11 @@
+.ui.grid
+  .column.four.wide
+    = render 'pages/nav'
+
+  .column.twelve.wide
+    .ui.segment
+
+      - @categories.each do | category|
+        h3 = category.name
+        - category.pages.each do |page|
+          = link_to page.name, "/pages/#{page.code}", class: 'ui button red basic'

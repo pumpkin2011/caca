@@ -1,0 +1,9 @@
+.ui.menu.item.three
+  = link_to "全部( #{@count} )",
+            admin_deposits_path, class: 'item'
+
+  = link_to "未使用( #{@pending_count} )",
+            admin_deposits_path(type: 'pending'), class: 'item'
+
+  = link_to "已使用( #{@applying_count} )",
+            admin_deposits_path(type: 'appying'), class: 'item'

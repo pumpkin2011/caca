@@ -1,0 +1,33 @@
+h2 我的自动任务
+
+table.ui.table
+  thead
+    tr
+      th 模版名称
+      th 间隔时间
+      th 总单数
+      th 已完成单数
+      th 失败次数
+      th 下次发单时间
+      th 当前状态
+      th 操作
+
+
+  tbody
+    - @autos.each do |auto|
+      tr
+        td = auto.template.name
+        td = auto.interval
+        td = auto.total_count
+        td = auto.process_count
+        td = auto.faild_count
+        td = auto.next_at.to_minute if auto.next_at
+        td = auto.aasm.human_state
+        td
+          - case auto.state
+          - when 'stoped'
+            = link_to '开始', start_task_auto_path(auto), class: 'ui button tiny positive'
+          - when 'running'
+            = link_to '暂停', stop_task_auto_path(auto), class: 'ui button tiny negative'
+          = link_to '删除', task_auto_path(auto), class: 'ui button tiny negative', method: :delete,
+                  data: { confirm: '确定删除该任务'}
