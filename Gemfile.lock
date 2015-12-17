@@ -1,5 +1,5 @@
 GEM
-  remote: http://ruby.taobao.org/
+  remote: https://ruby.taobao.org/
   specs:
     aasm (4.1.0)
     actionmailer (4.2.1)
@@ -168,7 +168,6 @@ GEM
     mini_portile (0.6.2)
     minitest (5.6.0)
     multi_json (1.11.0)
-    mysql2 (0.3.18)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -176,6 +175,7 @@ GEM
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
+    pg (0.18.4)
     puma (2.11.2)
       rack (>= 1.1, < 2.0)
     qiniu (6.4.2)
@@ -353,7 +353,7 @@ DEPENDENCIES
   launchy
   letter_opener
   meta_request
-  mysql2
+  pg (~> 0.15)
   puma
   qiniu
   quiet_assets
@@ -378,4 +378,4 @@ DEPENDENCIES
   zeroclipboard-rails
 
 BUNDLED WITH
-   1.10.4
+   1.10.6

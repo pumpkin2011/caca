@@ -3,22 +3,18 @@
 # Table name: tasks
 #
 #  id               :integer          not null, primary key
-#  producer_id      :integer
-#  consumer_id      :integer
 #  shop_id          :integer
-#  wangwang_id      :integer
-#  ip               :string(20)
-#  link             :string(255)
-#  keywords         :string(255)
+#  link             :string
+#  keywords         :string
 #  price            :decimal(10, 2)
 #  duration         :string(10)
 #  level            :string(10)
 #  chat             :string(10)
-#  desc             :string(255)
-#  spec             :string(255)
+#  desc             :string
+#  spec             :string
 #  receive_time     :boolean
 #  comment_time     :boolean
-#  comment          :string(255)
+#  comment          :string
 #  extra            :string(10)
 #  state            :string(10)
 #  created_at       :datetime         not null
@@ -26,7 +22,11 @@
 #  commission       :decimal(10, 2)
 #  commission_extra :decimal(10, 2)
 #  task_type        :string(10)
-#  cover            :string(255)
+#  cover            :string
+#  producer_id      :integer
+#  consumer_id      :integer
+#  wangwang_id      :integer
+#  ip               :string(20)
 #  code             :string(20)
 #
 # Indexes

@@ -3,9 +3,9 @@
 # Table name: pictrues
 #
 #  id             :integer          not null, primary key
-#  url            :string(255)
+#  url            :string
 #  imageable_id   :integer
-#  imageable_type :string(255)
+#  imageable_type :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #

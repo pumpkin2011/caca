@@ -5,8 +5,8 @@
 #  id             :integer          not null, primary key
 #  user_id        :integer
 #  target_user_id :integer
-#  question       :text(65535)
-#  answer         :text(65535)
+#  question       :text
+#  answer         :text
 #  state          :string(10)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null

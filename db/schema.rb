@@ -13,9 +13,12 @@
 
 ActiveRecord::Schema.define(version: 20150614151815) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "admins", force: :cascade do |t|
-    t.string   "email",               limit: 255, default: "", null: false
-    t.string   "encrypted_password",  limit: 255, default: "", null: false
+    t.string   "email",               default: "", null: false
+    t.string   "encrypted_password",  default: "", null: false
     t.datetime "remember_created_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -24,35 +27,35 @@ ActiveRecord::Schema.define(version: 20150614151815) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
 
   create_table "alipays", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.string   "name",       limit: 255
-    t.string   "account",    limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "account"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "alipays", ["user_id"], name: "index_alipays_on_user_id", using: :btree
 
   create_table "banks", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.string   "name",       limit: 255
-    t.string   "account",    limit: 255
-    t.string   "deposit",    limit: 255
-    t.string   "front",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "account"
+    t.string   "deposit"
+    t.string   "front"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "banks", ["user_id"], name: "index_banks_on_user_id", using: :btree
 
   create_table "bills", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.string   "log",        limit: 255
-    t.decimal  "amount",                 precision: 10, scale: 2
+    t.integer  "user_id"
+    t.string   "log"
+    t.decimal  "amount",                precision: 10, scale: 2
     t.string   "state",      limit: 20
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-    t.decimal  "total",                  precision: 10, scale: 2
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.decimal  "total",                 precision: 10, scale: 2
     t.string   "process",    limit: 10
   end
 
@@ -61,25 +64,25 @@ ActiveRecord::Schema.define(version: 20150614151815) do
   add_index "bills", ["user_id"], name: "index_bills_on_user_id", using: :btree
 
   create_table "blacklists", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "target_id",  limit: 4
-    t.string   "question",   limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "user_id"
+    t.integer  "target_id"
+    t.string   "question"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "blacklists", ["target_id"], name: "index_blacklists_on_target_id", using: :btree
   add_index "blacklists", ["user_id"], name: "index_blacklists_on_user_id", using: :btree
 
   create_table "complaints", force: :cascade do |t|
-    t.integer  "user_id",        limit: 4
-    t.integer  "target_user_id", limit: 4
-    t.text     "question",       limit: 65535
-    t.text     "answer",         limit: 65535
+    t.integer  "user_id"
+    t.integer  "target_user_id"
+    t.text     "question"
+    t.text     "answer"
     t.string   "state",          limit: 10
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.integer  "task_id",        limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "task_id"
     t.string   "reason",         limit: 20
   end
 
@@ -89,8 +92,7 @@ ActiveRecord::Schema.define(version: 20150614151815) do
   add_index "complaints", ["user_id"], name: "index_complaints_on_user_id", using: :btree
 
   create_table "delivers", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "owner_id",   limit: 4
+    t.integer  "user_id"
     t.string   "name",       limit: 20,  null: false
     t.string   "phone",      limit: 20,  null: false
     t.string   "province",   limit: 6,   null: false
@@ -102,6 +104,7 @@ ActiveRecord::Schema.define(version: 20150614151815) do
     t.string   "state",      limit: 10,  null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "owner_id"
   end
 
   add_index "delivers", ["owner_id"], name: "index_delivers_on_owner_id", using: :btree
@@ -109,8 +112,8 @@ ActiveRecord::Schema.define(version: 20150614151815) do
   add_index "delivers", ["user_id"], name: "index_delivers_on_user_id", using: :btree
 
   create_table "deposits", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "admin_id",   limit: 4
+    t.integer  "user_id"
+    t.integer  "admin_id"
     t.string   "sn",         limit: 32
     t.decimal  "amount",                precision: 10, scale: 2
     t.datetime "created_at",                                     null: false
@@ -124,7 +127,7 @@ ActiveRecord::Schema.define(version: 20150614151815) do
   add_index "deposits", ["user_id"], name: "index_deposits_on_user_id", using: :btree
 
   create_table "extracts", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
+    t.integer  "user_id"
     t.decimal  "amount",                precision: 10, scale: 2
     t.string   "channel",    limit: 10
     t.string   "sn",         limit: 50
@@ -139,38 +142,38 @@ ActiveRecord::Schema.define(version: 20150614151815) do
   add_index "extracts", ["user_id"], name: "index_extracts_on_user_id", using: :btree
 
   create_table "identities", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.string   "name",       limit: 255
-    t.string   "number",     limit: 255
-    t.string   "front",      limit: 255
-    t.string   "back",       limit: 255
-    t.string   "handheld",   limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "number"
+    t.string   "front"
+    t.string   "back"
+    t.string   "handheld"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "invitations", force: :cascade do |t|
-    t.integer  "user_id",      limit: 4
-    t.integer  "target_id",    limit: 4
+    t.integer  "user_id"
+    t.integer  "target_id"
     t.datetime "confirmed_at"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "invitations", ["target_id"], name: "index_invitations_on_target_id", using: :btree
   add_index "invitations", ["user_id"], name: "index_invitations_on_user_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4
-    t.integer  "wangwang_id", limit: 4
-    t.integer  "task_id",     limit: 4
+    t.integer  "user_id"
+    t.integer  "wangwang_id"
+    t.integer  "task_id"
     t.string   "state",       limit: 10
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "ip",          limit: 20
-    t.integer  "shop_id",     limit: 4
+    t.integer  "shop_id"
   end
 
   add_index "orders", ["ip"], name: "index_orders_on_ip", using: :btree
@@ -187,26 +190,26 @@ ActiveRecord::Schema.define(version: 20150614151815) do
   end
 
   create_table "pages", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.string   "code",        limit: 255
-    t.text     "content",     limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "category_id", limit: 4
+    t.string   "name"
+    t.string   "code"
+    t.text     "content"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "category_id"
   end
 
   add_index "pages", ["category_id"], name: "index_pages_on_category_id", using: :btree
 
   create_table "pictrues", force: :cascade do |t|
-    t.string   "url",            limit: 255
-    t.integer  "imageable_id",   limit: 4
-    t.string   "imageable_type", limit: 255
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "url"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "shops", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
+    t.integer  "user_id"
     t.string   "account",    limit: 50
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
@@ -217,13 +220,13 @@ ActiveRecord::Schema.define(version: 20150614151815) do
   add_index "shops", ["user_id"], name: "index_shops_on_user_id", using: :btree
 
   create_table "task_autos", force: :cascade do |t|
-    t.integer  "user_id",       limit: 4
-    t.integer  "template_id",   limit: 4
+    t.integer  "user_id"
+    t.integer  "template_id"
     t.string   "state",         limit: 10
-    t.integer  "interval",      limit: 4
-    t.integer  "total_count",   limit: 4
-    t.integer  "process_count", limit: 4,  default: 0
-    t.integer  "faild_count",   limit: 4,  default: 0
+    t.integer  "interval"
+    t.integer  "total_count"
+    t.integer  "process_count",            default: 0
+    t.integer  "faild_count",              default: 0
     t.datetime "next_at"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
@@ -234,41 +237,41 @@ ActiveRecord::Schema.define(version: 20150614151815) do
   add_index "task_autos", ["user_id"], name: "index_task_autos_on_user_id", using: :btree
 
   create_table "task_templates", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
+    t.integer  "user_id"
     t.string   "name",       limit: 20
-    t.text     "content",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.boolean  "available",  limit: 1
+    t.text     "content"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.boolean  "available"
   end
 
   add_index "task_templates", ["user_id"], name: "index_task_templates_on_user_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
-    t.integer  "producer_id",      limit: 4
-    t.integer  "consumer_id",      limit: 4
-    t.integer  "shop_id",          limit: 4
-    t.integer  "wangwang_id",      limit: 4
-    t.string   "ip",               limit: 20
-    t.string   "link",             limit: 255
-    t.string   "keywords",         limit: 255
-    t.decimal  "price",                        precision: 10, scale: 2
+    t.integer  "shop_id"
+    t.string   "link"
+    t.string   "keywords"
+    t.decimal  "price",                       precision: 10, scale: 2
     t.string   "duration",         limit: 10
     t.string   "level",            limit: 10
     t.string   "chat",             limit: 10
-    t.string   "desc",             limit: 255
-    t.string   "spec",             limit: 255
-    t.boolean  "receive_time",     limit: 1
-    t.boolean  "comment_time",     limit: 1
-    t.string   "comment",          limit: 255
+    t.string   "desc"
+    t.string   "spec"
+    t.boolean  "receive_time"
+    t.boolean  "comment_time"
+    t.string   "comment"
     t.string   "extra",            limit: 10
     t.string   "state",            limit: 10
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
-    t.decimal  "commission",                   precision: 10, scale: 2
-    t.decimal  "commission_extra",             precision: 10, scale: 2
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.decimal  "commission",                  precision: 10, scale: 2
+    t.decimal  "commission_extra",            precision: 10, scale: 2
     t.string   "task_type",        limit: 10
-    t.string   "cover",            limit: 255
+    t.string   "cover"
+    t.integer  "producer_id"
+    t.integer  "consumer_id"
+    t.integer  "wangwang_id"
+    t.string   "ip",               limit: 20
     t.string   "code",             limit: 20
   end
 
@@ -285,30 +288,30 @@ ActiveRecord::Schema.define(version: 20150614151815) do
   add_index "tasks", ["wangwang_id"], name: "index_tasks_on_wangwang_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255,                          default: "",  null: false
-    t.string   "name",                   limit: 20
-    t.string   "qq",                     limit: 15
-    t.decimal  "amount",                             precision: 10, scale: 2, default: 0.0
-    t.decimal  "frozen_amount",                      precision: 10, scale: 2, default: 0.0
-    t.string   "encrypted_password",     limit: 255,                          default: "",  null: false
-    t.string   "reset_password_token",   limit: 255
+    t.string   "email",                                                      default: "",  null: false
+    t.string   "encrypted_password",                                         default: "",  null: false
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,                            default: 0,   null: false
+    t.integer  "sign_in_count",                                              default: 0,   null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
-    t.string   "confirmation_token",     limit: 255
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email",      limit: 255
+    t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "amount",                            precision: 10, scale: 2, default: 0.0
+    t.decimal  "frozen_amount",                     precision: 10, scale: 2, default: 0.0
+    t.string   "name",                   limit: 20
+    t.string   "qq",                     limit: 15
     t.string   "state",                  limit: 10
-    t.string   "referral_token",         limit: 255
-    t.integer  "failed_attempts",        limit: 4,                            default: 0
-    t.string   "unlock_token",           limit: 255
+    t.string   "referral_token"
+    t.integer  "failed_attempts",                                            default: 0
+    t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "vip_at"
   end
@@ -320,17 +323,17 @@ ActiveRecord::Schema.define(version: 20150614151815) do
   add_index "users", ["state"], name: "index_users_on_state", using: :btree
 
   create_table "vips", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "pricing",    limit: 4
-    t.boolean  "largess",    limit: 1, default: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.integer  "user_id"
+    t.integer  "pricing"
+    t.boolean  "largess",    default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "vips", ["user_id"], name: "index_vips_on_user_id", using: :btree
 
   create_table "wangwangs", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
+    t.integer  "user_id"
     t.string   "account",    limit: 50
     t.string   "state",      limit: 10
     t.datetime "created_at",            null: false

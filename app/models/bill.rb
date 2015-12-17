@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
-#  log        :string(255)
+#  log        :string
 #  amount     :decimal(10, 2)
 #  state      :string(20)
 #  created_at :datetime         not null

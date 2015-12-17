@@ -3,9 +3,9 @@
 # Table name: pages
 #
 #  id          :integer          not null, primary key
-#  name        :string(255)
-#  code        :string(255)
-#  content     :text(65535)
+#  name        :string
+#  code        :string
+#  content     :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  category_id :integer

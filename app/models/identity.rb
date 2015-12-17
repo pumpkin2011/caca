@@ -4,11 +4,11 @@
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
-#  name       :string(255)
-#  number     :string(255)
-#  front      :string(255)
-#  back       :string(255)
-#  handheld   :string(255)
+#  name       :string
+#  number     :string
+#  front      :string
+#  back       :string
+#  handheld   :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

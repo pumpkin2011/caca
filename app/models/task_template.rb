@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  user_id    :integer
 #  name       :string(20)
-#  content    :text(65535)
+#  content    :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  available  :boolean

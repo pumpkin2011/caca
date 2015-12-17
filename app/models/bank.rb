@@ -4,10 +4,10 @@
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
-#  name       :string(255)
-#  account    :string(255)
-#  deposit    :string(255)
-#  front      :string(255)
+#  name       :string
+#  account    :string
+#  deposit    :string
+#  front      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
